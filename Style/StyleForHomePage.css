@@ -9,8 +9,12 @@
 }
 
 /* Reset / base */
-*{box-sizing:border-box}
-html,body{height:100%}
+*{
+    box-sizing:border-box
+}
+html,body{
+    height:100%
+}
 body{
     margin:0;
     background:var(--bg);
@@ -21,43 +25,128 @@ body{
 }
 
 /* Container */
-.container{max-width:1200px;margin:0 auto;padding:28px}
+.container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:28px
+}
 
 /* HEADER */
-.site-header{border-bottom:1px solid #eee;background:var(--bg)}
-.header-inner{
-    max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:18px;
+.site-header{border-bottom:
+        1px solid #eee;
+    background:var(--bg)
 }
-.header-left{display:flex;align-items:center;gap:22px}
-.logo{font-weight:700;color:var(--text);text-decoration:none;font-size:20px;letter-spacing:1px}
-.main-nav a{margin-right:14px;color:var(--text);text-decoration:none;font-weight:500}
-.main-nav a:hover{text-decoration:underline}
+.header-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px;
+}
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:22px
+}
+.logo{
+    font-weight:700;
+    color:var(--text);
+    text-decoration:none;
+    font-size:20px;
+    letter-spacing:1px
+}
+.main-nav a{
+    margin-right:14px;
+    color:var(--text);
+    text-decoration:none;
+    font-weight:500
+}
+.main-nav a:hover{
+    text-decoration:underline
+}
 
-.header-right{display:flex;align-items:center;gap:16px}
-.search-wrap{display:flex;align-items:center;border:1px solid #e6e6e6;padding:6px;border-radius:10px;}
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:16px
+}
+.search-wrap{
+    display:flex;
+    align-items:center;
+    border:1px solid #e6e6e6;
+    padding:6px;
+    border-radius:10px;
+}
 .search-wrap input{
-    border:0;outline:none;padding:8px 10px;min-width:200px;font-size:14px;background:transparent;
+    border:0;
+    outline:none;
+    padding:8px 10px;
+    min-width:200px;
+    font-size:14px;
+    background:transparent;
 }
 .search-btn{
-    border:0;background:var(--accent);color:white;padding:8px 12px;border-radius:8px;font-weight:600;
+    border:0;
+    background:var(--accent);
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+    font-weight:600;
     cursor:pointer;
 }
 
 /* header icons / buttons */
-.header-icons{display:flex;align-items:center;gap:10px}
-.icon-btn{background:transparent;border:0;font-size:18px;cursor:pointer}
-.btn-outline{padding:8px 12px;border-radius:8px;border:1px solid #ddd;text-decoration:none;color:var(--text);font-weight:600}
-.btn-primary{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:700}
+.header-icons{
+    display:flex;
+    align-items:center;
+    gap:10px
+}
+.icon-btn{
+    background:transparent;
+    border:0;font-size:18px;
+    cursor:pointer
+}
+.btn-outline{
+    padding:8px 12px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    text-decoration:none;
+    color:var(--text);
+    font-weight:600
+}
+.btn-primary{
+    background:var(--accent);
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:700
+}
 
 /* Category bar */
 .category-bar{
-    display:flex;gap:12px;align-items:center;padding:12px 20px;border-top:1px solid #f5f5f5;border-bottom:1px solid #f5f5f5;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    padding:12px 20px;
+    border-top:1px solid #f5f5f5;
+    border-bottom:1px solid #f5f5f5;
     overflow-x:auto;
 }
 .category-bar .cat{
-    background:transparent;border-radius:8px;padding:8px 14px;text-decoration:none;color:var(--text);font-weight:600;border:1px solid transparent;
+    background:transparent;
+    border-radius:8px;
+    padding:8px 14px;
+    text-decoration:none;
+    color:var(--text);
+    font-weight:600;
+    border:1px solid transparent;
 }
-.category-bar .cat:hover{border-color:#eee;background:rgba(70,58,232,0.06)}
+.category-bar .cat:hover{
+    border-color:#eee;
+    background:rgba(70,58,232,0.06)
+}
 
 /* NEWS */
 .news-section{margin-top:28px}
