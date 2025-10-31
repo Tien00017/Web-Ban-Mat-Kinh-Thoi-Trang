@@ -1,22 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Zeelool - Trang chủ (Demo)</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Mắt kính Nông Lâm - Trang chủ</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Style/StyleForHomePage.css">
+    <script src="../JavaScript/HomePage.js"></script>
 </head>
 <body>
 <!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
         <div class="header-left">
-            <a class="logo" href="#">?</a>
+            <a class="logo" href="#">Mắt kính Nông Lâm</a>
             <nav class="main-nav" aria-label="Chính">
-                <a href="#">Trang chủ</a>
+                <a href="#" class="active">Trang chủ</a>
                 <a href="AboutUs.html">Giới thiệu</a>
                 <a href="#">Liên hệ</a>
             </nav>
@@ -43,7 +43,7 @@
                 </button>
                 <button class="icon-btn" aria-label="Thông tin">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
-                      <path d="M20 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M20 21v-2a4 4 0 0 0-3-3.87"/>
                         <path d="M4 21v-2a4 4 0 0 1 3-3.87"/>
                         <circle cx="12" cy="7" r="4"/>
                     </svg>
@@ -69,33 +69,40 @@
     <!-- NEWS / BẢNG TIN -->
     <section class="news-section">
         <h2>Tin tức & Sản phẩm mới</h2>
-        <div class="news-grid">
-            <article class="news-card">
-                <img src="https://via.placeholder.com/420x260?text=New+1" alt="Sản phẩm mới 1">
-                <div class="news-body">
-                    <h3>Tên sản phẩm mới 1</h3>
-                    <p>Mô tả ngắn — cập nhật tính năng & khuyến mãi.</p>
-                    <a class="read-more" href="#">Xem thêm</a>
-                </div>
-            </article>
 
-            <article class="news-card">
-                <img src="https://via.placeholder.com/420x260?text=New+2" alt="Sản phẩm mới 2">
-                <div class="news-body">
-                    <h3>Tên sản phẩm mới 2</h3>
-                    <p>Thông tin tóm tắt, giá tốt trong tuần này.</p>
-                    <a class="read-more" href="#">Xem thêm</a>
-                </div>
-            </article>
+        <div class="news-slider">
+            <button class="slide-btn prev">&#10094;</button>
 
-            <article class="news-card">
-                <img src="https://via.placeholder.com/420x260?text=New+3" alt="Sản phẩm mới 3">
-                <div class="news-body">
-                    <h3>Tên sản phẩm mới 3</h3>
-                    <p>Xu hướng màu sắc và vật liệu năm nay.</p>
-                    <a class="read-more" href="#">Xem thêm</a>
-                </div>
-            </article>
+            <div class="news-track">
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/420x260?text=New+1" alt="Sản phẩm mới 1">
+                    <div class="news-body">
+                        <h3>Tên sản phẩm mới 1</h3>
+                        <p>Mô tả ngắn — cập nhật tính năng & khuyến mãi.</p>
+                        <a class="read-more" href="#">Xem thêm</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/420x260?text=New+2" alt="Sản phẩm mới 2">
+                    <div class="news-body">
+                        <h3>Tên sản phẩm mới 2</h3>
+                        <p>Thông tin tóm tắt, giá tốt trong tuần này.</p>
+                        <a class="read-more" href="#">Xem thêm</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/420x260?text=New+3" alt="Sản phẩm mới 3">
+                    <div class="news-body">
+                        <h3>Tên sản phẩm mới 3</h3>
+                        <p>Xu hướng màu sắc và vật liệu năm nay.</p>
+                        <a class="read-more" href="#">Xem thêm</a>
+                    </div>
+                </article>
+            </div>
+
+            <button class="slide-btn next">&#10095;</button>
         </div>
     </section>
 
@@ -209,7 +216,6 @@
             <p>Facebook / Instagram / Zalo</p>
         </div>
     </div>
-    <div class="copyright">© 2025 ? - Demo</div>
 </footer>
 </body>
 </html>
