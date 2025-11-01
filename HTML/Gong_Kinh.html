@@ -42,36 +42,63 @@
     </nav>
 </header>
 
-    <!-- Category Bar -->
-    <nav class="category-bar">
-        <a href="Kinh_Can.html" class="cat">Kính Cận</a>
-        <a href="Kinh_Mat.html" class="cat">Kính Mát</a>
-        <a href="Kinh_Ap_Trong.html" class="cat">Kính Áp Tròng</a>
-        <a href="Gong_Kinh.html" class="cat active">Gọng Kính</a>
-    </nav>
-</header>
-
-
     <div class="container">
-      <aside class="sidebar">
-        <h3> Lọc </h3>
-        <h4>Giới Tính</h4>
-            <label><input type="radio" name="gioitinh"> Nam </label>
-            <label><input type="radio" name="gioitinh"> Nữ </label>
-        <h4>Giá</h4>
-            <label> <input type="radio" name="gia"> Dưới 500k</label>
-            <label> <input type="radio" name="gia"> 500k - 1tr </label>
-            <label> <input type="radio" name="gia"> Trên 1tr</label>
-        <h4>Kiểu dáng</h4>
-            <label><input type="checkbox"> Vuông</label>
-            <label><input type="checkbox"> Tròn</label>
-            <label><input type="checkbox"> Mắt mèo</label>
-            <label><input type="checkbox"> Nửa gọng</label>
 
-        <p><b> Hoặc Nhập Giá Từ</b></p>
-        <input type="number" placeholder="thấp nhất 100 000 đồng"
-          class="price-input"
-          min="100000"
-          step="10000">
-    <button class="btn">Lọc</button>
-  </aside>
+    <aside class="sidebar">
+        <h3>Lọc</h3>
+
+        <h4>Chất liệu</h4>
+        <label><input type="radio" name="chatlieu"> Kim loại</label>
+        <label><input type="radio" name="chatlieu"> Nhựa</label>
+        <label><input type="radio" name="chatlieu"> Titan</label>
+
+        <h4>Hình dáng</h4>
+        <label><input type="checkbox"> Vuông</label>
+        <label><input type="checkbox"> Tròn</label>
+        <label><input type="checkbox"> Oval</label>
+        <label><input type="checkbox"> Mắt mèo</label>
+
+        <h4>Giá</h4>
+        <label><input type="radio" name="gia"> Dưới 500k</label>
+        <label><input type="radio" name="gia"> 500k - 1tr</label>
+        <label><input type="radio" name="gia"> Trên 1tr</label>
+
+        <button class="btn">Lọc</button>
+    </aside>
+
+    <section class="products">
+        <h2>Gọng Kính Hot</h2>
+
+        <div class="product-grid">
+
+            <div class="product-card">
+                <span class="tag purple">Best Seller</span>
+                <img src="https://i.imgur.com/iq8SL9N.png" alt="Metal Frame">
+                <h4>Metal Frame Slim</h4>
+                <p class="price">₫580,000</p>
+                <button class="try-btn">Thử kính AR</button>
+            </div>
+
+            <div class="product-card">
+                <span class="tag green">New</span>
+                <img src="https://i.imgur.com/82Z8K5J.png" alt="Round Retro">
+                <h4>Round Retro</h4>
+                <p class="price">₫490,000</p>
+                <button class="try-btn">Thử kính AR</button>
+            </div>
+
+            <div class="product-card">
+                <span class="tag pink">Hot</span>
+                <img src="https://i.imgur.com/J8nYkCh.png" alt="Cat Eye Slim">
+                <h4>Cat Eye Slim</h4>
+                <p class="price">₫620,000</p>
+                <button class="try-btn">Thử kính AR</button>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
