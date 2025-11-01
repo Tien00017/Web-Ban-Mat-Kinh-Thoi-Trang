@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../CSS/StyleOfKinh_Ap_Trong.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <header class="site-header">
     <div class="header-inner">
@@ -43,25 +42,51 @@
     </header>
 
     <div class="container">
-      <aside class="sidebar">
+        <aside class="sidebar">
         <h3> Lọc </h3>
-        <h4>Giới Tính</h4>
-            <label><input type="radio" name="gioitinh"> Nam </label>
-            <label><input type="radio" name="gioitinh"> Nữ </label>
-        <h4>Giá</h4>
-            <label> <input type="radio" name="gia"> Dưới 500k</label>
-            <label> <input type="radio" name="gia"> 500k - 1tr </label>
-            <label> <input type="radio" name="gia"> Trên 1tr</label>
-        <h4>Kiểu dáng</h4>
-            <label><input type="checkbox"> Vuông</label>
-            <label><input type="checkbox"> Tròn</label>
-            <label><input type="checkbox"> Mắt mèo</label>
-            <label><input type="checkbox"> Nửa gọng</label>
+    <h4>Loại áp tròng</h4>
+        <label><input type="radio" name="type"> Trong suốt</label>
+        <label><input type="radio" name="type"> Màu</label>
 
-        <p><b> Hoặc Nhập Giá Từ</b></p>
-        <input type="number" placeholder="thấp nhất 100 000 đồng"
-          class="price-input"
-          min="100000"
-          step="10000">
-    <button class="btn">Lọc</button>
-  </aside>
+        <h4>Độ cận</h4>
+        <input type="number" class="price-input" placeholder="-0.00 đến -8.00"
+               min="-8.00" max="0" step="0.25">
+
+        <button class="btn">Lọc</button>
+    </aside>
+
+    <section class="products">
+        <h2>Áp Tròng Hot</h2>
+
+        <div class="product-grid">
+
+            <div class="product-card">
+                <span class="tag pink">Hot</span>
+                <img src="https://i.imgur.com/dkC8V2C.png" alt="Gray Lens">
+                <h4>Gray Lens</h4>
+                <p class="price">₫120,000</p>
+                <button class="try-btn">Thử kính AR</button>
+            </div>
+
+            <div class="product-card">
+                <span class="tag green">New</span>
+                <img src="https://i.imgur.com/hojrEjl.png" alt="Brown Natural">
+                <h4>Brown Natural</h4>
+                <p class="price">₫150,000</p>
+                <button class="try-btn">Thử kính AR</button>
+            </div>
+
+            <div class="product-card">
+                <span class="tag purple">Best Seller</span>
+                <img src="https://i.imgur.com/wE0jnHa.png" alt="Crystal Clear">
+                <h4>Crystal Clear</h4>
+                <p class="price">₫100,000</p>
+                <button class="try-btn">Thử kính AR</button>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+</body>
+</html>
