@@ -15,7 +15,7 @@ function showToast(msg) {
     el.hidden = false;
     setTimeout(() => (el.hidden = true), 2000);
 }
-
+//tóm tắt thông tin người dùng
 function applySummary(p) {
     const nameEl = document.getElementById("summaryName");
     const emailEl = document.getElementById("summaryEmail");
