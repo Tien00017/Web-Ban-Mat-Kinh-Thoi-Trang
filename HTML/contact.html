@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Liên hệ & Chat khách hàng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="../CSS/contact.css" />
+</head>
+<body>
+<header class="page-header">
+    <h1>Liên hệ khách hàng</h1>
+    <nav class="actions">
+        <a class="icon-link" href="cart.html" title="Giỏ hàng"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a class="icon-link" href="profile.html" title="Hồ sơ"><i class="fa-solid fa-user"></i></a>
+    </nav>
+</header>
+
+<main class="layout">
+    <!-- LEFT: Danh sách đánh giá -->
+    <aside class="review-pane" aria-labelledby="reviewTitle">
+        <div class="pane-head">
+            <h2 id="reviewTitle">Đánh giá sản phẩm</h2>
+            <input id="searchBox" class="search" placeholder="Tìm theo tên/điện thoại/sản phẩm..." />
+        </div>
+        <div id="reviewList" class="review-list" aria-live="polite"></div>
+    </aside>
+
+    <!-- RIGHT: Chat -->
+    <section class="chat-pane" aria-labelledby="chatTitle">
+        <header class="chat-head">
+            <div class="user-avatar" id="chatAvatar" aria-hidden="true"></div>
+            <div class="user-meta">
+                <h2 id="chatTitle">Chọn một khách hàng để bắt đầu chat</h2>
+                <div id="chatSub" class="muted"></div>
+            </div>
+        </header>
+
+        <div id="chatBody" class="chat-body">
+            <div class="empty">Chưa chọn khách hàng.</div>
+        </div>
+
+        <form id="chatForm" class="chat-input" autocomplete="off">
+            <input id="chatText" type="text" placeholder="Nhập tin nhắn..." />
+            <button class="btn" type="submit" title="Gửi"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </section>
+</main>
+
+<script src="../JavaScript/contact.js" defer></script>
+</body>
+</html>
