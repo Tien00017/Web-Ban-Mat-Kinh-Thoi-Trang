@@ -73,12 +73,14 @@ html, body {
     font-weight: 500;
 }
 .main-nav a:hover {
+    color: #463AE8;
     text-decoration: underline;
 }
 
 .main-nav a.active {
+    color: #463AE8;
     text-decoration: underline;
-    color: var(--accent);
+    text-underline-offset: 4px;
     font-weight: 600;
 }
 
