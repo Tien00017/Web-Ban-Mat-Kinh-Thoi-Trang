@@ -8,14 +8,14 @@ let state = {
     avatarDataUrl: ""
 };
 
-// Thông báo Toast
 function showToast(msg) {
     const el = document.getElementById("toast");
     el.textContent = msg;
     el.hidden = false;
     setTimeout(() => (el.hidden = true), 2000);
 }
-//tóm tắt thông tin người dùng
+
+
 function applySummary(p) {
     const nameEl = document.getElementById("summaryName");
     const emailEl = document.getElementById("summaryEmail");
@@ -136,7 +136,6 @@ function handlePasswordChange(e) {
     showToast("Đã đổi mật khẩu.");
 }
 
-// Khởi động
 document.addEventListener("DOMContentLoaded", () => {
     initTheme();
     applySummary(state);
@@ -158,9 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
         ev.target.value = "";
     });
 
-    // Toggle theme
+
     const themeToggleBtn = document.getElementById("themeToggle");
     if (themeToggleBtn) themeToggleBtn.addEventListener("click", toggleTheme);
+
 
     const signOutBtn = document.getElementById("signOut");
     if (signOutBtn) {
