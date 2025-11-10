@@ -85,19 +85,10 @@ body {
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 320px 1fr 1fr;
     gap: 16px;
 }
 
-@media (min-width: 900px) {
-    .grid {
-        grid-template-columns: 320px 1fr 1fr;
-    }
-
-    .profile {
-        grid-row: span 2;
-    }
-}
 
 .card {
     background: #fff;
@@ -108,10 +99,7 @@ body {
 }
 
 .profile {
-    text-align: center;
-    display: grid;
-    gap: 12px;
-    align-content: start;
+    grid-row: span 2;
 }
 
 .avatar-wrap {
@@ -137,11 +125,13 @@ body {
 .profile-info .name {
     font-size: 1.25rem;
     font-weight: 700;
+    text-align: center;
 }
 
 .profile-info .email, .profile-info .phone {
     color: #6b7280;
     margin: 4px 0 0;
+    text-align: center;
 }
 
 h1, h2 {
@@ -154,23 +144,17 @@ h2 {
 
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
-}
-
-@media (min-width: 700px) {
-    .form-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .field.span-2 {
-        grid-column: span 2;
-    }
 }
 
 .field {
     display: grid;
     gap: 8px;
+}
+
+.field.span-2 {
+    grid-column: span 2;
 }
 
 label {
@@ -397,7 +381,6 @@ body.dark .btn.outline:hover {
     color: #0b1020;
 }
 
-/* Toast */
 body.dark .toast {
     background: #12182b;
     color: #e9eefc;

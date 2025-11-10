@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
             row.querySelector(".js-qty").value = it.qty;
             row.querySelector(".js-subtotal").textContent = money(it.qty * it.price);
 
-            // checkbox chọn dòng
             row.querySelector(".row-check").addEventListener("change", updateSummary);
             // tăng/giảm/xoá
             row.querySelector(".js-inc").addEventListener("click", () => changeQty(it.id, +1));
