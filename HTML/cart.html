@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Giỏ Hàng</title>
+    <link rel="stylesheet" href="../CSS/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+<header class="page-header">
+    <h1>Giỏ Hàng</h1>
+    <div class="header-actions">
+        <a href="profile.html" class="icon-link" title="Trang cá nhân">
+            <i class="fas fa-user"></i>
+        </a>
+        <a href="contact.html" class="icon-link" title="Liên hệ">
+            <i class="fas fa-address-book"></i>
+        </a>
+    </div>
+</header>
+
+<main class="container">
+    <section class="cart">
+        <div class="cart-head">
+            <label class="checkbox">
+                <input type="checkbox" id="selectAll"/>
+                <span>Tất cả sản phẩm (<span id="itemCount">0</span>)</span>
+            </label>
+            <button id="massDelete" class="link danger">Xóa tất cả sản phẩm</button>
+        </div>
+
+        <div id="cartList" class="cart-list" aria-live="polite"></div>
+    </section>
+
+    <aside class="summary" aria-labelledby="summaryTitle">
+        <h2 id="summaryTitle">Tổng đơn hàng</h2>
+        <div class="row">
+            <span>Số lượng sản phẩm</span>
+            <span id="summaryItemCount">0</span>
+        </div>
+        <hr/>
+        <div class="row">
+            <span>Tổng cộng </span>
+            <strong id="summaryTotal">0</strong>
+        </div>
+        <div class="row muted">
+            <span>Thành tiền</span>
+            <span id="summarySubtotal">0</span>
+        </div>
+
+        <button class="btn primary" id="checkoutBtn">Thanh Toán</button>
+
+    </aside>
+</main>
+<section class="reco-section" aria-labelledby="recoTitle">
+    <h2 id="recoTitle">Sản phẩm tương tự</h2>
+    <div id="recoList" class="reco-grid" aria-live="polite"></div>
+</section>
+
+<template id="recoCardTmpl">
+    <article class="reco-card">
+        <img class="reco-img" alt=""/>
+        <div class="reco-info">
+            <div class="reco-name js-name"></div>
+            <div class="reco-price">
+                <strong class="js-price">0</strong>
+                <s class="muted js-old" hidden>0</s>
+            </div>
+            <div class="reco-sub js-sub"></div>
+
+            <div class="reco-colors js-colors"></div>
+
+            <button class="btn add js-add">Thêm vào giỏ hàng</button>
+        </div>
+    </article>
+</template>
+
+
+<template id="cartItemTmpl">
+    <div class="cart-item">
+        <label class="checkbox">
+            <input type="checkbox" class="row-check"/>
+        </label>
+
+        <div class="thumb">
+            <img alt=""/>
+        </div>
+
+        <div class="info">
+            <div class="row-1">
+                <div class="meta">
+                    <div><span class="label">Tên sản phẩm:</span> <span class="val js-name"></span></div>
+                    <div><span class="label">Màu sắc:</span> <span class="val js-color"></span></div>
+                </div>
+                <div class="row-links">
+                    <a href="#" class="link danger js-delete">Xóa</a>
+                </div>
+            </div>
+
+            <div class="row-2">
+                <div class="price js-price">0</div>
+                <div class="qty">
+                    <span class="label">Số lượng:</span>
+                    <div class="qty-ctl">
+                        <button class="qty-btn js-dec" aria-label="Decrease">−</button>
+                        <input class="js-qty" type="number" min="1" value="1"/>
+                        <button class="qty-btn js-inc" aria-label="Increase">+</button>
+                    </div>
+                </div>
+                <div class="subtotal">
+                    <div class="label">Thành tiền</div>
+                    <div class="val js-subtotal">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script src="../JavaScript/cart.js" defer></script>
+</body>
+</html>

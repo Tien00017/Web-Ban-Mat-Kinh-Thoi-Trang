@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Thông tin cá nhân</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/profile.css">
+</head>
+<body>
+<header class="container header">
+    <div class="brand">
+        <div class="logo" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
+        <h1>Hồ sơ người dùng</h1>
+    </div>
+
+    <div class="actions">
+        <a href="cart.html" class="icon-link" title="Giỏ hàng">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <a href="contact.html" class="icon-link" title="Liên hệ">
+            <i class="fa-solid fa-address-book"></i>
+        </a>
+        <button id="themeToggle" class="btn outline" aria-pressed="false" aria-label="Chuyển chế độ sáng/tối">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button id="signOut" class="btn danger" title="Đăng xuất">Đăng xuất</button>
+    </div>
+</header>
+
+<main class="container grid">
+    <section class="card profile" aria-labelledby="profile-title">
+        <h2 id="profile-title" class="sr-only">Tóm tắt hồ sơ</h2>
+        <div class="avatar-wrap">
+            <img id="avatarPreview" class="avatar" alt="Ảnh đại diện người dùng"/>
+            <label for="avatar" class="btn small">Đổi ảnh</label>
+            <input id="avatar" type="file" accept="image/*" class="hidden"/>
+        </div>
+        <div class="profile-info">
+            <p class="name" id="summaryName">Tên người dùng</p>
+            <p class="email" id="summaryEmail">email@example.com</p>
+            <p class="phone" id="summaryPhone">(+84) 0123 456 789</p>
+        </div>
+    </section>
+
+    <section class="card" aria-labelledby="edit-title">
+        <h2 id="edit-title">Chỉnh sửa thông tin</h2>
+        <form id="profileForm" novalidate>
+            <div class="form-grid">
+                <div class="field">
+                    <label for="fullName">Họ và tên <span class="req">*</span></label>
+                    <input id="fullName" name="fullName" type="text" required placeholder="VD: Nguyễn Văn A"/>
+                    <small class="error" data-for="fullName">Nhập tối đa 200 kí tự</small>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email <span class="req">*</span></label>
+                    <input id="email" name="email" type="email" required placeholder="vd@domain.com" inputmode="email"/>
+                    <small class="error" data-for="email"></small>
+                </div>
+
+                <div class="field">
+                    <label for="phone">Số điện thoại</label>
+                    <input id="phone" name="phone" type="tel" placeholder="(+84) ..." inputmode="tel"/>
+                    <small class="error" data-for="phone"></small>
+                </div>
+
+                <div class="field">
+                    <label for="birthday">Ngày sinh</label>
+                    <input id="birthday" name="birthday" type="date"/>
+                </div>
+
+                <div class="field">
+                    <label for="gender">Giới tính</label>
+                    <select id="gender" name="gender">
+                        <option value="">-- Chọn --</option>
+                        <option value="male">Nam</option>
+                        <option value="female">Nữ</option>
+                        <option value="other">Khác</option>
+                    </select>
+                </div>
+
+                <div class="field span-2">
+                    <label for="address">Địa chỉ</label>
+                    <textarea id="address" name="address" rows="3"
+                              placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành"></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary">Lưu thay đổi</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="card" aria-labelledby="security-title">
+        <h2 id="security-title">Bảo mật</h2>
+        <form id="passwordForm" novalidate>
+            <div class="field">
+                <label for="currentPassword">Mật khẩu hiện tại</label>
+                <input id="currentPassword" name="currentPassword" type="password" autocomplete="current-password"/>
+            </div>
+            <div class="field">
+                <label for="newPassword">Mật khẩu mới</label>
+                <input id="newPassword" name="newPassword" type="password" autocomplete="new-password"/>
+            </div>
+            <div class="field">
+                <label for="confirmPassword">Nhập lại mật khẩu</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password"/>
+                <small class="error" data-for="password"></small>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn">Đổi mật khẩu</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
+<script src="../JavaScript/profile.js"></script>
+</body>
+</html>
