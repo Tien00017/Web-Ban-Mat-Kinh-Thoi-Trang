@@ -8,25 +8,10 @@ let state = {
     avatarDataUrl: ""
 };
 
-function showToast(msg) {
-    const el = document.getElementById("toast");
-    el.textContent = msg;
-    el.hidden = false;
-    setTimeout(() => (el.hidden = true), 2000);
-}
-
-
 function applySummary(p) {
-    const nameEl = document.getElementById("summaryName");
-    const emailEl = document.getElementById("summaryEmail");
-    const phoneEl = document.getElementById("summaryPhone");
     const avatarEl = document.getElementById("avatarPreview");
-
-    nameEl.textContent = p.fullName || "Tên người dùng";
-    emailEl.textContent = p.email || "email@example.com";
-    phoneEl.textContent = p.phone || "(+84) 0123 456 789";
-
-    avatarEl.src = p.avatarDataUrl || "../Images/ball.png";
+    if (!avatarEl) return;
+    avatarEl.src = p.avatarDataUrl || "../Images/Profile/ball.png";
 }
 
 function fillForm(p) {
@@ -69,7 +54,8 @@ function validateProfile(p) {
     if (!p.email) {
         emailErr.textContent = "Vui lòng nhập email.";
         ok = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email)) {
+    }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email)) {
         emailErr.textContent = "Email không hợp lệ.";
         ok = false;
     }
@@ -77,43 +63,26 @@ function validateProfile(p) {
         phoneErr.textContent = "Số điện thoại không hợp lệ.";
         ok = false;
     }
+
     return ok;
 }
 
 function handleAvatarChange(file) {
     if (!file) return;
     const maxMB = 3;
-    if (file.size > maxMB * 1024 * 1024) {
-        showToast(`Ảnh quá lớn (>${maxMB}MB).`);
-        return;
-    }
+    if (file.size > maxMB * 1024 * 1024) return;
+
     const reader = new FileReader();
     reader.onload = () => {
         state.avatarDataUrl = reader.result;
         applySummary(state);
-        showToast("Đã cập nhật ảnh đại diện.");
     };
     reader.readAsDataURL(file);
-}
-function initTheme() {
-    const btn = document.getElementById("themeToggle");
-    if (!btn) return;
-    // Mặc định: LIGHT
-    document.body.classList.remove("dark");
-    btn.innerHTML = '<i class="fas fa-moon"></i>';       // moon -> bấm để vào dark
-    btn.setAttribute("aria-pressed", "false");
-}
-
-function toggleTheme() {
-    const btn = document.getElementById("themeToggle");
-    if (!btn) return;
-    const isDark = document.body.classList.toggle("dark");
-    btn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-    btn.setAttribute("aria-pressed", isDark ? "true" : "false");
 }
 
 function handlePasswordChange(e) {
     e.preventDefault();
+
     const currentPw = document.getElementById("currentPassword");
     const newPw = document.getElementById("newPassword");
     const confirmPw = document.getElementById("confirmPassword");
@@ -125,6 +94,7 @@ function handlePasswordChange(e) {
         pwErr.textContent = "Vui lòng nhập đầy đủ mật khẩu mới và nhập lại.";
         return;
     }
+
     if (newPw.value !== confirmPw.value) {
         pwErr.textContent = "Mật khẩu nhập lại không khớp.";
         return;
@@ -133,34 +103,34 @@ function handlePasswordChange(e) {
     currentPw.value = "";
     newPw.value = "";
     confirmPw.value = "";
-    showToast("Đã đổi mật khẩu.");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    initTheme();
+    if (typeof initTheme === "function") initTheme();
+
     applySummary(state);
     fillForm(state);
+
     const profileForm = document.getElementById("profileForm");
-    profileForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const data = getFormData();
-        if (!validateProfile(data)) return;
-        state = { ...data };
-        applySummary(state);
-        showToast("Đã lưu thay đổi.");
-    });
+    if (profileForm) {
+        profileForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const data = getFormData();
+            if (!validateProfile(data)) return;
+
+            state = { ...data };
+            applySummary(state);
+        });
+    }
 
     const avatarInput = document.getElementById("avatar");
-    avatarInput.addEventListener("change", (ev) => {
-        const file = ev.target.files && ev.target.files[0];
-        handleAvatarChange(file);
-        ev.target.value = "";
-    });
-
-
-    const themeToggleBtn = document.getElementById("themeToggle");
-    if (themeToggleBtn) themeToggleBtn.addEventListener("click", toggleTheme);
-
+    if (avatarInput) {
+        avatarInput.addEventListener("change", (ev) => {
+            const file = ev.target.files && ev.target.files[0];
+            handleAvatarChange(file);
+            ev.target.value = "";
+        });
+    }
 
     const signOutBtn = document.getElementById("signOut");
     if (signOutBtn) {
@@ -177,12 +147,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
                 fillForm(state);
                 applySummary(state);
-                showToast("Đã đăng xuất.");
             }
         });
     }
 
-    // Đổi mật khẩu
     const passwordForm = document.getElementById("passwordForm");
-    if (passwordForm) passwordForm.addEventListener("submit", handlePasswordChange);
+    if (passwordForm) {
+        passwordForm.addEventListener("submit", handlePasswordChange);
+    }
 });

@@ -1,13 +1,13 @@
 const users = [
     {
         id: "u01",
-        name: "Tcon ngồi xe lăn",
+        name: "lê Thị Anh Thư",
         phone: "0987 654 321",
         product: "Kính Cận C07",
         rating: 5,
         content: "Mẫu mã rất chắc chắn, đeo lên xinh.",
-        avatar: "../Images/avatar1.jpeg",
-        photos: ["../Images/ReviewKinhCan.jpg", "../Images/ReviewKinhCan2.jpg"],
+        avatar: "../Images/Contact/avatar.jpg",
+        photos: ["../Images/Contact/Review.jpg", "../Images/Contact/Review2.jpg"],
         messages: [
             "Shop ơi còn sản phẩm nào tương tự mà màu bạc không?",
             "Ok mình thấy mẫu C09 đẹp đó để mình đặt 1 cái"
@@ -15,24 +15,24 @@ const users = [
     },
     {
         id: "u02",
-        name: "Jack 5 củ",
+        name: "Lee Min Ho",
         phone: "0912 345 678",
         product: "Kính Lão L04",
         rating: 4,
         content: "Kính hơi nặng đầu, nhưng chất lượng ok.",
-        avatar: "../Images/avatar2.jpeg",
-        photos: ["../Images/ReviewKinhLao.jpg"],
+        avatar: "../Images/Contact/avatar.jpg",
+        photos: ["../Images/Contact/Review2.jpg", "../Images/Contact/Review.jpg"],
         messages: ["Bạn có muốn đổi sản phẩm khác không?", "Giúp tôi đổi cái nhẹ hơn màu be đi"]
     },
     {
         id: "u03",
-        name: "phế phẩm Wibu",
+        name: "Bùi Công Nam",
         phone: "0903 111 222",
         product: "kính Râm R27",
         rating: 2,
         content: "Không giống hình, quá thất vọng.",
-        avatar: "../Images/avatar3.jpeg",
-        photos: [],
+        avatar: "../Images/Contact/avatar.jpg",
+        photos: ["../Images/Contact/Review.jpg", "../Images/Contact/Review2.jpg"],
         messages: ["Có kính nào làm tui ngầu hơn không?"]
     }
 ];
@@ -49,18 +49,12 @@ let activeId = null;
 
 function renderList(filter = "") {
     reviewListEl.innerHTML = "";
-    const q = filter.trim().toLowerCase();
 
-    users
-        .filter(u => {
-            const hay = (u.name + u.phone + u.product).toLowerCase();
-            return !q || hay.includes(q);
-        })
-        .forEach(u => {
-            const item = document.createElement("article");
-            item.className = "review-item";
-            item.dataset.id = u.id;
-            item.innerHTML = `
+    users.forEach(u => {
+        const item = document.createElement("article");
+        item.className = "review-item";
+        item.dataset.id = u.id;
+        item.innerHTML = `
         <img class="r-avt" src="${u.avatar}" alt="${u.name}" />
         <div>
           <div class="r-head">
@@ -73,9 +67,9 @@ function renderList(filter = "") {
           ${u.photos && u.photos.length ? `<div class="r-photos">${u.photos.map(p => `<img src="${p}" alt="">`).join("")}</div>` : ""}
         </div>
       `;
-            item.addEventListener("click", () => selectUser(u.id));
-            reviewListEl.appendChild(item);
-        });
+        item.addEventListener("click", () => selectUser(u.id));
+        reviewListEl.appendChild(item);
+    });
 
     if (activeId) {
         const el = $(`.review-item[data-id="${activeId}"]`);
@@ -91,7 +85,6 @@ function selectUser(id) {
     const u = users.find(x => x.id === id);
     if (!u) return;
 
-    // header chat
     $("#chatAvatar").style.backgroundImage = `url("${u.avatar}")`;
     $("#chatTitle").textContent = u.name;
     $("#chatSub").textContent = `${u.product} · ${u.phone} · ${u.rating}★`;
@@ -127,9 +120,6 @@ $("#chatForm").addEventListener("submit", (e) => {
 
     input.value = "";
 });
-
-
-$("#searchBox").addEventListener("input", (e) => renderList(e.target.value));
 
 renderList();
 
