@@ -69,8 +69,29 @@ button:hover {
     color: #463AE8FF;
     text-decoration: none;
     font-weight: bold;
-}z
+}
 
 .switch-link a:hover {
     text-decoration: underline;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 1px;
+    /*display: flex;*/
+    align-items: center;
+    gap: 8px;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.logo-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
 }
