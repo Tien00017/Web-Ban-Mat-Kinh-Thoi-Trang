@@ -2,9 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartItems = [];
 
     const recoProducts = [
-        {id: "KinhCan", name: "Kính Cận", color: "Đen", price: 2789000, img: "../Images/KinhCan.jpg"},
-        {id: "KinhLao", name: "kính lão", color: "Đen", price: 567000, img: "../Images/KinhLao.jpg"},
-        {id: "KinhRam", name: "Kính Râm", color: "Vàng", price: 277000, img: "../Images/KinhRam.jpg"}
+        {id: "KinhCan", name: "Kính Cận", color: "Đen", price: 2789000, img: "../Images/Cart/KinhCan.jpg"},
+        {id: "KinhLao", name: "kính lão", color: "Đen", price: 567000, img: "../Images/Cart/KinhLao.jpg"},
+        {id: "KinhRam", name: "Kính Râm", color: "Vàng", price: 277000, img: "../Images/Cart/KinhRam.jpg"}
     ];
 
     const $ = (s, c = document) => c.querySelector(s);
