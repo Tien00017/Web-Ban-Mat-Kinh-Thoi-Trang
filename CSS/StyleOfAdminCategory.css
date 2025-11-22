@@ -1,0 +1,150 @@
+:root {
+    --accent: #463AE8;
+    --bg: #ffffff;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --radius: 12px;
+    --shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+/* RESET */
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* LAYOUT */
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: #f8f8ff;
+    padding: 20px;
+    border-right: 1px solid #e5e5ff;
+}
+
+.brand {
+    text-align: center;
+}
+
+.logo-img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+}
+
+.nav {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav a {
+    padding: 12px 14px;
+    text-decoration: none;
+    color: var(--text);
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+
+.nav a:hover {
+    background: rgba(70,58,232,0.08);
+}
+
+.nav a.active {
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    padding: 28px;
+}
+
+/* TITLE BAR */
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+/* BUTTONS */
+.btn {
+    padding: 10px 16px;
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn.ghost {
+    background: #f3f3f3;
+    color: var(--text);
+    border-radius: 6px;
+}
+
+.btn.ghost:hover {
+    background: #e8e8e8;
+}
+
+/* TABLE WRAPPER */
+.panel {
+    background: white;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    text-align: left;
+    padding: 12px;
+    background: #f3f3ff;
+    color: #333;
+    border-bottom: 1px solid #e5e5ff;
+}
+
+tbody td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.actions {
+    text-align: right;
+}
+
+/* TAG */
+.tag {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.tag.active {
+    background: rgba(70,58,232,0.12);
+    color: var(--accent);
+}
