@@ -1,0 +1,126 @@
+:root {
+    --accent: #463AE8;
+    --bg: #ffffff;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --radius: 12px;
+    --card-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
+    font-family: "Inter", system-ui;
+}
+
+/* -------------------- Layout -------------------- */
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+/* -------------------- Header -------------------- */
+.site-header {
+    border-bottom: 1px solid #eee;
+    background: #fff;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.main-nav a {
+    margin-left: 18px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.main-nav a.active {
+    color: var(--accent);
+}
+
+/* -------------------- Form -------------------- */
+.add-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: #fff;
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+}
+
+.form-group {
+    width: calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    width: 100%;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+input, textarea {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.note {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.sub-title {
+    width: 100%;
+    margin: 15px 0 5px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.submit-btn:hover {
+    opacity: 0.9;
+}
