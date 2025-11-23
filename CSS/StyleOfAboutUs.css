@@ -362,30 +362,53 @@ html, body {
 ========================================= */
 .site-footer {
     border-top: none;
-    background: #111;
     color: #fff;
-    padding: 28px 0;
     margin-top: 40px;
+    background-color: #222;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
 }
 
 .footer-inner {
+    padding: 0 24px;
+    max-width: 1200px;
+    margin: auto;
     display: flex;
     justify-content: space-between;
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-inner div {
+    flex: 1 1 200px;
 }
 
 .site-footer h4 {
-    margin: 0 0 8px 0;
-    color: #fff;
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #463AE8;
 }
 
 .site-footer p {
-    margin: 0;
     color: #ccc;
+
+    margin: 8px 0;
+    font-size: 14px;
+    line-height: 1.6;
 }
+
+/* Link mạng xã hội */
+.social-icons a {
+    color: #fff;
+    margin-right: 15px;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #463AE8;
+}
+
 
 /* =========================================
    RESPONSIVE DESIGN
@@ -421,9 +444,14 @@ html, body {
     .product-grid {
         grid-template-columns: 1fr;
     }
+
     .footer-inner {
         flex-direction: column;
-        gap: 18px;
+        text-align: center;
+    }
+
+    .footer-inner div {
+        flex: unset;
     }
     .search-wrap input {
         min-width: 80px;
@@ -433,3 +461,4 @@ html, body {
         padding: 10px 12px;
     }
 }
+
