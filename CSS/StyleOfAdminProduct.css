@@ -5,31 +5,20 @@
 }
 
 :root{
-    /* Brand & accents */
     --accent: #463AE8;
     --accent-2: #6B63F2;
     --accent-soft: #ECEBFF;
-
-    /* Neutral */
     --bg: #f5f6fa;
     --white: #ffffff;
     --text: #111321;
     --muted: #6b7280;
     --border: #e6e8f2;
 
-    /* Status */
-    --success: #16a34a;
-    --pending: #f59e0b;
-    --danger: #dc2626;
-    --info: #0ea5e9;
-
     --card-shadow: 0 6px 18px rgba(70,58,232,0.06);
     --radius: 12px;
 
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
-
-/* BASE LAYOUT */
 html, body { height: 100%; }
 body {
     font-family: inherit;
@@ -51,7 +40,7 @@ body {
    ====================== */
 .admin-sidebar {
     width: 240px;
-    background: #111321; /* dark sidebar */
+    background: #111321;
     color: #fff;
     padding: 24px 18px;
     display: flex;
@@ -104,7 +93,6 @@ body {
     transform: translateY(-1px);
 }
 
-/* footer note in sidebar */
 .side-footer {
     margin-top: auto;
     font-size: 13px;
@@ -112,46 +100,10 @@ body {
     text-align: center;
 }
 
-.brand {
-    text-align: center;
-}
-
-.logo-img {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: var(--radius);
-    margin-bottom: 10px;
-}
-
-.nav {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-}
-
-.nav a {
-    padding: 12px 14px;
-    text-decoration: none;
-    color: var(--text);
-    border-radius: 8px;
-    margin-bottom: 6px;
-}
-
-.nav a:hover {
-    background: rgba(70,58,232,0.08);
-}
-
-.nav a.active {
-    background: var(--accent);
-    color: white;
-    font-weight: 600;
-}
 /* MAIN */
 .main {
     width: 100%;
     padding: 28px;
-    display: block;
 }
 
 .page-title {
@@ -163,6 +115,7 @@ body {
     font-size: 26px;
 }
 
+/* LEFT - RIGHT layout */
 .content {
     display: flex;
     align-items: flex-start;
@@ -170,16 +123,16 @@ body {
     width: 100%;
 }
 
-/* Table bên trái*/
+/* LEFT (table) */
 .left {
     flex: 1;
-    background: white;
+    background: #fff;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(70,58,232,0.06);
 }
 
-/* FORM BÊN PHẢI*/
+/* RIGHT (form) */
 .right {
     width: 380px;
     flex-shrink: 0;
@@ -190,7 +143,7 @@ body {
     height: fit-content;
 }
 
-/* TABLE */
+/* TABLE BASICS */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -208,28 +161,60 @@ tbody td {
     border-bottom: 1px solid #f1f1f1;
 }
 
+/* HOVER */
+tbody tr:hover {
+    background: rgba(70,58,232,0.04);
+}
 
-/* BUTTON */
+/* PRODUCT INFO */
+.prod-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* TEXT */
+.fw { font-weight: 600; }
+.muted { color: #777; font-size: 13px; }
+
+/* STOCK TAGS */
+.stock-high { color: green; font-weight: 600; }
+.stock-low { color: orange; font-weight: 600; }
+.stock-out { color: red; font-weight: 600; }
+
+/* BUTTONS */
 .btn {
-    padding: 10px 16px;
+    padding: 8px 14px;
     background: var(--accent);
     border: none;
     border-radius: 8px;
-    color: white;
+    color: #fff;
     font-weight: 600;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .btn.ghost {
     background: #f3f3f3;
-    color: var(--text);
+    color: #333;
 }
 
 .btn.ghost:hover {
     background: #e8e8e8;
 }
 
-/* FORM */
+.text-right {
+    text-align: right;
+}
+
+/* FORM (right) */
 .right h3 {
     margin: 0 0 12px;
     font-size: 18px;
@@ -238,9 +223,12 @@ tbody td {
 
 .form-row {
     margin-bottom: 14px;
+    display: flex;
+    gap: 10px;
 }
 
-.form-row input {
+.form-row input,
+.form-row select {
     width: 100%;
     padding: 10px 12px;
     border-radius: 8px;
@@ -248,8 +236,21 @@ tbody td {
     font-size: 14px;
 }
 
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    min-height: 80px;
+    resize: vertical;
+}
+
 .form-actions {
     display: flex;
-    gap: 10px;
     justify-content: flex-end;
+    gap: 10px;
 }
+
+
+
+

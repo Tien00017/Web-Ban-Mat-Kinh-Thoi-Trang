@@ -4,127 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm sản phẩm</title>
-    <link rel="stylesheet" href="../CSS/StyleOfAddProduct.css">
+    <link rel="stylesheet" href="../CSS/StyleOfAdminAddProduct.css">
 </head>
 
 <body>
+<div class="app">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="brand">
+            <img src="../Images/Logo.jpg" class="logo-img" alt="Logo">
+            <h2>Mắt kính Nông Lâm</h2>
+        </div>
 
-<aside class="sidebar">
-    <div class="brand">
-        <img src="../Images/Logo.jpg" class="logo-img" alt="Logo">
-        <h2>Mắt kính Nông Lâm</h2>
+        <nav class="admin-nav">
+            <a href="Admin.html" >Dashboard</a>
+            <a href="AdminCategory.html">Quản lí danh mục</a>
+            <a href="AdminProduct.html">Quản lí sản phẩm</a>
+            <a href="AdminAddProduct.html" class="active">Thêm sản phẩm</a>
+            <a href="AdminOrders.html">Quản lí đơn hàng</a>
+            <a href="AdminAccount.html">Quản lí tài khoản</a>
+            <a href="AdminContact.html">Liên hệ</a>
+        </nav>
+
+        <div class="side-footer muted">
+            Admin • Bạn đang đăng nhập với quyền Quản trị
+        </div>
+    </aside>
+
+    <div class="container">
+        <h1 class="page-title">Thêm sản phẩm mới</h1>
+
+        <form class="add-form">
+
+            <!-- Ảnh sản phẩm -->
+            <div class="form-group full">
+                <label>Hình ảnh sản phẩm</label>
+                <input type="file" multiple>
+                <p class="note">* Có thể chọn nhiều ảnh</p>
+            </div>
+
+            <!-- Tên + giá -->
+            <div class="form-group">
+                <label>Tên sản phẩm</label>
+                <input type="text" placeholder="Nhập tên sản phẩm">
+            </div>
+
+            <div class="form-group">
+                <label>Giá</label>
+                <input type="number" placeholder="Nhập giá (VNĐ)">
+            </div>
+
+            <!-- Số lượng -->
+            <div class="form-group">
+                <label>Số lượng</label>
+                <input type="number" placeholder="Nhập số lượng">
+            </div>
+
+            <!-- Màu sắc -->
+            <div class="form-group">
+                <label>Màu sắc</label>
+                <input type="text" placeholder="VD: Đỏ, xanh, vàng...">
+            </div>
+
+            <!-- Kích cỡ -->
+            <div class="form-group">
+                <label>Kích cỡ</label>
+                <input type="text" placeholder="VD: Medium, Large...">
+            </div>
+
+            <!-- Mô tả sản phẩm -->
+            <div class="form-group full">
+                <label>Mô tả sản phẩm</label>
+                <textarea rows="5" placeholder="Nhập mô tả chi tiết..."></textarea>
+            </div>
+
+            <h2 class="sub-title">Thông tin sản phẩm</h2>
+
+            <div class="form-group">
+                <label>Chất liệu</label>
+                <input type="text" placeholder="VD: Nhựa dẻo + kim loại">
+            </div>
+
+            <div class="form-group">
+                <label>Thương hiệu</label>
+                <input type="text" placeholder="VD: Sting">
+            </div>
+
+            <div class="form-group">
+                <label>Kích thước</label>
+                <input type="text" placeholder="VD: 52-18-140">
+            </div>
+
+            <div class="form-group">
+                <label>Khối lượng</label>
+                <input type="text" placeholder="VD: 19.1g">
+            </div>
+
+            <h2 class="sub-title">Thông số kính</h2>
+
+            <div class="form-group">
+                <label>Chiều rộng tổng</label>
+                <input type="text" placeholder="VD: 133mm">
+            </div>
+
+            <div class="form-group">
+                <label>Chiều rộng ống kính</label>
+                <input type="text" placeholder="VD: 54mm">
+            </div>
+
+            <div class="form-group">
+                <label>Chiều cao ống kính</label>
+                <input type="text" placeholder="VD: 45mm">
+            </div>
+
+            <div class="form-group">
+                <label>Chiều dài càng kính</label>
+                <input type="text" placeholder="VD: 143mm">
+            </div>
+
+            <div class="form-group full">
+                <label>Hình minh họa thông số</label>
+                <input type="file">
+            </div>
+
+            <button class="submit-btn" type="submit">Lưu sản phẩm</button>
+
+        </form>
     </div>
-
-    <nav class="nav">
-        <a href="Admin.html">Dashboard</a>
-        <a href="AdminCategory.html" >Danh mục</a>
-        <a href="AdminProduct.html">Sản phẩm</a>
-        <a href="AdminAddProduct.html" class="active">Thêm sản phẩm</a>
-        <a href="AdminOrders.html"> Đơn hàng</a>
-        <a href="#">Tài khoản</a>
-    </nav>
-</aside>
-
-<div class="container">
-    <h1 class="page-title">Thêm sản phẩm mới</h1>
-
-    <form class="add-form">
-
-        <!-- Ảnh sản phẩm -->
-        <div class="form-group full">
-            <label>Hình ảnh sản phẩm</label>
-            <input type="file" multiple>
-            <p class="note">* Có thể chọn nhiều ảnh</p>
-        </div>
-
-        <!-- Tên + giá -->
-        <div class="form-group">
-            <label>Tên sản phẩm</label>
-            <input type="text" placeholder="Nhập tên sản phẩm">
-        </div>
-
-        <div class="form-group">
-            <label>Giá</label>
-            <input type="number" placeholder="Nhập giá (VNĐ)">
-        </div>
-
-        <!-- Số lượng -->
-        <div class="form-group">
-            <label>Số lượng</label>
-            <input type="number" placeholder="Nhập số lượng">
-        </div>
-
-        <!-- Màu sắc -->
-        <div class="form-group">
-            <label>Màu sắc</label>
-            <input type="text" placeholder="VD: Đỏ, xanh, vàng...">
-        </div>
-
-        <!-- Kích cỡ -->
-        <div class="form-group">
-            <label>Kích cỡ</label>
-            <input type="text" placeholder="VD: Medium, Large...">
-        </div>
-
-        <!-- Mô tả sản phẩm -->
-        <div class="form-group full">
-            <label>Mô tả sản phẩm</label>
-            <textarea rows="5" placeholder="Nhập mô tả chi tiết..."></textarea>
-        </div>
-
-        <h2 class="sub-title">Thông tin sản phẩm</h2>
-
-        <div class="form-group">
-            <label>Chất liệu</label>
-            <input type="text" placeholder="VD: Nhựa dẻo + kim loại">
-        </div>
-
-        <div class="form-group">
-            <label>Thương hiệu</label>
-            <input type="text" placeholder="VD: Sting">
-        </div>
-
-        <div class="form-group">
-            <label>Kích thước</label>
-            <input type="text" placeholder="VD: 52-18-140">
-        </div>
-
-        <div class="form-group">
-            <label>Khối lượng</label>
-            <input type="text" placeholder="VD: 19.1g">
-        </div>
-
-        <h2 class="sub-title">Thông số kính</h2>
-
-        <div class="form-group">
-            <label>Chiều rộng tổng</label>
-            <input type="text" placeholder="VD: 133mm">
-        </div>
-
-        <div class="form-group">
-            <label>Chiều rộng ống kính</label>
-            <input type="text" placeholder="VD: 54mm">
-        </div>
-
-        <div class="form-group">
-            <label>Chiều cao ống kính</label>
-            <input type="text" placeholder="VD: 45mm">
-        </div>
-
-        <div class="form-group">
-            <label>Chiều dài càng kính</label>
-            <input type="text" placeholder="VD: 143mm">
-        </div>
-
-        <div class="form-group full">
-            <label>Hình minh họa thông số</label>
-            <input type="file">
-        </div>
-
-        <button class="submit-btn" type="submit">Lưu sản phẩm</button>
-
-    </form>
 </div>
-
 </body>
 </html>

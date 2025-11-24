@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Mắt kính Nông Lâm - Trang contact</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/StyleOfAdminContact.css">
+</head>
+<body>
+<div class="app">
+    <aside class="admin-sidebar">
+        <div class="brand">
+            <img src="../Images/Logo.jpg" class="logo-img" alt="Logo">
+            <h2>Mắt kính Nông Lâm</h2>
+        </div>
+
+        <nav class="admin-nav">
+            <a href="Admin.html" class="active">Dashboard</a>
+            <a href="AdminCategory.html">Quản lí danh mục</a>
+            <a href="AdminProduct.html">Quản lí sản phẩm</a>
+            <a href="AdminAddProduct.html">Thêm sản phẩm</a>
+            <a href="AdminOrders.html">Quản lí đơn hàng</a>
+            <a href="AdminAccount.html">Quản lí tài khoản</a>
+            <a href="AdminContact.html">Liên hệ</a>
+        </nav>
+
+        <div class="side-footer muted">
+            Admin • Bạn đang đăng nhập với quyền Quản trị
+        </div>
+    </aside>
+
+    <main class="layout">
+
+        <aside class="review-pane" aria-labelledby="reviewTitle">
+            <div class="pane-head">
+                <h2 id="reviewTitle">Đánh giá sản phẩm</h2>
+
+                <!-- Chỉ còn input bình thường, không có JS -->
+                <input id="searchBox" class="search" placeholder="Tìm theo tên/điện thoại/sản phẩm..."/>
+            </div>
+
+            <div id="reviewList" class="review-list">
+
+                <!-- ITEM 1 -->
+                <article class="review-item active">
+                    <img class="r-avt" src="../Images/Contact/avatar.jpg" alt="Lê Thị Anh Thư"/>
+                    <div>
+                        <div class="r-head">
+                            <div class="r-name">Lê Thị Anh Thư</div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="r-prod"><strong>Kính Cận C07</strong></div>
+                        <div class="r-body">Mẫu mã rất chắc chắn, đeo lên xinh.</div>
+                        <div class="r-phone">0987 654 321</div>
+                        <div class="r-photos">
+                            <img src="../Images/Contact/Review.jpg">
+                            <img src="../Images/Contact/Review2.jpg">
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ITEM 2 -->
+                <article class="review-item">
+                    <img class="r-avt" src="../Images/Contact/avatar.jpg" alt="Lee Min Ho"/>
+                    <div>
+                        <div class="r-head">
+                            <div class="r-name">Lee Min Ho</div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="r-prod"><strong>Kính Lão L04</strong></div>
+                        <div class="r-body">Kính hơi nặng đầu, nhưng chất lượng ok.</div>
+                        <div class="r-phone">0912 345 678</div>
+                        <div class="r-photos">
+                            <img src="../Images/Contact/Review2.jpg">
+                            <img src="../Images/Contact/Review.jpg">
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ITEM 3 -->
+                <article class="review-item">
+                    <img class="r-avt" src="../Images/Contact/avatar.jpg" alt="Bùi Công Nam"/>
+                    <div>
+                        <div class="r-head">
+                            <div class="r-name">Bùi Công Nam</div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="r-prod"><strong>Kính Râm R27</strong></div>
+                        <div class="r-body">Không giống hình, quá thất vọng.</div>
+                        <div class="r-phone">0903 111 222</div>
+                        <div class="r-photos">
+                            <img src="../Images/Contact/Review.jpg">
+                            <img src="../Images/Contact/Review2.jpg">
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </aside>
+
+
+
+        <section class="chat-pane" aria-labelledby="chatTitle">
+
+            <header class="chat-head">
+                <div class="user-avatar" style="background-image:url('../Images/Contact/avatar.jpg');"></div>
+
+                <div class="user-meta">
+                    <h2 id="chatTitle">Lê Thị Anh Thư</h2>
+                    <div id="chatSub" class="muted">Kính Cận C07 · 0987 654 321 · 5★</div>
+                </div>
+            </header>
+
+            <div id="chatBody" class="chat-body">
+                <div class="row">
+                    <div>
+                        <div class="msg">Shop ơi còn sản phẩm nào tương tự mà màu bạc không?</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <div class="msg">Ok mình thấy mẫu C09 đẹp đó để mình đặt 1 cái</div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="chatForm" class="chat-input" autocomplete="off">
+                <input id="chatText" type="text" placeholder="Nhập tin nhắn..."/>
+                <button class="btn" type="submit" title="Gửi">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+
+        </section>
+    </main>
+</div>
+</body>
+</html>
