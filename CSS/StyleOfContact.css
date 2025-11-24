@@ -17,6 +17,7 @@
 * {
     box-sizing: border-box;
 }
+
 html, body {
     height: 100%;
     margin: 0;
@@ -64,6 +65,7 @@ html, body {
     align-items: center;
     gap: 22px;
 }
+
 .logo {
     font-weight: 700;
     font-size: 20px;
@@ -81,12 +83,14 @@ html, body {
     object-fit: cover;
     border-radius: 6px;
 }
+
 .main-nav a {
     margin-right: 14px;
     color: var(--text);
     text-decoration: none;
     font-weight: 500;
 }
+
 .main-nav a:hover {
     color: #463AE8;
     text-decoration: underline;
@@ -114,6 +118,7 @@ html, body {
     padding: 6px;
     border-radius: 10px;
 }
+
 .search-wrap input {
     border: 0;
     outline: none;
@@ -122,6 +127,7 @@ html, body {
     font-size: 14px;
     background: transparent;
 }
+
 .search-btn {
     border: 0;
     background: var(--accent);
@@ -138,12 +144,14 @@ html, body {
     align-items: center;
     gap: 10px;
 }
+
 .icon-btn {
     background: transparent;
     border: 0;
     font-size: 18px;
     cursor: pointer;
 }
+
 .btn-outline {
     padding: 8px 12px;
     border-radius: 8px;
@@ -152,6 +160,7 @@ html, body {
     color: var(--text);
     font-weight: 600;
 }
+
 .btn-primary {
     background: var(--accent);
     color: white;
@@ -521,12 +530,15 @@ html, body {
     .header-inner {
         padding: 12px;
     }
+
     .search-wrap input {
         min-width: 120px;
     }
+
     .news-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -538,12 +550,15 @@ html, body {
         align-items: stretch;
         gap: 12px;
     }
+
     .header-left {
         justify-content: space-between;
     }
+
     .main-nav {
         display: none;
     }
+
     .news-grid,
     .product-grid {
         grid-template-columns: 1fr;
@@ -557,11 +572,225 @@ html, body {
     .footer-inner div {
         flex: unset;
     }
+
     .search-wrap input {
         min-width: 80px;
     }
+
     .category-bar {
         flex-wrap: wrap;
         padding: 10px 12px;
     }
+}
+
+/* ---------- REVIEW PANE (STORE PROFILE) — simple & clean ---------- */
+.review-pane {
+    background: #fff;
+    border: 1px solid var(--border, #e6e8f2);
+    border-radius: 12px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    min-width: 360px;
+}
+
+/* store-card: logo + info + actions */
+.store-card {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    background: linear-gradient(180deg, var(--white, #fff), #fbfbff);
+    border-bottom: 1px solid var(--border, #e6e8f2);
+}
+
+/* logo */
+.store-media {
+    flex: 0 0 auto;
+}
+
+.store-logo {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--border, #e6e8f2);
+    display: block;
+}
+
+/* info column */
+.store-info {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* title + meta */
+.store-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text, #111321);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.store-meta {
+    font-size: 13px;
+    color: var(--muted, #6b7280);
+    display: grid;
+    gap: 3px;
+}
+
+/* compact rating */
+.store-rating {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.stars-inline {
+    color: #ffb400;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+.rating-val {
+    color: var(--muted, #6b7280);
+    font-size: 13px;
+}
+
+/* actions row (call / mail / directions) */
+.store-actions {
+    margin-top: 6px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* small icon buttons */
+.store-actions .icon-link {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--white, #fff);
+    border: 1px solid var(--border, #e6e8f2);
+    color: var(--accent, #463AE8);
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 6px 14px rgba(70, 58, 232, 0.06);
+}
+
+/* primary action */
+.store-actions .btn {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--accent, #463AE8);
+    background: var(--accent, #463AE8);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* make icon hover visible */
+.store-actions .icon-link:hover {
+    background: var(--accent, #463AE8);
+    color: #fff;
+    border-color: var(--accent, #463AE8);
+}
+
+.pane-head.compact {
+    padding: 10px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid var(--border, #e6e8f2);
+}
+
+.pane-head.compact h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text, #111321);
+}
+
+.pane-head.compact .search {
+    margin-left: auto;
+    min-width: 120px;
+    max-width: 60%;
+    padding: 8px 10px;
+    border: 1px solid var(--border, #e6e8f2);
+    border-radius: 10px;
+}
+
+.review-list {
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+
+.review-item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 8px;
+    border: 1px solid var(--border, #e6e8f2);
+    border-radius: 10px;
+    background: #fff;
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.review-item .r-avt {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border, #e6e8f2);
+}
+
+.review-item .r-name {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.review-item .r-prod, .review-item .r-phone {
+    font-size: 13px;
+    color: var(--muted, #6b7280);
+}
+
+.review-item .r-body {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--text, #111321);
+}
+
+/* hover/active */
+.review-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(70, 58, 232, 0.04);
+}
+
+.review-item.active {
+    outline: 2px solid rgba(70, 58, 232, 0.12);
+}
+
+.img-map-map {
+    display: flex;
+    justify-content: center;
+}
+.map{
+    width: 415px;
 }

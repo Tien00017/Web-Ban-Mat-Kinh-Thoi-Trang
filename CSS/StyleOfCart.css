@@ -28,14 +28,72 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* =========================================
-   CONTAINER
-========================================= */
-.container {
+.cart-wrapper {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 28px;
+    margin: 20px auto;
+    padding: 0 20px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
 }
+
+/* BÊN TRÁI – danh sách sản phẩm */
+.cart-list {
+    display: grid;
+    gap: 16px;
+}
+
+.cart {
+    flex: 2;
+}
+
+/* BÊN PHẢI – summary */
+.summary,
+.summary-box {
+    padding: 24px;
+    background: white;
+    border: 1px solid #e6e8f2;
+    border-radius: 12px;
+    position: sticky;
+    top: 20px;
+}
+.summary-box .title {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.summary-row.total span {
+    font-weight: 700;
+}
+.checkout-btn {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px;
+    background: #4b33ff;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+.continue {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    text-decoration: none;
+    color: #5d5fe9;
+    font-weight: 700;
+}
+
 
 /* =========================================
    HEADER
@@ -200,14 +258,6 @@ html, body {
     background: rgba(70, 58, 232, 0.06);
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 20px;
-    padding: 0 20px 40px;
-    max-width: 1600px;
-    margin: 0 auto;
-}
 
 .cart, .summary {
     background: #fff;
@@ -231,8 +281,8 @@ html, body {
 }
 
 .checkbox input {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
 
 .cart-list {
@@ -250,12 +300,13 @@ html, body {
 .cart-item {
     display: grid;
     grid-template-columns: auto 120px 1fr;
-    gap: 12px;
-    padding: 14px;
+    gap: 16px;
+    padding: 16px;
     border: 1px solid #e6e8f2;
     border-radius: 12px;
     background: #fff;
 }
+
 
 .thumb img {
     width: 120px;
@@ -264,17 +315,15 @@ html, body {
     border-radius: 12px;
     border: 1px solid #ececf5;
 }
-
 .info {
-    display: grid;
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .row-1 {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 8px;
 }
 
 .meta {
@@ -301,7 +350,6 @@ html, body {
 .row-links .link:hover {
     text-decoration: underline;
 }
-
 .row-2 {
     display: grid;
     grid-template-columns: 120px 1fr 140px;
@@ -355,6 +403,7 @@ html, body {
 .summary h2 {
     margin: 2px 0 8px;
     font-size: 20px;
+    font-weight: 800;
 }
 
 .summary .row {

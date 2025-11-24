@@ -10,20 +10,25 @@
 <div class="app">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="admin-sidebar">
         <div class="brand">
             <img src="../Images/Logo.jpg" class="logo-img" alt="Logo">
             <h2>Mắt kính Nông Lâm</h2>
         </div>
 
-        <nav class="nav">
+        <nav class="admin-nav">
             <a href="Admin.html" >Dashboard</a>
-            <a href="AdminCategory.html" class="active">Danh mục</a>
-            <a href="AdminProduct.html" >Sản phẩm</a>
-            <a href="AdminAddProduct.html" >Thêm sản phẩm</a>
-            <a href="AdminOrders.html"> Đơn hàng</a>
-            <a href="#">Tài khoản</a>
+            <a href="AdminCategory.html" class="active">Quản lí danh mục</a>
+            <a href="AdminProduct.html">Quản lí sản phẩm</a>
+            <a href="AdminAddProduct.html">Thêm sản phẩm</a>
+            <a href="AdminOrders.html">Quản lí đơn hàng</a>
+            <a href="AdminAccount.html">Quản lí tài khoản</a>
+            <a href="AdminContact.html">Liên hệ</a>
         </nav>
+
+        <div class="side-footer muted">
+            Admin • Bạn đang đăng nhập với quyền Quản trị
+        </div>
     </aside>
 
     <!-- MAIN -->
@@ -31,60 +36,68 @@
 
         <div class="page-title">
             <h1>Quản lý danh mục</h1>
-            <a href="#" class="btn">+ Thêm danh mục</a>
         </div>
 
-        <div class="panel">
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>TÊN DANH MỤC</th>
-                    <th>MÔ TẢ</th>
-                    <th>TRẠNG THÁI</th>
-                    <th></th>
-                </tr>
-                </thead>
+        <div class="content">
 
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Kính Cận</td>
-                    <td>Các loại kính cận phổ biến</td>
-                    <td><span class="tag active">Active</span></td>
-                    <td class="actions">
-                        <button class="btn ghost">Sửa</button>
-                        <button class="btn ghost">Xóa</button>
-                    </td>
-                </tr>
+            <div class="left">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>TÊN DANH MỤC</th>
+                        <th></th>
+                    </tr>
+                    </thead>
 
-                <tr>
-                    <td>2</td>
-                    <td>Kính Mát</td>
-                    <td>Kính râm, kính thời trang</td>
-                    <td><span class="tag active">Active</span></td>
-                    <td class="actions">
-                        <button class="btn ghost">Sửa</button>
-                        <button class="btn ghost">Xóa</button>
-                    </td>
-                </tr>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Kính Cận</td>
+                        <td class="actions">
+                            <button class="btn ghost">Sửa</button>
+                            <button class="btn ghost">Xóa</button>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td>3</td>
-                    <td>Kính Áp Tròng</td>
-                    <td>Lens nhiều màu</td>
-                    <td><span class="tag active">Active</span></td>
-                    <td class="actions">
-                        <button class="btn ghost">Sửa</button>
-                        <button class="btn ghost">Xóa</button>
-                    </td>
-                </tr>
-                </tbody>
+                    <tr>
+                        <td>2</td>
+                        <td>Kính Mát</td>
+                        <td class="actions">
+                            <button class="btn ghost">Sửa</button>
+                            <button class="btn ghost">Xóa</button>
+                        </td>
+                    </tr>
 
-            </table>
+                    <tr>
+                        <td>3</td>
+                        <td>Kính Áp Tròng</td>
+                        <td class="actions">
+                            <button class="btn ghost">Sửa</button>
+                            <button class="btn ghost">Xóa</button>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <aside class="right">
+                <h3>Thêm danh mục</h3>
+
+                <div class="form-row">
+                    <input type="text" placeholder="Tên Danh Mục">
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn">Lưu</button>
+                </div>
+            </aside>
+
         </div>
 
     </section>
+
 
 </div>
 </body>
