@@ -3,23 +3,24 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mắt kính Nông Lâm - Giới thiệu</title>
+    <title>Mắt kính Nông Lâm - Tin tức và sự kiện</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../CSS/StyleOfAboutUs.css">
+    <link rel="stylesheet" href="../CSS/StyleOfHomePage.css">
+    <link rel="stylesheet" href="../CSS/StyleOfNews&Event.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 <body>
-<!-- HEADER -->
+<!-- HEADER (giữ nguyên từ trang chủ) -->
 <header class="site-header">
     <div class="header-inner">
         <div class="header-left">
             <a class="logo" href="#"><img src="../Images/Logo.jpg" alt="Logo" class="logo-img">Mắt kính Nông Lâm</a>
             <nav class="main-nav" aria-label="Chính">
                 <a href="HomePage.html">Trang chủ</a>
-                <a href="AboutUs.html" class="active">Giới thiệu</a>
-                <a href="Contact.html" >Liên hệ</a>
+                <a href="AboutUs.html">Giới thiệu</a>
+                <a href="Contact.html">Liên hệ</a>
             </nav>
         </div>
 
@@ -27,6 +28,7 @@
             <div class="search-wrap">
                 <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
                 <button class="search-btn" aria-label="Tìm">
+                    <!-- icon tìm kiếm -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
@@ -36,7 +38,7 @@
 
             <div class="header-icons">
                 <a href="Cart.html" aria-label="Giỏ hàng">
-                    <button class="icon-btn" >
+                    <button class="icon-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                             <circle cx="9" cy="21" r="1"/>
                             <circle cx="20" cy="21" r="1"/>
@@ -60,7 +62,6 @@
         </div>
     </div>
 
-    <!-- CATEGORY BAR -->
     <nav class="category-bar">
         <a href="Kinh_Can.html" class="cat">Kính Cận</a>
         <a href="Kinh_Mat.html" class="cat">Kính Mát</a>
@@ -68,70 +69,63 @@
         <a href="Gong_Kinh.html" class="cat">Gọng Kính</a>
     </nav>
 </header>
-<!-- MAIN -->
-<main class="container about">
-    <section class="about-hero">
-        <h1>Về Mắt kính Nông Lâm</h1>
-        <p>Mắt kính Nông Lâm là thương hiệu thời trang mắt kính hiện đại, mang đến phong cách và chất lượng hàng đầu cho người tiêu dùng Việt Nam.</p>
-    </section>
 
-    <section class="about-content">
-        <div class="about-text">
-            <h2>Tầm nhìn & Sứ mệnh</h2>
-            <p>
-                Chúng tôi hướng đến việc trở thành thương hiệu kính mắt được yêu thích nhất tại Việt Nam —
-                nơi mà mỗi chiếc kính không chỉ là vật dụng, mà còn là tuyên ngôn về phong cách và cá tính.
-            </p>
-            <p>
-                Sứ mệnh của Mắt kính Nông Lâm là mang đến cho khách hàng những sản phẩm thời trang mắt kính chất lượng cao,
-                giá cả hợp lý cùng dịch vụ tận tâm.
-            </p>
-        </div>
-        <img src="../Images/AboutUs/CuaHang.png" alt="Cửa hàng Mắt kính Nông Lâm">
-    </section>
-
-    <section class="about-values">
-        <h2>Giá trị cốt lõi</h2>
-        <div class="values-grid">
-            <div class="value-card">
-                <h3>Chất lượng</h3>
-                <p>Mỗi sản phẩm đều trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo độ bền và độ chính xác cao.</p>
+<main class="container">
+    <!-- BANNER SỰ KIỆN / FLASH SALE -->
+    <section class="flash-banner">
+        <div class="flash-banner-inner">
+            <h1>FLASH SALE – GIẢM SỐC CÓ HẠN</h1>
+            <p>Ưu đãi lên đến 70% + “Săn” sản phẩm cực nhanh trong thời gian giới hạn</p>
+            <div class="flash-countdown" id="countdown">
+                <!-- Đồng hồ đếm ngược -->
+                <span id="days">00</span>:
+                <span id="hours">00</span>:
+                <span id="minutes">00</span>:
+                <span id="seconds">00</span>
             </div>
-            <div class="value-card">
-                <h3>Phong cách</h3>
-                <p>Đa dạng mẫu mã, cập nhật xu hướng thời trang mắt kính mới nhất thế giới.</p>
-            </div>
-            <div class="value-card">
-                <h3>Dịch vụ</h3>
-                <p>Đội ngũ chăm sóc khách hàng tận tình, luôn sẵn sàng hỗ trợ 24/7.</p>
-            </div>
+            <a class="btn-primary flash-btn" href="#flash-items">Xem ngay</a>
         </div>
     </section>
 
-    <section class="about-team">
-        <h2>Đội ngũ của chúng tôi</h2>
-        <p>Mắt kính Nông Lâm tự hào có đội ngũ trẻ trung, sáng tạo và đầy nhiệt huyết.</p>
-        <div class="team-grid">
-            <div class="team-member">
-                <img src="../Images/AboutUs/Ceo.jpg" alt="CEO">
-                <h4>Nguyễn Minh Tâm</h4>
-                <p>Giám đốc điều hành</p>
+    <!-- SẢN PHẨM FLASH SALE -->
+    <section class="flash-items" id="flash-items">
+        <h2>Flash Sale Hot Nhất</h2>
+        <div class="product-grid flash-grid">
+            <!-- 1 item flash sale -->
+            <div class="product-card flash-card">
+                <a href="ProductDetail.html">
+                    <img src="../Images/HomePage/GongKinh1.png" alt="Kính Flash 1">
+                    <h4>Kính A</h4>
+                    <p class="price-old">₫1.200.000</p>
+                    <p class="price-sale">₫299.000</p>
+                    <div class="buy-now">Mua ngay</div>
+                </a>
             </div>
-            <div class="team-member">
-                <img src="../Images/AboutUs/Designer.jpg" alt="Designer">
-                <h4>Trần Thu Hà</h4>
-                <p>Nhà thiết kế chính</p>
+
+            <div class="product-card flash-card">
+                <a href="ProductDetail.html">
+                    <img src="../Images/HomePage/KinhCan2.png" alt="Kính Flash 2">
+                    <h4>Kính B</h4>
+                    <p class="price-old">₫950.000</p>
+                    <p class="price-sale">₫249.000</p>
+                    <div class="buy-now">Mua ngay</div>
+                </a>
             </div>
-            <div class="team-member">
-                <img src="../Images/AboutUs/Support.jpg" alt="Support">
-                <h4>Phạm Anh Quân</h4>
-                <p>Trưởng bộ phận CSKH</p>
+
+            <div class="product-card flash-card">
+                <a href="ProductDetail.html">
+                    <img src="../Images/HomePage/GongKinh2.jpg" alt="Kính Flash 3">
+                    <h4>Kính Flash C</h4>
+                    <p class="price-old">₫1.500.000</p>
+                    <p class="price-sale">₫399.000</p>
+                    <div class="buy-now">Mua ngay</div>
+                </a>
             </div>
         </div>
     </section>
 </main>
 
-<!-- FOOTER -->
+<!-- FOOTER giữ nguyên từ trang chủ -->
 <footer class="site-footer">
     <div class="footer-inner">
 
@@ -162,5 +156,7 @@
 
     </div>
 </footer>
+
+<script src="../JavaScript/FlashSale.js"></script>
 </body>
 </html>
