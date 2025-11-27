@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="../JavaScript/Cart.js"></script>
     <link rel="stylesheet" href="../CSS/StyleOfCart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -73,103 +72,107 @@
         <a href="Gong_Kinh.html" class="cat">Gọng Kính</a>
     </nav>
 </header>
+<main>
+    <div class="cart-wrapper">
 
-<main class="container">
-    <section class="cart">
-        <div class="cart-head">
-            <label class="checkbox">
-                <input type="checkbox" id="selectAll"/>
-                <span>Tất cả sản phẩm (<span id="itemCount">0</span>)</span>
-            </label>
-            <button id="massDelete" class="link danger">Xóa tất cả sản phẩm</button>
-        </div>
+        <!-- LEFT: CART LIST -->
+        <div id="cartList" class="cart-list">
+            <div class="cart-item" data-id="KinhCan">
 
-        <div id="cartList" class="cart-list" aria-live="polite"></div>
-    </section>
+                <label class="checkbox">
+                    <input type="checkbox" class="row-check" checked>
+                </label>
 
-    <aside class="summary" aria-labelledby="summaryTitle">
-        <h2 id="summaryTitle">Tổng đơn hàng</h2>
-        <div class="row">
-            <span>Số lượng sản phẩm</span>
-            <span id="summaryItemCount">0</span>
-        </div>
-        <hr/>
-        <div class="row">
-            <span>Tổng cộng </span>
-            <strong id="summaryTotal">0</strong>
-        </div>
-        <div class="row muted">
-            <span>Thành tiền</span>
-            <span id="summarySubtotal">0</span>
-        </div>
-
-        <button class="btn primary" id="checkoutBtn">Thanh Toán</button>
-
-    </aside>
-</main>
-<section class="reco-section" aria-labelledby="recoTitle">
-    <h2 id="recoTitle">Sản phẩm tương tự</h2>
-    <div id="recoList" class="reco-grid" aria-live="polite"></div>
-</section>
-
-<template id="recoCardTmpl">
-    <article class="reco-card">
-        <img class="reco-img" alt=""/>
-        <div class="reco-info">
-            <div class="reco-name js-name"></div>
-            <div class="reco-price">
-                <strong class="js-price">0</strong>
-                <s class="muted js-old" hidden>0</s>
-            </div>
-            <div class="reco-sub js-sub"></div>
-
-            <div class="reco-colors js-colors"></div>
-
-            <button class="btn add js-add">Thêm vào giỏ hàng</button>
-        </div>
-    </article>
-</template>
-
-
-<template id="cartItemTmpl">
-    <div class="cart-item">
-        <label class="checkbox">
-            <input type="checkbox" class="row-check"/>
-        </label>
-
-        <div class="thumb">
-            <img alt=""/>
-        </div>
-
-        <div class="info">
-            <div class="row-1">
-                <div class="meta">
-                    <div><span class="label">Tên sản phẩm:</span> <span class="val js-name"></span></div>
-                    <div><span class="label">Màu sắc:</span> <span class="val js-color"></span></div>
+                <div class="thumb">
+                    <img src="../Images/Cart/KinhCan.jpg" alt="">
                 </div>
-                <div class="row-links">
-                    <a href="#" class="link danger js-delete">Xóa</a>
-                </div>
-            </div>
 
-            <div class="row-2">
-                <div class="price js-price">0</div>
-                <div class="qty">
-                    <span class="label">Số lượng:</span>
-                    <div class="qty-ctl">
-                        <button class="qty-btn js-dec" aria-label="Decrease">−</button>
-                        <input class="js-qty" type="number" min="1" value="1"/>
-                        <button class="qty-btn js-inc" aria-label="Increase">+</button>
+                <div class="info">
+                    <div class="row-1">
+                        <div class="meta">
+                            <div><span class="label">Tên sản phẩm:</span> <span class="val js-name">Kính Cận</span>
+                            </div>
+                            <div><span class="label">Màu sắc:</span> <span class="val js-color">Đen</span></div>
+                        </div>
+
+                        <div class="row-links">
+                            <a href="#" class="link danger js-delete">Xóa</a>
+                        </div>
+                    </div>
+
+                    <div class="row-2">
+                        <div class="price js-price" data-price="2789000">2.789.000₫</div>
+
+                        <div class="qty">
+                            <span class="label">Số lượng:</span>
+                            <div class="qty-ctl">
+                                <button class="qty-btn js-dec">−</button>
+                                <input class="js-qty" type="number" min="1" value="1">
+                                <button class="qty-btn js-inc">+</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="subtotal">
-                    <div class="label">Thành tiền</div>
-                    <div class="val js-subtotal">0</div>
-                </div>
+
             </div>
         </div>
+
+        <aside class="summary-box">
+            <h2 class="title">Tổng đơn hàng</h2>
+
+            <div class="summary-row">
+                <span>Số lượng sản phẩm</span>
+                <span class="count">1</span>
+            </div>
+
+            <hr>
+
+            <div class="summary-row total">
+                <span>Thành tiền</span>
+                <strong class="val" id="summarySubtotal">2.789.000₫</strong>
+            </div>
+
+            <button class="checkout-btn">Thanh Toán</button>
+
+            <a href="#" class="continue">Tiếp tục mua hàng</a>
+        </aside>
     </div>
-</template>
+    <section class="reco-section"><h2>Sản phẩm tương tự</h2>
+        <div class="reco-grid">
+            <article class="reco-card"><img class="reco-img" src="../Images/Cart/KinhCan.jpg" alt=""/>
+                <div class="reco-info">
+                    <div class="reco-name">Kính Cận</div>
+                    <div class="reco-price"><strong>2.789.000₫</strong></div>
+                    <div class="reco-sub">Kính Cận Đen</div>
+                    <button class="btn add js-add" data-id="KinhCan" data-name="Kính Cận" data-color="Đen"
+                            data-price="2789000" data-img="../Images/Cart/KinhCan.jpg">Thêm vào giỏ
+                    </button>
+                </div>
+            </article>
+            <article class="reco-card"><img class="reco-img" src="../Images/Cart/KinhLao.jpg" alt=""/>
+                <div class="reco-info">
+                    <div class="reco-name">Kính Lão</div>
+                    <div class="reco-price"><strong>1.799.000₫</strong></div>
+                    <div class="reco-sub">Kính Lão Bạc</div>
+                    <button class="btn add js-add" data-id="KinhCan" data-name="Kính lão" data-color="Bạc"
+                            data-price="2789000" data-img="../Images/Cart/KinhLao.jpg">Thêm vào giỏ
+                    </button>
+                </div>
+            </article>
+            <article class="reco-card"><img class="reco-img" src="../Images/Cart/KinhRam.jpg" alt=""/>
+                <div class="reco-info">
+                    <div class="reco-name">Kính Mát</div>
+                    <div class="reco-price"><strong>3.456.000₫</strong></div>
+                    <div class="reco-sub">Kính Mát Đi Biển</div>
+                    <button class="btn add js-add" data-id="KinhCan" data-name="Kính Mát" data-color="Đen"
+                            data-price="2789000" data-img="../Images/Cart/KinhRam.jpg">Thêm vào giỏ
+                    </button>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
 <script src="../JavaScript/Cart.js" defer></script>
 
 <!-- FOOTER -->
