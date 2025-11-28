@@ -1,104 +1,193 @@
+/* =========================================
+   GLOBAL VARIABLES
+========================================= */
 :root {
-  --accent: #463AE8;
-  --bg: #ffffff;
-  --text: #111;
-  --muted: #666;
-  --radius: 12px;
-  --shadow: 0 6px 18px rgba(0,0,0,0.08);
-  font-family: "Inter", sans-serif;
+    --accent: #463AE8;
+    --bg: #ffffff;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --card-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
+    --radius: 12px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
+/* =========================================
+   BASE RESET
+========================================= */
+* {
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Top bar */
-.topbar {
-  background: var(--accent);
-  color: #fff;
-  padding: 8px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-/* Header */
+/* =========================================
+   HEADER
+========================================= */
 .site-header {
-  background: white;
-  border-bottom: 1px solid #eee;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+    border-bottom: 1px solid #eee;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
+/* ---------- Inner Header ---------- */
 .header-inner {
-  max-width: 1200px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px;
+    border-bottom: 2px solid #f5f5f5;
 }
 
+/* ---------- Left Section ---------- */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
 .logo {
-  font-size: 20px;
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--text);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
+.logo-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+}
 .main-nav a {
-  margin: 0 10px;
-  font-weight: 500;
-  text-decoration: none;
-  color: var(--text);
+    margin-right: 14px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
 }
-.main-nav a:hover, .cat.active {
-  color: var(--accent);
-  font-weight: 600;
+.main-nav a:hover {
+    color: #463AE8;
+    text-decoration: underline;
 }
 
-/* Search */
+.main-nav a.active {
+    text-decoration: underline;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* ---------- Right Section ---------- */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* ----- Search Box ----- */
 .search-wrap {
-  display: flex;
-  border: 1px solid #ddd;
-  padding: 6px;
-  border-radius: 8px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e6e6e6;
+    padding: 6px;
+    border-radius: 10px;
 }
 .search-wrap input {
-  border: none;
-  outline: none;
+    border: 0;
+    outline: none;
+    padding: 8px 10px;
+    min-width: 200px;
+    font-size: 14px;
+    background: transparent;
 }
 .search-btn {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
+    border: 0;
+    background: var(--accent);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-/* Category bar */
+/* ----- Header Icons & Buttons ----- */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.icon-btn {
+    background: transparent;
+    border: 0;
+    font-size: 18px;
+    cursor: pointer;
+}
+.btn-outline {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
+}
+.btn-primary {
+    background: var(--accent);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* =========================================
+   CATEGORY BAR
+========================================= */
 .category-bar {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  padding: 12px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-}
-.cat {
-  text-decoration: none;
-  padding: 8px 14px;
-  color: var(--text);
-  font-weight: 600;
-  border-radius: 6px;
-}
-.cat:hover {
-  background: rgba(70,58,232,0.08);
+    display: flex;
+    justify-content: center; /* Căn giữa ngang */
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    border-top: 1px solid #f5f5f5;
+    border-bottom: 1px solid #f5f5f5;
+    background: #fff;
 }
 
+.category-bar .cat {
+    background: transparent;
+    border-radius: 8px;
+    padding: 8px 14px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.category-bar .cat:hover {
+    color: #463AE8;
+    border-color: #eee;
+    background: rgba(70, 58, 232, 0.06);
+}
+
+.category-bar .cat.active {
+    background: rgba(70, 58, 232, 0.08);
+    color: #463AE8;
+    border: 1px solid rgba(70, 58, 232, 0.15);
+    font-weight: 700;
+}
 /* Layout */
 .container {
   display: flex;
@@ -163,7 +252,6 @@ body {
   background: white;
   padding: 12px;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
   text-align: center;
   position: relative;
 }
@@ -201,17 +289,125 @@ body {
   font-size: 12px;
 }
 
-/* AR Button */
 .try-btn {
-  width: 100%;
-  padding: 8px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  margin-top: 6px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    border-radius: var(--radius);
+    font-weight: 600;
+    margin-top: 8px;
+    transition: 0.2s;
 }
+
 .try-btn:hover {
-  opacity: 0.93;
+    opacity: 0.92;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+.site-footer {
+    border-top: none;
+    color: #fff;
+    margin-top: 40px;
+    background-color: #222;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.footer-inner {
+    padding: 0 24px;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-inner div {
+    flex: 1 1 200px;
+}
+
+.site-footer h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #463AE8;
+}
+
+.site-footer p {
+    color: #ccc;
+
+    margin: 8px 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Link mạng xã hội */
+.social-icons a {
+    color: #fff;
+    margin-right: 15px;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #463AE8;
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+@media (max-width: 960px) {
+    .header-inner {
+        padding: 12px;
+    }
+    .search-wrap input {
+        min-width: 120px;
+    }
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .header-left {
+        justify-content: space-between;
+    }
+    .main-nav {
+        display: none;
+    }
+    .news-grid,
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-inner div {
+        flex: unset;
+    }
+    .search-wrap input {
+        min-width: 80px;
+    }
+    .category-bar {
+        flex-wrap: wrap;
+        padding: 10px 12px;
+    }
 }

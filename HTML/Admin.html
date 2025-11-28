@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Admin Dashboard — Mắt kính Nông Lâm</title>
+    <link rel="stylesheet" href="../CSS/StyleOfAdmin.css">
+</head>
+
+<body>
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="brand">
+            <img src="../Images/Logo.jpg" class="logo-img" alt="Logo">
+            <h2>Mắt kính Nông Lâm</h2>
+        </div>
+
+        <nav class="admin-nav">
+            <a href="Admin.html" class="active">Dashboard</a>
+            <a href="AdminCategory.html">Quản lí danh mục</a>
+            <a href="AdminProduct.html">Quản lí sản phẩm</a>
+            <a href="AdminAddProduct.html">Thêm sản phẩm</a>
+            <a href="AdminOrders.html">Quản lí đơn hàng</a>
+            <a href="AdminAccount.html">Quản lí tài khoản</a>
+            <a href="AdminContact.html">Liên hệ</a>
+        </nav>
+
+        <div class="side-footer muted">
+            Admin • Bạn đang đăng nhập với quyền Quản trị
+        </div>
+    </aside>
+
+
+    <!-- MAIN -->
+    <section class="admin-main">
+        <div class="topbar">
+            <div class="search">
+                <input type="search" placeholder="Tìm đơn, sản phẩm, khách...">
+            </div>
+
+            <div class="top-actions">
+                <div class="admin-info">
+                    <div class="admin-text">
+                        <div class="name">Admin 1</div>
+                    </div>
+                    <img src="../Images/Profile/ball.png" class="avatar">
+                </div>
+            </div>
+        </div>
+
+        <div class="page-title">
+            <h1>Dashboard</h1>
+            <div class="title-actions">
+                <button class="btn ghost">Export CSV</button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="stat-big">125,400,000 VNĐ</div>
+                <div class="stat-muted">Doanh thu (30 ngày)</div>
+            </div>
+            <div class="card">
+                <div class="stat-big">1,248</div>
+                <div class="stat-muted">Tổng số đơn</div>
+            </div>
+            <div class="card">
+                <div class="stat-big">277</div>
+                <div class="stat-muted">Khách hàng mới</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="left">
+                <h3>Đơn hàng mới</h3>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>MÃ</th>
+                        <th>KHÁCH HÀNG</th>
+                        <th>SỐ ĐIỆN THOẠI</th>
+                        <th>SẢN PHẨM</th>
+                        <th>SỐ LƯỢNG</th>
+                        <th>TRẠNG THÁI</th>
+                        <th>TỔNG</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>OD1023</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>0978276791</td>
+                        <td>Kính Cận C07</td>
+                        <td>1</td>
+                        <td><span class="stock-low">Chờ xử lý</span></td>
+                        <td>1,250,000VNĐ</td>
+                        <td class="text-right">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>OD1047</td>
+                        <td>Trần Thị B</td>
+                        <td>0813939729</td>
+                        <td>Kính Mát R27</td>
+                        <td>1</td>
+                        <td><span class="stock-high">Hoàn tất</span></td>
+                        <td>990,000 VNĐ</td>
+                        <td class="text-right">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>OD1033</td>
+                        <td>Phạm C</td>
+                        <td>0385667219</td>
+                        <td>Kính Áp Tròng</td>
+                        <td>1</td>
+                        <td><span class="stock-out ">Đã hủy</span></td>
+                        <td>320,000 VNĐ</td>
+                        <td class="text-right">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+        <div class="card">
+            <h3>Danh sách sản phẩm</h3>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>SẢN PHẨM</th>
+                    <th>LOẠI</th>
+                    <th>GIÁ</th>
+                    <th>KHO</th>
+                    <th>TRẠNG THÁI</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td class="prod-info">
+                        <img class="admin-thumb" src="../Images/KinhCan/KinhCan3.png">
+                        <div>
+                            <div class="fw">Kính Cận C07</div>
+                            <div class="muted small-text">Mã: C07</div>
+                        </div>
+                    </td>
+                    <td>Kính Cận</td>
+                    <td>1,250,000 </td>
+                    <td>120</td>
+                    <td><span class="stock-high">Nhiều</span></td>
+                    <td class="text-right">
+                        <button class="btn ghost">Sửa</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="prod-info">
+                        <img class="admin-thumb" src="../Images/KinhMat/KinhMat1.jpg">
+                        <div>
+                            <div class="fw">Kính Mát R15</div>
+                            <div class="muted small-text">Mã: R15</div>
+                        </div>
+                    </td>
+                    <td>Kính Mát</td>
+                    <td>990,000</td>
+                    <td>0</td>
+                    <td><span class="stock-out">Hết</span></td>
+                    <td class="text-right">
+                        <button class="btn ghost">Sửa</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="prod-info">
+                        <img class=" admin-thumb" src="../Images/KinhMat/KinhMat2.jpg">
+                        <div>
+                            <div class="fw">Kính Mát R27</div>
+                            <div class="muted small-text">Mã: R27</div>
+                        </div>
+                    </td>
+                    <td>Kính Mát</td>
+                    <td>990,000</td>
+                    <td>10</td>
+                    <td><span class="stock-low">Ít</span></td>
+                    <td class="text-right">
+                        <button class="btn ghost">Sửa</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+</div>
+</body>
+</html>
