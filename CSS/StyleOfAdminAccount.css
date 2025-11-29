@@ -150,19 +150,14 @@ tbody td {
 }
 
 /* trạng thái */
-.stock-high {
+.open {
     font-weight: bold;
     background: #ecebff;
     color: green;
 }
 
-.stock-low {
-    font-weight: bold;
-    background: #ecebff;
-    color: orange;
-}
 
-.stock-out {
+.close {
     font-weight: bold;
     background: #ecebff;
     color: red;

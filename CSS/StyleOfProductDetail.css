@@ -514,6 +514,88 @@ html, body {
     color: #ccc;
 }
 
+/*sản phẩm tương tự*/
+.reco-section {
+    padding: 10px 20px 40px;
+}
+
+.reco-section h2 {
+    text-align: center;
+    font-size: 24px;
+    margin: 8px 0 18px;
+    font-weight: 800;
+}
+
+.reco-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.reco-card {
+    background: #fff;
+    border: 1px solid #e6e8f2;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.reco-img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: #f7f7fb;
+    border-radius: 12px;
+    border: 1px solid #f0f1f6;
+}
+
+.reco-info {
+    display: grid;
+    gap: 6px;
+}
+
+.reco-name {
+    font-weight: 800;
+}
+
+.reco-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.muted {
+    color: #6b7280;
+}
+
+.reco-colors {
+    display: flex;
+    gap: 8px;
+}
+
+.reco-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    border: 2px solid #fff;
+    outline: 1px solid #e1e3ef;
+}
+
+.btn.add {
+    margin-top: 6px;
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #4b33ff;
+    background: #4b33ff;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+}
+
 /* Back To Top*/
 #backToTop {
     position: fixed;
@@ -580,7 +662,6 @@ html, body {
     line-height: 1.6;
 }
 
-/* Link mạng xã hội */
 .social-icons a {
     color: #fff;
     margin-right: 15px;
@@ -600,12 +681,15 @@ html, body {
     .header-inner {
         padding: 12px;
     }
+
     .search-wrap input {
         min-width: 120px;
     }
+
     .news-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -617,12 +701,15 @@ html, body {
         align-items: stretch;
         gap: 12px;
     }
+
     .header-left {
         justify-content: space-between;
     }
+
     .main-nav {
         display: none;
     }
+
     .news-grid,
     .product-grid {
         grid-template-columns: 1fr;
@@ -636,9 +723,11 @@ html, body {
     .footer-inner div {
         flex: unset;
     }
+
     .search-wrap input {
         min-width: 80px;
     }
+
     .category-bar {
         flex-wrap: wrap;
         padding: 10px 12px;
