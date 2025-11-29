@@ -77,20 +77,32 @@
         <h4>Giới Tính</h4>
         <label><input type="radio" name="gioitinh"> Nam </label>
         <label><input type="radio" name="gioitinh"> Nữ </label>
-        <h4>Giá</h4>
-        <label> <input type="radio" name="gia"> Dưới 500k</label>
-        <label> <input type="radio" name="gia"> 500k - 1tr </label>
-        <label> <input type="radio" name="gia"> Trên 1tr</label>
         <h4>Kiểu dáng</h4>
             <label><input type="radio" name="kieudang"> Vuông</label>
             <label><input type="radio" name="kieudang"> Tròn</label>
             <label><input type="radio" name="kieudang"> Oval</label>
             <label><input type="radio" name="kieudang"> Mắt mèo</label>
-        <p><b> Hoặc Nhập Giá Từ</b></p>
-        <input type="number" placeholder="thấp nhất 100 000 đồng"
-               class="price-input"
-               min="100000"
-               step="10000">
+        <h4>Độ cận</h4>
+        <label>
+            <input
+                    type="number"
+                    class="nearsightedness-input"
+                    placeholder="Nhập từ -0.00 đến -8.00"
+                    min="-8.00"
+                    max="0"
+                    step="0.25"
+            >
+        </label>
+
+        <h4>Giá</h4>
+        <label> <input type="radio" name="gia"> Dưới 500k</label>
+        <label> <input type="radio" name="gia"> 500k - 1tr </label>
+        <label> <input type="radio" name="gia"> Trên 1tr</label>
+
+        <h4>Sắp xếp theo giá</h4>
+        <label><input type="radio" name="sortPrice" value="desc"> Cao đến thấp</label>
+        <label><input type="radio" name="sortPrice" value="asc"> Thấp đến cao</label>
+
         <button class="btn">Lọc</button>
     </aside>
 
@@ -103,9 +115,9 @@
                 <span class="tag purple">Best Seller</span>
                 <img src="../Images/KinhCan/KinhCan1.jpg">
                 <h4>Greene Classic</h4>
-                <p class="price">₫650,000 <span class="old-price">₫890,000</span></p>
+                <p class="price">650,000 VNĐ <span class="old-price">890,000 VNĐ</span></p>
                 <p class="rating">⭐ 4.9</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
 
             </div>
 
@@ -113,9 +125,9 @@
                 <span class="tag green">New</span>
                 <img src="../Images/KinhCan/KinhCan2.png">
                 <h4>Boston Retro</h4>
-                <p class="price">₫490,000 <span class="old-price">₫750,000</span></p>
+                <p class="price">490,000 VNĐ <span class="old-price">750,000 VNĐ</span></p>
                 <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
 
             </div>
 
@@ -123,9 +135,9 @@
                 <span class="tag pink">Hot</span>
                 <img src="../Images/KinhCan/KinhCan3.png">
                 <h4>Tokyo Slim</h4>
-                <p class="price">₫420,000</p>
+                <p class="price">420,000 VNĐ</p>
                 <p class="rating">⭐ 4.7</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
 
             </div>
 
@@ -133,9 +145,9 @@
                 <span class="tag green">New</span>
                 <img src="../Images/KinhCan/KinhCan2.png">
                 <h4>Boston Retro</h4>
-                <p class="price">₫490,000 <span class="old-price">₫750,000</span></p>
+                <p class="price">490,000 VNĐ <span class="old-price">750,000 VNĐ</span></p>
                 <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
 
             </div>
 
@@ -143,9 +155,9 @@
                 <span class="tag pink">Hot</span>
                 <img src="../Images/KinhCan/KinhCan3.png">
                 <h4>Tokyo Slim</h4>
-                <p class="price">₫420,000</p>
+                <p class="price">420,000 VNĐ</p>
                 <p class="rating">⭐ 4.7</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
 
             </div>
 
@@ -153,9 +165,9 @@
                 <span class="tag purple">Best Seller</span>
                 <img src="../Images/KinhCan/KinhCan1.jpg">
                 <h4>Greene Classic</h4>
-                <p class="price">₫650,000 <span class="old-price">₫890,000</span></p>
+                <p class="price">650,000 VNĐ <span class="old-price">890,000 VNĐ</span></p>
                 <p class="rating">⭐ 4.9</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
 
             </div>
 
@@ -163,9 +175,9 @@
                 <span class="tag green">New</span>
                 <img src="../Images/KinhCan/KinhCan2.png">
                 <h4>Boston Retro</h4>
-                <p class="price">₫490,000 <span class="old-price">₫750,000</span></p>
+                <p class="price">490,000 VNĐ <span class="old-price">750,000 VNĐ</span></p>
                 <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
         </div>
     </section>
