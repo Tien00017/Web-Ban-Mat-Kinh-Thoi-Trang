@@ -360,6 +360,12 @@ small.error {
     gap: 10px;
     margin-top: 6px;
 }
+.history-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 6px;
+}
 
 .btn {
     border: 1px solid #e6e8f2;
@@ -370,6 +376,11 @@ small.error {
     cursor: pointer;
     transition: transform .06s ease, box-shadow .2s ease, background .2s ease;
     box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
+    display: inline-block;
+    text-decoration: none; /* bỏ gạch chân */
+    font-weight: 600;      /* chỉnh độ đậm chữ */
+    text-align: center;
+    font-size: 15px;
 }
 
 .btn:hover {
