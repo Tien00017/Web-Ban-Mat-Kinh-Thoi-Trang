@@ -69,19 +69,40 @@
 
     <div class="container">
         <aside class="sidebar">
-        <h3> Lọc </h3>
-    <h4>Loại áp tròng</h4>
-        <label><input type="radio" name="type"> Trong suốt</label>
-        <label><input type="radio" name="type"> Màu</label>
+            <h3>Lọc</h3>
 
-        <h4>Độ cận</h4>
-        <input type="number" class="price-input" placeholder="-0.00 đến -8.00"
-               min="-8.00" max="0" step="0.25">
+            <h4>Màu áp tròng</h4>
+            <label><input type="radio" name="lensColor" value="trang"> Trắng</label>
+            <label><input type="radio" name="lensColor" value="xanh"> Xanh</label>
+            <label><input type="radio" name="lensColor" value="do"> Đỏ</label>
+            <label><input type="radio" name="lensColor" value="vang"> Vàng</label>
 
-        <button class="btn">Lọc</button>
-    </aside>
+            <h4>Độ cận</h4>
+            <label>
+                <input
+                        type="number"
+                        class="nearsightedness-input"
+                        placeholder="Nhập từ -0.00 đến -8.00"
+                        min="-8.00"
+                        max="0"
+                        step="0.25"
+                >
+            </label>
 
-    <section class="products">
+            <h4>Giá</h4>
+            <label> <input type="radio" name="gia"> Dưới 500k</label>
+            <label> <input type="radio" name="gia"> 500k - 1tr </label>
+            <label> <input type="radio" name="gia"> Trên 1tr</label>
+
+            <h4>Sắp xếp theo giá</h4>
+            <label><input type="radio" name="sortPrice" value="desc"> Cao đến thấp</label>
+            <label><input type="radio" name="sortPrice" value="asc"> Thấp đến cao</label>
+
+            <button class="btn">Lọc</button>
+        </aside>
+
+
+        <section class="products">
         <h2>Áp Tròng Hot</h2>
 
         <div class="product-grid">
@@ -90,71 +111,80 @@
                 <span class="tag pink">Hot</span>
                 <img src="../Images/KinhApTrong/KinhApTrong1.jpg" alt="Gray Lens">
                 <h4>Gray Lens</h4>
-                <p class="price">₫120,000</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <p class="price">120,000 VNĐ</p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
 
             <div class="product-card">
                 <span class="tag green">New</span>
                 <img src="../Images/HomePage/KinhApTrong2.jpg" alt="Brown Natural">
                 <h4>Brown Natural</h4>
-                <p class="price">₫150,000</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <p class="price">150,000 VNĐ</p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
 
             <div class="product-card">
                 <span class="tag purple">Best Seller</span>
                 <img src="../Images/HomePage/KinhApTrong3.jpg" alt="Crystal Clear">
                 <h4>Crystal Clear</h4>
-                <p class="price">₫100,000</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <p class="price">100,000 VNĐ</p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
 
             <div class="product-card">
                 <span class="tag pink">Hot</span>
                 <img src="../Images/KinhApTrong/KinhApTrong1.jpg" alt="Gray Lens">
                 <h4>Gray Lens</h4>
-                <p class="price">₫120,000</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <p class="price">120,000 VNĐ</p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
 
             <div class="product-card">
                 <span class="tag green">New</span>
                 <img src="../Images/HomePage/KinhApTrong2.jpg" alt="Brown Natural">
                 <h4>Brown Natural</h4>
-                <p class="price">₫150,000</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <p class="price">150,000 VNĐ</p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
 
             <div class="product-card">
                 <span class="tag purple">Best Seller</span>
                 <img src="../Images/HomePage/KinhApTrong3.jpg" alt="Crystal Clear">
                 <h4>Crystal Clear</h4>
-                <p class="price">₫100,000</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <p class="price">100,000 VNĐ</p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
             <div class="product-card">
                 <span class="tag pink">Hot</span>
                 <img src="../Images/KinhApTrong/KinhApTrong1.jpg" alt="Gray Lens">
                 <h4>Gray Lens</h4>
-                <p class="price">₫120,000</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <p class="price">120,000 VNĐ</p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
 
             <div class="product-card">
                 <span class="tag green">New</span>
                 <img src="../Images/HomePage/KinhApTrong2.jpg" alt="Brown Natural">
                 <h4>Brown Natural</h4>
-                <p class="price">₫150,000</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <p class="price">150,000 VNĐ</p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
 
             <div class="product-card">
                 <span class="tag purple">Best Seller</span>
                 <img src="../Images/HomePage/KinhApTrong3.jpg" alt="Crystal Clear">
                 <h4>Crystal Clear</h4>
-                <p class="price">₫100,000</p>
-                <a href="ProductDetail.html" class="try-btn">Thử kính AR</a>
+                <p class="price">100,000 VNĐ</p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
             </div>
 
         </div>

@@ -75,7 +75,7 @@
 </header>
 
 
-<section class="product-detail">
+<section class="product-detai   l">
 
     <!-- Ảnh sản phẩm bên trái-->
     <div class="product-images">
@@ -95,10 +95,15 @@
 
     <!--Thông tin -->
     <div class="product-info">
-
+        
         <h1 class="product-name">Kính thời trang bảo vệ mắt</h1>
         <p class="product-price">Giá: <strong>1.350.000đ</strong></p>
-
+        <div class="rating-box">
+          <span class="stars">
+            ★★★★☆
+          </span>
+             <span class="rating-count">(128 đánh giá)</span>
+        </div>
         <div class="color-section">
             <p>Màu gọng:</p>
             <div class="color-options">
@@ -252,7 +257,56 @@
     <div class="comment-list" id="commentList">
         <!-- bình luận sẽ được thêm tự động -->
     </div>
+    <!-- BÌNH LUẬN SẢN PHẨM -->
+<section class="comment-section">
+    <h2>Bình luận sản phẩm</h2>
 
+    <!-- Form nhập bình luận -->
+    <div class="comment-form">
+        <textarea id="commentInput" placeholder="Viết bình luận của bạn..." rows="3"></textarea>
+        <button id="sendComment">Gửi bình luận</button>
+    </div>
+
+    <!-- Danh sách bình luận -->
+    <div class="comment-list" id="commentList">
+        <!-- bình luận sẽ được thêm tự động -->
+    </div>
+
+</section>
+
+<section class="reco-section"><h2>Sản phẩm tương tự</h2>
+    <div class="reco-grid">
+        <article class="reco-card"><img class="reco-img" src="../Images/Cart/KinhCan.jpg" alt=""/>
+            <div class="reco-info">
+                <div class="reco-name">Kính Cận</div>
+                <div class="reco-price"><strong>2.789.000 VNĐ</strong></div>
+                <div class="reco-sub">Kính Cận Đen</div>
+                <button class="btn add js-add" data-id="KinhCan" data-name="Kính Cận" data-color="Đen"
+                        data-price="2789000" data-img="../Images/Cart/KinhCan.jpg">Xem sản phẩm
+                </button>
+            </div>
+        </article>
+        <article class="reco-card"><img class="reco-img" src="../Images/Cart/KinhLao.jpg" alt=""/>
+            <div class="reco-info">
+                <div class="reco-name">Kính Lão</div>
+                <div class="reco-price"><strong>1.799.000 VNĐ</strong></div>
+                <div class="reco-sub">Kính Lão Bạc</div>
+                <button class="btn add js-add" data-id="KinhCan" data-name="Kính lão" data-color="Bạc"
+                        data-price="2789000" data-img="../Images/Cart/KinhLao.jpg">Xem sản phẩm
+                </button>
+            </div>
+        </article>
+        <article class="reco-card"><img class="reco-img" src="../Images/Cart/KinhRam.jpg" alt=""/>
+            <div class="reco-info">
+                <div class="reco-name">Kính Mát</div>
+                <div class="reco-price"><strong>3.456.000 VNĐ</strong></div>
+                <div class="reco-sub">Kính Mát Đi Biển</div>
+                <button class="btn add js-add" data-id="KinhCan" data-name="Kính Mát" data-color="Đen"
+                        data-price="2789000" data-img="../Images/Cart/KinhRam.jpg">Xem sản phẩm
+                </button>
+            </div>
+        </article>
+    </div>
 </section>
 <!--rating-->
 <section class="rating-section">

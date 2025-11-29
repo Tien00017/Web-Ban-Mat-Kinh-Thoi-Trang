@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mắt kính Nông Lâm - Tin tức và sự kiện</title>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">-->
+    <link rel="stylesheet" href="../CSS/StyleOfCheckout.css">
     <link rel="stylesheet" href="../CSS/StyleOfHomePage.css">
-    <link rel="stylesheet" href="../CSS/StyleOfNews&Event.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 <body>
-<!-- HEADER (giữ nguyên từ trang chủ) -->
+
+<!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
         <div class="header-left">
@@ -20,7 +20,7 @@
             <nav class="main-nav" aria-label="Chính">
                 <a href="HomePage.html">Trang chủ</a>
                 <a href="AboutUs.html">Giới thiệu</a>
-                <a href="Contact.html">Liên hệ</a>
+                <a href="Contact.html" >Liên hệ</a>
             </nav>
         </div>
 
@@ -28,7 +28,6 @@
             <div class="search-wrap">
                 <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
                 <button class="search-btn" aria-label="Tìm">
-                    <!-- icon tìm kiếm -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
@@ -38,7 +37,7 @@
 
             <div class="header-icons">
                 <a href="Cart.html" aria-label="Giỏ hàng">
-                    <button class="icon-btn">
+                    <button class="icon-btn" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                             <circle cx="9" cy="21" r="1"/>
                             <circle cx="20" cy="21" r="1"/>
@@ -62,6 +61,7 @@
         </div>
     </div>
 
+    <!-- CATEGORY BAR -->
     <nav class="category-bar">
         <a href="Kinh_Can.html" class="cat">Kính Cận</a>
         <a href="Kinh_Mat.html" class="cat">Kính Mát</a>
@@ -70,62 +70,106 @@
     </nav>
 </header>
 
-<main class="container">
-    <!-- BANNER SỰ KIỆN / FLASH SALE -->
-    <section class="flash-banner">
-        <div class="flash-banner-inner">
-            <h1>FLASH SALE – GIẢM SỐC CÓ HẠN</h1>
-            <p>Ưu đãi lên đến 70% + “Săn” sản phẩm cực nhanh trong thời gian giới hạn</p>
-            <div class="flash-countdown" id="countdown">
-                <!-- Đồng hồ đếm ngược -->
-                <span id="days">00</span>:
-                <span id="hours">00</span>:
-                <span id="minutes">00</span>:
-                <span id="seconds">00</span>
+<section class="checkout-wrapper">
+    <div class="checkout-container">
+
+        <div class="checkout-left">
+            <h2>Thông tin thanh toán</h2>
+
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" placeholder="Nhập họ tên" required>
             </div>
-            <a class="btn-primary flash-btn" href="#flash-items">Xem ngay</a>
+
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="tel" placeholder="Nhập số điện thoại" required>
+            </div>
+
+            <div class="form-group">
+                <label>Địa chỉ giao hàng</label>
+                <input type="text" placeholder="Nhập địa chỉ" required>
+            </div>
+
+            <div class="payment-box">
+                <h3>Phương thức thanh toán</h3>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay" checked>
+                    <span>Thanh toán khi giao hàng (COD)</span>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>Chuyển khoản qua ngân hàng</span>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>
+                        Thanh toán qua cổng VNPAY (ATM / Visa / MasterCard / JCB / QR Pay)
+                    </span>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>Thanh toán qua ví MoMo</span>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>Thanh toán qua ZaloPay</span>
+                </label>
+            </div>
+
+            <a href="OrderHistory.html" class="btn-order">Đặt hàng</a>
         </div>
-    </section>
 
-    <!-- SẢN PHẨM FLASH SALE -->
-    <section class="flash-items" id="flash-items">
-        <h2>Flash Sale Hot Nhất</h2>
-        <div class="product-grid flash-grid">
-            <!-- 1 item flash sale -->
-            <div class="product-card flash-card">
-                <a href="ProductDetail.html">
-                    <img src="../Images/HomePage/GongKinh1.png" alt="Kính Flash 1">
-                    <h4>Kính A</h4>
-                    <p class="price-old">1.200.000 VNĐ</p>
-                    <p class="price-sale">299.000 VNĐ</p>
-                    <div class="buy-now">Mua ngay</div>
-                </a>
+        <div class="checkout-right">
+            <h3>Tóm tắt đơn hàng</h3>
+
+            <div class="summary-item">
+                <img src="../Images/ProductDetail/Kinh1.jpg" alt="">
+                <div>
+                    <p>Kính thời trang bảo vệ mắt</p>
+                    <strong>1.350.000đ</strong>
+                </div>
             </div>
 
-            <div class="product-card flash-card">
-                <a href="ProductDetail.html">
-                    <img src="../Images/HomePage/KinhCan2.png" alt="Kính Flash 2">
-                    <h4>Kính B</h4>
-                    <p class="price-old">950.000 VNĐ</p>
-                    <p class="price-sale">249.000 VNĐ</p>
-                    <div class="buy-now">Mua ngay</div>
-                </a>
+            <div class="summary-line">
+                <span>Tạm tính</span>
+                <strong>1.350.000đ</strong>
             </div>
 
-            <div class="product-card flash-card">
-                <a href="ProductDetail.html">
-                    <img src="../Images/HomePage/GongKinh2.jpg" alt="Kính Flash 3">
-                    <h4>Kính Flash C</h4>
-                    <p class="price-old">1.500.000 VNĐ</p>
-                    <p class="price-sale">399.000 VNĐ</p>
-                    <div class="buy-now">Mua ngay</div>
-                </a>
+            <div class="summary-line">
+                <span>Phí ship</span>
+                <strong>20.000đ</strong>
+            </div>
+
+            <div class="voucher-box">
+    <label for="voucher">Mã giảm giá</label>
+    <div class="voucher-input">
+        <input type="text" id="voucher" placeholder="Nhập mã giảm giá...">
+        <button type="button" id="applyVoucher">Áp dụng</button>
+    </div>
+
+    <p id="voucherMessage" class="voucher-msg"></p>
+</div>
+
+<div class="summary-line">
+    <span>Giảm giá</span>
+    <strong id="discountAmount">0đ</strong>
+</div>
+
+
+            <div class="summary-total">
+                <span>Tổng tiền</span>
+                <strong>1.370.000đ</strong>
             </div>
         </div>
-    </section>
-</main>
+    </div>
+</section>
 
-<!-- FOOTER giữ nguyên từ trang chủ -->
 <footer class="site-footer">
     <div class="footer-inner">
 
@@ -157,6 +201,5 @@
     </div>
 </footer>
 
-<script src="../JavaScript/FlashSale.js"></script>
 </body>
 </html>
