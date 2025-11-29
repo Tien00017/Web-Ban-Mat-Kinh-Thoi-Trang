@@ -1,0 +1,124 @@
+:root {
+    --accent: #463AE8;
+    --bg: #ffffff;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --card-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
+    --radius: 12px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.45;
+}
+
+.order-history-wrapper {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.order-history-wrapper h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* ORDER ITEM */
+.order-item {
+    background: #fff;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+/* HEADER */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.status {
+    padding: 2px 8px;
+    border-radius: var(--radius);
+    color: #fff;
+    font-size: 14px;
+}
+
+.status.pending {
+    background-color: #f0ad4e;
+}
+
+.status.delivered {
+    background-color: #5cb85c;
+}
+
+/* PRODUCTS */
+.order-products .product {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: var(--radius);
+    background: #fafafa;
+    border: 1px solid #ddd;
+}
+
+.order-products .product img {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius);
+    object-fit: cover;
+}
+
+.order-products .product div p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.order-products .product div span {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.order-products .product div strong {
+    display: block;
+    margin-top: 4px;
+}
+
+/* ORDER SUMMARY */
+.order-summary {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .order-header {
+        flex-direction: column;
+        gap: 6px;
+    }
+    .order-products .product {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .order-products .product div strong {
+        margin-top: 6px;
+    }
+}
