@@ -212,6 +212,28 @@ html, body {
   margin: 6px 0;
 }
 
+.nearsightedness-input {
+    width: 100%;
+    padding: 8px;
+    border-radius: var(--radius);
+    border: 1px solid #ddd;
+    margin-top: 6px;
+}
+
+.btn {
+    width: 100%;
+    padding: 8px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: 10px;
+}
+.btn:hover {
+    opacity: 0.9;
+}
+
 /* Products */
 .products {
   flex: 1;
@@ -255,6 +277,7 @@ html, body {
   color: var(--muted);
   font-size: 12px;
 }
+
 .try-btn {
     display: block;
     width: 100%;
@@ -272,6 +295,7 @@ html, body {
 .try-btn:hover {
     opacity: 0.92;
 }
+
 
 /* =========================================
    FOOTER
