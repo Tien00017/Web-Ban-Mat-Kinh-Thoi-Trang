@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/StyleOfCheckout.css">
+</head>
+<body>
 
+<header class="site-header">
+    <div class="header-inner">
+        <div class="header-left">
+            <a class="logo" href="#">
+                <img src="../Images/Logo.jpg" class="logo-img">Mắt kính Nông Lâm
+            </a>
+
+            <nav class="main-nav">
+                <a href="HomePage.html">Trang chủ</a>
+                <a href="AboutUs.html">Giới thiệu</a>
+                <a href="Contact.html">Liên hệ</a>
+            </nav>
+        </div>
+
+        <div class="header-right">
+            <a href="Cart.html">Giỏ hàng</a>
+            <a href="Profile.html">Tài khoản</a>
+        </div>
+    </div>
+</header>
+
+<section class="checkout-wrapper">
+    <div class="checkout-container">
+
+        <!-- FORM THANH TOÁN -->
+        <div class="checkout-left">
+            <h2>Thông tin thanh toán</h2>
+
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" placeholder="Nhập họ tên" required>
+            </div>
+
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="tel" placeholder="Nhập số điện thoại" required>
+            </div>
+
+            <div class="form-group">
+                <label>Địa chỉ giao hàng</label>
+                <input type="text" placeholder="Nhập địa chỉ" required>
+            </div>
+
+            <!-- PHƯƠNG THỨC THANH TOÁN -->
+            <div class="payment-box">
+                <h3>Phương thức thanh toán</h3>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay" checked>
+                    <span>Thanh toán khi giao hàng (COD)</span>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>Chuyển khoản qua ngân hàng</span>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>
+                        Thanh toán online qua cổng VNPAY (ATM / Visa / MasterCard / JCB / QR Pay)
+                    </span>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>Thanh toán online qua ví MoMo</span>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>Thanh toán online qua PayPal</span>
+                </label>
+            </div>
+
+            <button class="btn-order">Đặt hàng</button>
+        </div>
+
+        <div class="checkout-right">
+            <h3>Tóm tắt đơn hàng</h3>
+
+            <div class="summary-item">
+                <img src="../Images/ProductDetail/Kinh1.jpg" alt="">
+                <div>
+                    <p>Kính thời trang bảo vệ mắt</p>
+                    <strong>1.350.000đ</strong>
+                </div>
+            </div>
+
+            <div class="summary-line">
+                <span>Tạm tính</span>
+                <strong>1.350.000đ</strong>
+            </div>
+
+            <div class="summary-line">
+                <span>Phí ship</span>
+                <strong>20.000đ</strong>
+            </div>
+
+            <div class="voucher-box">
+    <label for="voucher">Mã giảm giá</label>
+    <div class="voucher-input">
+        <input type="text" id="voucher" placeholder="Nhập mã giảm giá...">
+        <button type="button" id="applyVoucher">Áp dụng</button>
+    </div>
+
+    <p id="voucherMessage" class="voucher-msg"></p>
+</div>
+
+<div class="summary-line">
+    <span>Giảm giá</span>
+    <strong id="discountAmount">0đ</strong>
+</div>
+
+
+            <div class="summary-total">
+                <span>Tổng tiền</span>
+                <strong>1.370.000đ</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="site-footer">
+    <div class="footer-inner">© 2025 Mắt kính Nông Lâm</div>
+</footer>
+
+</body>
+</html>
