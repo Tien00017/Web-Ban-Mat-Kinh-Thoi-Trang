@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-:root{
+:root {
     --accent: #463AE8;
     --accent-2: #6B63F2;
     --accent-soft: #ECEBFF;
@@ -14,12 +14,16 @@
     --muted: #6b7280;
     --border: #e6e8f2;
 
-    --card-shadow: 0 6px 18px rgba(70,58,232,0.06);
+    --card-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
     --radius: 12px;
 
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
-html, body { height: 100%; }
+
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: inherit;
     background: var(--bg);
@@ -88,7 +92,7 @@ body {
 
 .admin-nav a:hover,
 .admin-nav a.active {
-    background: rgba(70,58,232,0.18);
+    background: rgba(70, 58, 232, 0.18);
     color: #fff;
     transform: translateY(-1px);
 }
@@ -96,7 +100,7 @@ body {
 .side-footer {
     margin-top: auto;
     font-size: 13px;
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
     text-align: center;
 }
 
@@ -129,7 +133,7 @@ body {
     background: #fff;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(70,58,232,0.06);
+    box-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
 }
 
 /* RIGHT (form) */
@@ -139,7 +143,7 @@ body {
     background: #fff;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(70,58,232,0.06);
+    box-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
     height: fit-content;
 }
 
@@ -163,7 +167,7 @@ tbody td {
 
 /* HOVER */
 tbody tr:hover {
-    background: rgba(70,58,232,0.04);
+    background: rgba(70, 58, 232, 0.04);
 }
 
 /* PRODUCT INFO */
@@ -181,13 +185,30 @@ tbody tr:hover {
 }
 
 /* TEXT */
-.fw { font-weight: 600; }
-.muted { color: #777; font-size: 13px; }
+.fw {
+    font-weight: 600;
+}
+
+.muted {
+    color: #777;
+    font-size: 13px;
+}
 
 /* STOCK TAGS */
-.stock-high { color: green; font-weight: 600; }
-.stock-low { color: orange; font-weight: 600; }
-.stock-out { color: red; font-weight: 600; }
+.stock-high {
+    color: green;
+    font-weight: 600;
+}
+
+.stock-low {
+    color: orange;
+    font-weight: 600;
+}
+
+.stock-out {
+    color: red;
+    font-weight: 600;
+}
 
 /* BUTTONS */
 .btn {
