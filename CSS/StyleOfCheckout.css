@@ -1,1 +1,250 @@
+/* =========================================
+   GLOBAL VARIABLES
+========================================= */
+:root {
+    --accent: #463AE8;
+    --bg: #ffffff;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --card-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
+    --radius: 12px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* =========================================
+   BASE RESET
+========================================= */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================
+   CHECKOUT PAGE LAYOUT
+========================================= */
+
+.checkout-wrapper {
+    padding: 30px;
+    background: var(--bg);
+}
+
+.checkout-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    gap: 24px;
+}
+
+/* =========================================
+   LEFT SECTION (Thông tin giao hàng)
+========================================= */
+
+.checkout-left {
+    flex: 2;
+    background: #fff;
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    border: 1px solid #eee;
+}
+
+.checkout-left h2 {
+    margin-bottom: 18px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* Input Fields */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--radius);
+    border: 1px solid #ddd;
+    background: #fafafa;
+    font-size: 15px;
+}
+
+.form-group input:focus {
+    border-color: var(--accent);
+    background: #fff;
+    outline: none;
+}
+
+/* =========================================
+   PAYMENT METHODS
+========================================= */
+
+.payment-box {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--card-shadow);
+    border: 1px solid #eee;
+}
+
+.payment-box h3 {
+    margin-bottom: 14px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.payment-option {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+    background: #fafafa;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: 0.2s ease;
+}
+
+.payment-option:hover {
+    background: rgba(70, 58, 232, 0.06);
+    border-color: var(--accent);
+}
+
+.payment-option input {
+    transform: scale(1.2);
+    margin-top: 4px;
+}
+
+/* ORDER BUTTON */
+.btn-order {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: white;
+    border-radius: var(--radius);
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-order:hover {
+    opacity: 0.9;
+}
+
+/* =========================================
+   RIGHT SECTION (Tóm tắt đơn hàng)
+========================================= */
+
+.checkout-right {
+    flex: 1;
+    background: #fff;
+    padding: 22px;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    border: 1px solid #eee;
+}
+
+.checkout-right h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.summary-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.summary-item img {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius);
+    object-fit: cover;
+}
+
+.summary-line, .summary-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.summary-total {
+    border-top: 1px solid #ddd;
+    margin-top: 12px;
+    padding-top: 12px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* =========================================
+   VOUCHER BOX
+========================================= */
+
+.voucher-box label {
+    font-weight: 600;
+}
+
+.voucher-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.voucher-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+    background: #fafafa;
+}
+
+.voucher-input input:focus {
+    border-color: var(--accent);
+    background: white;
+}
+
+.voucher-input button {
+    background: var(--accent);
+    color: white;
+    border-radius: var(--radius);
+    border: none;
+    padding: 10px 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.voucher-input button:hover {
+    opacity: 0.88;
+}
+
+.voucher-msg {
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (max-width: 960px) {
+    .checkout-container {
+        flex-direction: column;
+    }
+}
 
