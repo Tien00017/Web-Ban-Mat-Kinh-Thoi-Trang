@@ -176,6 +176,12 @@ input, textarea {
     border: 1px solid #ddd;
     font-size: 15px;
 }
+.productType{
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+}
 
 textarea {
     resize: vertical;

@@ -514,6 +514,88 @@ html, body {
     color: #ccc;
 }
 
+/*sản phẩm tương tự*/
+.reco-section {
+    padding: 10px 20px 40px;
+}
+
+.reco-section h2 {
+    text-align: center;
+    font-size: 24px;
+    margin: 8px 0 18px;
+    font-weight: 800;
+}
+
+.reco-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.reco-card {
+    background: #fff;
+    border: 1px solid #e6e8f2;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.reco-img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: #f7f7fb;
+    border-radius: 12px;
+    border: 1px solid #f0f1f6;
+}
+
+.reco-info {
+    display: grid;
+    gap: 6px;
+}
+
+.reco-name {
+    font-weight: 800;
+}
+
+.reco-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.muted {
+    color: #6b7280;
+}
+
+.reco-colors {
+    display: flex;
+    gap: 8px;
+}
+
+.reco-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    border: 2px solid #fff;
+    outline: 1px solid #e1e3ef;
+}
+
+.btn.add {
+    margin-top: 6px;
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #4b33ff;
+    background: #4b33ff;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+}
+
 /* Back To Top*/
 #backToTop {
     position: fixed;
@@ -538,6 +620,115 @@ html, body {
 #backToTop:hover {
     transform: translateY(-4px);
     background: #463AE8;
+}
+/*RATING*/
+.rating-section {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+}
+
+.rating-title {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+/* SUMMARY */
+.rating-summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.rating-score {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.rating-stars i {
+    color: #ffa500;
+    font-size: 22px;
+}
+
+.count {
+    color: #808080;
+}
+
+/* REVIEW ITEM */
+.review-item {
+    display: flex;
+    gap: 15px;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Avatar */
+.avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e6e8f2;
+}
+
+/* Right side */
+.r-right {
+    flex: 1;
+}
+
+/* Row 1 */
+.r-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.r-user {
+    font-weight: bold;
+}
+
+.r-date {
+    color: #666;
+    font-size: 13px;
+}
+
+.r-bought {
+    background: #d4ffe0;
+    color: #1aab4c;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+/* Stars */
+.r-stars i {
+    color: #ffa500;
+}
+
+/* Title */
+.r-title {
+    margin: 4px 0;
+}
+
+/* Feedback text */
+.r-body {
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+/* Photos */
+.r-photos {
+    display: flex;
+    gap: 10px;
+}
+
+.r-photos img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 .btn {
@@ -668,7 +859,6 @@ html, body {
     line-height: 1.6;
 }
 
-/* Link mạng xã hội */
 .social-icons a {
     color: #fff;
     margin-right: 15px;
@@ -679,11 +869,6 @@ html, body {
 .social-icons a:hover {
     color: #463AE8;
 }
-
-
-/* =========================================
-   RESPONSIVE DESIGN
-========================================= */
 @media (max-width: 960px) {
     .header-inner {
         padding: 12px;
@@ -804,4 +989,5 @@ html, body {
     margin-bottom: 10px;
     border: 1px solid #eee;
 }
+
 
