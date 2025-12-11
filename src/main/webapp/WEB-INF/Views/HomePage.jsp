@@ -1,26 +1,33 @@
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Mắt kính Nông Lâm - Trang chủ</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-        <link rel="stylesheet" href="../src/main/webapp/CSS/StyleOfHomePage.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Mắt kính Nông Lâm - Trang chủ</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    </head>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/CSS/StyleOfHomePage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
 <body>
 <!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
         <div class="header-left">
-            <a class="logo" href="#"><img src="../src/main/webapp/Images/Logo.jpg" alt="Logo" class="logo-img">Mắt kính Nông Lâm</a>
+            <a class="logo" href="#">
+                <img src="${pageContext.request.contextPath}/Images/Logo.jpg"
+                     alt="Logo" class="logo-img">
+                Mắt kính Nông Lâm
+            </a>
             <nav class="main-nav" aria-label="Chính">
                 <a href="HomePage.html" class="active">Trang chủ</a>
                 <a href="AboutUs.html">Giới thiệu</a>
-                <a href="Contact.html" >Liên hệ</a>
+                <a href="Contact.html">Liên hệ</a>
             </nav>
         </div>
 
@@ -28,7 +35,8 @@
             <div class="search-wrap">
                 <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
                 <button class="search-btn" aria-label="Tìm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
                     </svg>
@@ -37,8 +45,9 @@
 
             <div class="header-icons">
                 <a href="Cart.html" aria-label="Giỏ hàng">
-                    <button class="icon-btn" >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                    <button class="icon-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                             <circle cx="9" cy="21" r="1"/>
                             <circle cx="20" cy="21" r="1"/>
                             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
@@ -48,15 +57,16 @@
                 <a href="Profile.html" aria-label="Thông tin">
                     <button class="icon-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                             stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                             stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon">
                             <path d="M20 21v-2a4 4 0 0 0-3-3.87"/>
                             <path d="M4 21v-2a4 4 0 0 1 3-3.87"/>
                             <circle cx="12" cy="7" r="4"/>
                         </svg>
                     </button>
                 </a>
-                <a class="btn-outline" href="Login.html">Đăng nhập</a>
-                <a class="btn-primary" href="Register.html">Đăng ký</a>
+                <a class="btn-outline" href="${pageContext.request.contextPath}/Login">Đăng nhập</a>
+                <a class="btn-primary" href="${pageContext.request.contextPath}/Register">Đăng ký</a>
             </div>
         </div>
     </div>
@@ -83,19 +93,20 @@
             <div class="news-track">
                 <article class="news-card">
                     <a href="News&Event.html">
-                        <img src="../src/main/webapp/Images/News&Event/Banner1.jpg" alt="">
+                        <img src="${pageContext.request.contextPath}/Images/News&Event/Banner1.jpg">
                     </a>
                 </article>
 
                 <article class="news-card">
                     <a href="News&Event.html">
-                        <img src="../src/main/webapp/Images/News&Event/Banner2.jpg" alt="">
+                        <img src="${pageContext.request.contextPath}/Images/News&Event/Banner2.jpg">
+
                     </a>
                 </article>
 
                 <article class="news-card">
                     <a href="News&Event.html">
-                        <img src="../src/main/webapp/Images/News&Event/Banner3.jpg" alt="">
+                        <img src="${pageContext.request.contextPath}/Images/News&Event/Banner3.jpg">
                     </a>
                 </article>
             </div>
@@ -117,7 +128,7 @@
             <div class="product-grid">
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/KinhMat1.jpg" alt="Kính mát 1">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhMat1.jpg">
                         <h4>Kính mát A</h4>
                         <p class="price">499,000 VNĐ</p>
                     </a>
@@ -125,7 +136,7 @@
 
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/KinhMat2.jpg" alt="Kính mát 2">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhMat2.jpg">
                         <h4>Kính mát B</h4>
                         <p class="price">699,000 VNĐ</p>
                     </a>
@@ -133,7 +144,7 @@
 
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/KinhMat3.jpg" alt="Kính mát 3">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhMat3.jpg">
                         <h4>Kính mát C</h4>
                         <p class="price">899,000 VNĐ</p>
                     </a>
@@ -146,21 +157,21 @@
             <div class="product-grid">
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/KinhCan1.jpg" alt="Kính cận 1">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhCan1.jpg">
                         <h4>Kính cận A</h4>
                         <p class="price">299,000 VNĐ</p>
                     </a>
                 </div>
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/KinhCan2.png" alt="Kính cận 2">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhCan2.png">
                         <h4>Kính cận B</h4>
                         <p class="price">399,000 VNĐ</p>
                     </a>
                 </div>
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/KinhCan3.png" alt="Kính cận 3">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhCan3.png">
                         <h4>Kính cận C</h4>
                         <p class="price">549,000 VNĐ</p>
                     </a>
@@ -173,21 +184,21 @@
             <div class="product-grid">
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/KinhApTrong1.jpg" alt="Kính áp tròng 1">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhApTrong1.jpg">
                         <h4>Áp tròng A</h4>
                         <p class="price">199,000 VNĐ</p>
                     </a>
                 </div>
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/KinhApTrong2.jpg" alt="Kính áp tròng 2">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhApTrong2.jpg">
                         <h4>Áp tròng B</h4>
                         <p class="price">249,000 VNĐ</p>
                     </a>
                 </div>
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/KinhApTrong3.jpg" alt="Kính áp tròng 3">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhApTrong3.jpg">
                         <h4>Áp tròng C</h4>
                         <p class="price">299,000 VNĐ</p>
                     </a>
@@ -200,21 +211,21 @@
             <div class="product-grid">
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/GongKinh1.png" alt="Gọng kính 1">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/GongKinh1.png">
                         <h4>Gọng A</h4>
                         <p class="price">159,000 VNĐ</p>
                     </a>
                 </div>
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/GongKinh2.jpg" alt="Gọng kính 2">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/GongKinh2.jpg">
                         <h4>Gọng B</h4>
                         <p class="price">219,000 VNĐ</p>
                     </a>
                 </div>
                 <div class="product-card">
                     <a href="ProductDetail.html" class="product-card">
-                        <img src="../src/main/webapp/Images/HomePage/GongKinh3.png" alt="Gọng kính 3">
+                        <img src="${pageContext.request.contextPath}/Images/HomePage/GongKinh3.png">
                         <h4>Gọng C</h4>
                         <p class="price">279,000 VNĐ</p>
                     </a>
@@ -257,6 +268,6 @@
 
     </div>
 </footer>
-<script src="../src/main/webapp/JavaScript/HomePage.js"></script>
+<script src="${pageContext.request.contextPath}/JavaScript/HomePage.js"></script>
 </body>
 </html>

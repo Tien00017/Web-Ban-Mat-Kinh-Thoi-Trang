@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -6,12 +8,15 @@
     <title>Mắt kính Nông Lâm - Đăng nhập</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/main/webapp/CSS/StyleOfLogin&Register.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfLogin&Register.css">
 </head>
 <body>
 <div class="form-container">
-    <a class="logo" href="#"><img src="../src/main/webapp/Images/Logo.jpg" alt="Logo" class="logo-img"></a>
-    <a href="../HTML/HomePage.html" class="back-home-btn">← Trang chủ</a>
+    <a class="logo" href="#">
+        <img src="${pageContext.request.contextPath}/Images/Logo.jpg"
+             alt="Logo" class="logo-img">
+    </a>
+    <a href="${pageContext.request.contextPath}/Home" class="back-home-btn">← Trang chủ</a>
 
     <h2>Đăng nhập</h2>
     <p>Chào mừng bạn quay lại!</p>
@@ -21,8 +26,8 @@
         <button type="submit">Đăng nhập</button>
     </form>
     <div class="switch-link">
-        <p>Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
-        <p>Quên mật khẩu? <a href="ForgotPass.html">Tìm lại mật khẩu</a></p>
+        <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/Register">Đăng ký</a></p>
+        <p>Quên mật khẩu? <a href="${pageContext.request.contextPath}/ForgotPass">Tìm lại mật khẩu</a></p>
     </div>
 </div>
 </body>
