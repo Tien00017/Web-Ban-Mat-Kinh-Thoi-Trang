@@ -16,12 +16,17 @@
     <a href="${pageContext.request.contextPath}/Home" class="back-home-btn">← Trang chủ</a>
     <h2>Đăng ký</h2>
     <p>Tạo tài khoản mới của bạn!</p>
-    <form>
-        <input type="text" placeholder="Tên hiển thị" required>
-        <input type="email" placeholder="Email" required>
-        <input type="password" placeholder="Mật khẩu" required>
-        <input type="password" placeholder="Xác nhận mật khẩu" required>
+    <form action="${pageContext.request.contextPath}/Register" method="post" onsubmit="return validateForm()">
+        <input type="text" name="displayName" placeholder="Tên hiển thị" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Mật khẩu" required>
+        <input type="password" name="confirmPassword" placeholder="Xác nhận mật khẩu" required>
+
         <button type="submit">Đăng ký</button>
+
+        <% if (request.getAttribute("error") != null) { %>
+        <p style="color:red"><%= request.getAttribute("error") %></p>
+        <% } %>
     </form>
     <div class="switch-link">
         Đã có tài khoản? <a href="${pageContext.request.contextPath}/Login">Đăng nhập</a>

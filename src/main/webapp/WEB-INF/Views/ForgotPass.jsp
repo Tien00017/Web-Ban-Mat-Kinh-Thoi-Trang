@@ -17,13 +17,25 @@
 
     <h2>Quên mật khẩu</h2>
     <p>Chúng tôi sẽ hỗ trợ bạn tìm lại tài khoản!</p>
-    <form>
-        <input type="text" placeholder="Tên hiển thị" required>
-        <input type="email" placeholder="Email" required>
-        <input type="OTP" placeholder="Mã OTP gửi qua mail" required>
-        <input type="password" placeholder="Mật khẩu mới" required>
-        <input type="password" placeholder="Xác nhận mật khẩu mới" required>
-        <button type="submit">Đăng ký</button>
+    <form action="${pageContext.request.contextPath}/ForgotPass" method="post">
+        <input type="email" name="email" placeholder="Nhập email" required>
+        <button type="submit" name="action" value="sendOTP">Gửi OTP</button>
+
+        <% if (request.getAttribute("msg") != null) { %>
+        <div style="color: green"><%= request.getAttribute("msg") %></div>
+        <% } %>
+        <% if (request.getAttribute("error") != null) { %>
+        <div style="color: red"><%= request.getAttribute("error") %></div>
+        <% } %>
+    </form>
+    <form action="${pageContext.request.contextPath}/ForgotPass" method="post">
+        <input type="hidden" name="userId" value="${userId}">
+
+        <input type="text" name="otp" placeholder="Nhập OTP" required>
+        <input type="password" name="newPassword" placeholder="Mật khẩu mới" required>
+        <input type="password" name="confirm" placeholder="Xác nhận mật khẩu" required>
+
+        <button type="submit" name="action" value="resetPass">Đổi mật khẩu</button>
     </form>
     <div class="switch-link">
         <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/Register">Đăng ký</a></p>
