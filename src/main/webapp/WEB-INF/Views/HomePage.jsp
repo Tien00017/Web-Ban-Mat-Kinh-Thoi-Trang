@@ -1,5 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+<%@ page import="Model.Object.User" %>
+<%
+    User user = (User) session.getAttribute("user");
+%>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -11,7 +16,8 @@
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/CSS/StyleOfHomePage.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 </head>
 <body>
@@ -44,6 +50,12 @@
             </div>
 
             <div class="header-icons">
+                <% if (user == null) { %>
+                <!-- Chưa đăng nhập: chỉ hiện Đăng nhập / Đăng ký -->
+                <a class="btn-outline" href="${pageContext.request.contextPath}/Login">Đăng nhập</a>
+                <a class="btn-primary" href="${pageContext.request.contextPath}/Register">Đăng ký</a>
+                <% } else { %>
+                <!-- Đã đăng nhập: hiện Cart, Profile, tên người dùng và Đăng xuất -->
                 <a href="Cart.html" aria-label="Giỏ hàng">
                     <button class="icon-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black"
@@ -65,8 +77,7 @@
                         </svg>
                     </button>
                 </a>
-                <a class="btn-outline" href="${pageContext.request.contextPath}/Login">Đăng nhập</a>
-                <a class="btn-primary" href="${pageContext.request.contextPath}/Register">Đăng ký</a>
+                <% } %>
             </div>
         </div>
     </div>

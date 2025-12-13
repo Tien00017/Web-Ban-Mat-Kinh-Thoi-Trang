@@ -26,7 +26,12 @@ public class Login extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", u);
 
-            response.sendRedirect(request.getContextPath() + "/Home");
+            // Kiểm tra role
+            if (u.getRole() == 0) { // role = 0 là admin
+                response.sendRedirect(request.getContextPath() + "/Admin");
+            } else { // role = 1 là khách hàng
+                response.sendRedirect(request.getContextPath() + "/Home");
+            }
         } else {
             request.setAttribute("error", "Sai email hoặc mật khẩu!");
             request.getRequestDispatcher("/WEB-INF/Views/Login.jsp").forward(request, response);

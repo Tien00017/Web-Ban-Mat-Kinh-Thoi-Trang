@@ -40,6 +40,13 @@ public class ForgotPass extends HttpServlet {
             return;
         }
 
+        // NGĂN admin gửi OTP
+        if (u.getRole() == 0) { // 0 = admin
+            request.setAttribute("error", "Tài khoản admin không thể lấy OTP!");
+            request.getRequestDispatcher("/WEB-INF/Views/ForgotPass.jsp").forward(request, response);
+            return;
+        }
+
         // Random OTP
         String otp = String.valueOf((int) (Math.random() * 900000) + 100000);
 

@@ -95,6 +95,7 @@ public class UserDAO {
                 u.setId(rs.getInt("id"));
                 u.setEmail(rs.getString("email"));
                 u.setDisplayName(rs.getString("display_name"));
+                u.setRole(rs.getInt("role"));
                 return u;
             }
         } catch (Exception e) {

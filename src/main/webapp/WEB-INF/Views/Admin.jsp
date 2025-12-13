@@ -6,7 +6,8 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>Admin Dashboard — Mắt kính Nông Lâm</title>
-    <link rel="stylesheet" href="../src/main/webapp/CSS/StyleOfAdmin.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/CSS/StyleOfAdmin.css">
 </head>
 
 <body>
