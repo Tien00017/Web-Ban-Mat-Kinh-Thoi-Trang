@@ -20,11 +20,16 @@
 
     <h2>Đăng nhập</h2>
     <p>Chào mừng bạn quay lại!</p>
-    <form>
-        <input type="email" placeholder="Email" required>
-        <input type="password" placeholder="Mật khẩu" required>
+    <form action="${pageContext.request.contextPath}/Login" method="post">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Mật khẩu" required>
         <button type="submit">Đăng nhập</button>
+
+        <% if (request.getAttribute("error") != null) { %>
+        <p style="color:red"><%= request.getAttribute("error") %></p>
+        <% } %>
     </form>
+
     <div class="switch-link">
         <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/Register">Đăng ký</a></p>
         <p>Quên mật khẩu? <a href="${pageContext.request.contextPath}/ForgotPass">Tìm lại mật khẩu</a></p>
