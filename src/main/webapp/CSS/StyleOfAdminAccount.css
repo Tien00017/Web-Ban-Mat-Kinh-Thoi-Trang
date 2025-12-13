@@ -4,33 +4,24 @@
     box-sizing: border-box;
 }
 
-:root{
-    /* Brand & accents */
+:root {
     --accent: #463AE8;
     --accent-2: #6B63F2;
     --accent-soft: #ECEBFF;
-
-    /* Neutral */
     --bg: #f5f6fa;
     --white: #ffffff;
     --text: #111321;
     --muted: #6b7280;
     --border: #e6e8f2;
-
-    /* Status */
-    --success: #16a34a;
-    --pending: #f59e0b;
-    --danger: #dc2626;
-    --info: #0ea5e9;
-
-    --card-shadow: 0 6px 18px rgba(70,58,232,0.06);
+    --card-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
     --radius: 12px;
-
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* BASE LAYOUT */
-html, body { height: 100%; }
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: inherit;
     background: var(--bg);
@@ -46,12 +37,10 @@ body {
     align-items: stretch;
 }
 
-/* ======================
-   SIDEBAR
-   ====================== */
+/* SIDEBAR */
 .admin-sidebar {
     width: 240px;
-    background: #111321; /* dark sidebar */
+    background: #111321;
     color: #fff;
     padding: 24px 18px;
     display: flex;
@@ -80,7 +69,6 @@ body {
     color: #fff;
 }
 
-/* nav */
 .admin-nav {
     display: flex;
     flex-direction: column;
@@ -99,7 +87,7 @@ body {
 
 .admin-nav a:hover,
 .admin-nav a.active {
-    background: rgba(70,58,232,0.18);
+    background: rgba(70, 58, 232, 0.18);
     color: #fff;
     transform: translateY(-1px);
 }
@@ -108,52 +96,17 @@ body {
 .side-footer {
     margin-top: auto;
     font-size: 13px;
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
     text-align: center;
 }
 
-.brand {
-    text-align: center;
-}
-
-.logo-img {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: var(--radius);
-    margin-bottom: 10px;
-}
-
-.nav {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-}
-
-.nav a {
-    padding: 12px 14px;
-    text-decoration: none;
-    color: var(--text);
-    border-radius: 8px;
-    margin-bottom: 6px;
-}
-
-.nav a:hover {
-    background: rgba(70,58,232,0.08);
-}
-
-.nav a.active {
-    background: var(--accent);
-    color: white;
-    font-weight: 600;
-}
-/* MAIN */
+/*MAIN*/
+/*MAIN*/
 .main {
-    width: 100%;
     padding: 28px;
-    display: block;
+    width: 100%;
+    max-width: 100%;
 }
-
 .page-title {
     margin-bottom: 22px;
 }
@@ -162,35 +115,14 @@ body {
     margin: 0;
     font-size: 26px;
 }
-
 .content {
-    display: flex;
-    align-items: flex-start;
-    gap: 28px;
     width: 100%;
 }
 
-/* Table bên trái*/
 .left {
-    flex: 1;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(70,58,232,0.06);
+    width: 100%;
 }
 
-/* FORM BÊN PHẢI*/
-.right {
-    width: 380px;
-    flex-shrink: 0;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(70,58,232,0.06);
-    height: fit-content;
-}
-
-/* TABLE */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -200,16 +132,43 @@ thead th {
     padding: 12px;
     text-align: left;
     background: #f3f3ff;
-    border-bottom: 1px solid #e5e5ff;
+    border-bottom: 1px solid var(--border);
 }
 
 tbody td {
     padding: 12px;
-    border-bottom: 1px solid #f1f1f1;
+    border-bottom: 1px solid var(--border);
+}
+
+.actions {
+    text-align: right;
+}
+
+.left table td:not(:nth-child(2)),
+.left table th:not(:nth-child(2)) {
+    text-align: center;
+}
+
+/* trạng thái */
+.open {
+    font-weight: bold;
+    background: #ecebff;
+    color: green;
 }
 
 
-/* BUTTON */
+.close {
+    font-weight: bold;
+    background: #ecebff;
+    color: red;
+}
+
+/* Hover hàng */
+.left table tbody tr:hover {
+    background: rgba(70, 58, 232, 0.04);
+}
+
+/* ghost button (secondary) */
 .btn {
     padding: 10px 16px;
     background: var(--accent);
@@ -227,29 +186,4 @@ tbody td {
 
 .btn.ghost:hover {
     background: #e8e8e8;
-}
-
-/* FORM */
-.right h3 {
-    margin: 0 0 12px;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.form-row {
-    margin-bottom: 14px;
-}
-
-.form-row input {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-}
-
-.form-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
 }

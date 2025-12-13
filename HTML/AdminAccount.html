@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin-Quản lí tài khoản</title>
-    <link rel="stylesheet" href="../CSS/StyleOfAdminAccount.css">
+    <link rel="stylesheet" href="../src/main/webapp/CSS/StyleOfAdminAccount.css">
 </head>
 <body>
 <div class="app">
@@ -11,17 +11,17 @@
     <!-- SIDEBAR -->
     <aside class="admin-sidebar">
         <div class="brand">
-            <img src="../Images/Logo.jpg" class="logo-img" alt="Logo">
+            <img src="../src/main/webapp/Images/Logo.jpg" class="logo-img" alt="Logo">
             <h2>Mắt kính Nông Lâm</h2>
         </div>
 
         <nav class="admin-nav">
-            <a href="Admin.html" class="active">Dashboard</a>
+            <a href="Admin.html">Dashboard</a>
             <a href="AdminCategory.html">Quản lí danh mục</a>
             <a href="AdminProduct.html">Quản lí sản phẩm</a>
             <a href="AdminAddProduct.html">Thêm sản phẩm</a>
             <a href="AdminOrders.html">Quản lí đơn hàng</a>
-            <a href="AdminAccount.html">Quản lí tài khoản</a>
+            <a href="AdminAccount.html" class="active">Quản lí tài khoản</a>
             <a href="AdminContact.html">Liên hệ</a>
         </nav>
 
@@ -50,6 +50,7 @@
                         <th style="width:120px">NGÀY SINH</th>
                         <th style="width:120px">GIỚI TÍNH</th>
                         <th>ĐỊA CHỈ</th>
+                        <th>TRẠNG THÁI</th>
                         <th style="width:150px">VAI TRÒ</th>
                         <th style="width:150px"></th>
                     </tr>
@@ -64,10 +65,10 @@
                         <td>1990-02-15</td>
                         <td>Nam</td>
                         <td>123 ĐBP, Q.1, TP.HCM</td>
+                        <td><span class="open">Mở</span></td>
                         <td><span class="tag success">user</span></td>
                         <td class="text-right">
                             <button class="btn ghost ">Sửa</button>
-                            <button class="btn ghost ">Xóa</button>
                         </td>
                     </tr>
 
@@ -79,10 +80,10 @@
                         <td>1994-07-10</td>
                         <td>Nữ</td>
                         <td>45 Lý Tự Trọng, Q.3</td>
+                        <td><span class="open">Mở</span></td>
                         <td><span class="tag pending">admin</span></td>
                         <td class="text-right">
                             <button class="btn ghost ">Sửa</button>
-                            <button class="btn ghost ">Xóa</button>
                         </td>
                     </tr>
 
@@ -94,10 +95,10 @@
                         <td>1986-11-22</td>
                         <td>Khác</td>
                         <td>78 Nguyễn Huệ, Q.1</td>
+                        <td><span class="close">Khóa</span></td>
                         <td><span class="tag success">user</span></td>
                         <td class="text-right">
                             <button class="btn ghost ">Sửa</button>
-                            <button class="btn ghost ">Xóa</button>
                         </td>
                     </tr>
                     </tbody>

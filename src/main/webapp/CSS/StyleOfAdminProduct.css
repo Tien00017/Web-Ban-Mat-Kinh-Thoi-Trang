@@ -13,8 +13,10 @@
     --text: #111321;
     --muted: #6b7280;
     --border: #e6e8f2;
+
     --card-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
     --radius: 12px;
+
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -37,7 +39,9 @@ body {
     align-items: stretch;
 }
 
-/* SIDEBAR */
+/* ======================
+   SIDEBAR
+   ====================== */
 .admin-sidebar {
     width: 240px;
     background: #111321;
@@ -69,6 +73,7 @@ body {
     color: #fff;
 }
 
+/* nav */
 .admin-nav {
     display: flex;
     flex-direction: column;
@@ -92,7 +97,6 @@ body {
     transform: translateY(-1px);
 }
 
-/* footer note in sidebar */
 .side-footer {
     margin-top: auto;
     font-size: 13px;
@@ -100,13 +104,12 @@ body {
     text-align: center;
 }
 
-/*MAIN*/
-/*MAIN*/
+/* MAIN */
 .main {
-    padding: 28px;
     width: 100%;
-    max-width: 100%;
+    padding: 28px;
 }
+
 .page-title {
     margin-bottom: 22px;
 }
@@ -115,14 +118,36 @@ body {
     margin: 0;
     font-size: 26px;
 }
+
+/* LEFT - RIGHT layout */
 .content {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
     width: 100%;
 }
 
+/* LEFT (table) */
 .left {
-    width: 100%;
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
 }
 
+/* RIGHT (form) */
+.right {
+    width: 380px;
+    flex-shrink: 0;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(70, 58, 232, 0.06);
+    height: fit-content;
+}
+
+/* TABLE BASICS */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -132,63 +157,121 @@ thead th {
     padding: 12px;
     text-align: left;
     background: #f3f3ff;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid #e5e5ff;
 }
 
 tbody td {
     padding: 12px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid #f1f1f1;
 }
 
-.actions {
-    text-align: right;
-}
-
-.left table td:not(:nth-child(2)),
-.left table th:not(:nth-child(2)) {
-    text-align: center;
-}
-
-/* trạng thái */
-.stock-high {
-    font-weight: bold;
-    background: #ecebff;
-    color: green;
-}
-
-.stock-low {
-    font-weight: bold;
-    background: #ecebff;
-    color: orange;
-}
-
-.stock-out {
-    font-weight: bold;
-    background: #ecebff;
-    color: red;
-}
-
-/* Hover hàng */
-.left table tbody tr:hover {
+/* HOVER */
+tbody tr:hover {
     background: rgba(70, 58, 232, 0.04);
 }
 
-/* ghost button (secondary) */
+/* PRODUCT INFO */
+.prod-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* TEXT */
+.fw {
+    font-weight: 600;
+}
+
+.muted {
+    color: #777;
+    font-size: 13px;
+}
+
+/* STOCK TAGS */
+.stock-high {
+    color: green;
+    font-weight: 600;
+}
+
+.stock-low {
+    color: orange;
+    font-weight: 600;
+}
+
+.stock-out {
+    color: red;
+    font-weight: 600;
+}
+
+/* BUTTONS */
 .btn {
-    padding: 10px 16px;
+    padding: 8px 14px;
     background: var(--accent);
     border: none;
     border-radius: 8px;
-    color: white;
+    color: #fff;
     font-weight: 600;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .btn.ghost {
     background: #f3f3f3;
-    color: var(--text);
+    color: #333;
 }
 
 .btn.ghost:hover {
     background: #e8e8e8;
 }
+
+.text-right {
+    text-align: right;
+}
+
+/* FORM (right) */
+.right h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.form-row {
+    margin-bottom: 14px;
+    display: flex;
+    gap: 10px;
+}
+
+.form-row input,
+.form-row select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    min-height: 80px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+
+
+
