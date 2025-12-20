@@ -8,7 +8,7 @@ import Model.Object.User;
 import java.io.IOException;
 
 @WebServlet(name = "Register", value = "/Register")
-public class    Register extends HttpServlet {
+public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);

@@ -31,7 +31,7 @@
                 Mắt kính Nông Lâm
             </a>
             <nav class="main-nav" aria-label="Chính">
-                <a href="HomePage.html" class="active">Trang chủ</a>
+                <a href="${pageContext.request.contextPath}/Home" class="active">Trang chủ</a>
                 <a href="AboutUs.html">Giới thiệu</a>
                 <a href="Contact.html">Liên hệ</a>
             </nav>
@@ -66,7 +66,7 @@
                         </svg>
                     </button>
                 </a>
-                <a href="Profile.html" aria-label="Thông tin">
+                <a href="${pageContext.request.contextPath}/Profile" aria-label="Thông tin">
                     <button class="icon-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                              stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
