@@ -8,7 +8,7 @@ const dotsContainer = document.querySelector('.slider-dots');
 
 let currentIndex = 0;
 
-/* ===== TẠO DẤU CHẤM ===== */
+/* ===== TẠO DẤU CHẤM ===== *   /
 slides.forEach((_, i) => {
     const dot = document.createElement("span");
     dot.classList.add("dot");

@@ -30,14 +30,14 @@ CREATE TABLE users (
   full_name VARCHAR(100),
   display_name VARCHAR(100),
   avatar VARCHAR(255),
-  email VARCHAR(250),
+  email VARCHAR(250) NOT NULL UNIQUE, 
   phone VARCHAR(20),
   birth_date DATE,
   gender INT,
   address VARCHAR(250),
-  password VARCHAR(500),
-  status BOOLEAN,
-  role INT,
+  password VARCHAR(500) NOT NULL,
+  status BOOLEAN DEFAULT TRUE,
+  role INT, 
   created_at TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -96,6 +96,7 @@ CREATE TABLE password_reset (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT,
   otp VARCHAR(6),
+  status BOOLEAN DEFAULT TRUE,
   expired_at TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 ) ENGINE=InnoDB;
