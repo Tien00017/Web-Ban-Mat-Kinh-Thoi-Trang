@@ -1,3 +1,7 @@
+DROP DATABASE web;
+CREATE DATABASE web CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE web;
+
 CREATE TABLE `products` (
   `id` varchar(10) PRIMARY KEY,
   `category_id` varchar(10),
@@ -78,7 +82,7 @@ CREATE TABLE `users` (
   `created_at` timestamp
 );
 
-CREATE TABLE `password_reset` (
+CREATE TABLE `email_send` (
   `id` varchar(10) PRIMARY KEY,
   `user_id` varchar(10),
   `otp` varchar(6),
@@ -169,7 +173,7 @@ ALTER TABLE `messages` ADD FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `messages` ADD FOREIGN KEY (`receiver_id`) REFERENCES `users` (`id`);
 
-ALTER TABLE `users` ADD FOREIGN KEY (`id`) REFERENCES `password_reset` (`user_id`);
+ALTER TABLE `email_send` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `order_item_attribute` ADD FOREIGN KEY (`order_item_id`) REFERENCES `order_items` (`id`);
 
