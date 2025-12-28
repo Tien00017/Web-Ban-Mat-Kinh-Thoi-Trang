@@ -35,5 +35,6 @@
         <p>Quên mật khẩu? <a href="${pageContext.request.contextPath}/ForgotPass">Tìm lại mật khẩu</a></p>
     </div>
 </div>
+<script src="${pageContext.request.contextPath}/JavaScript/ValidateForm.js"></script>
 </body>
 </html>

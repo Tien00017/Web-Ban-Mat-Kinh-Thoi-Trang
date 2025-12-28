@@ -1,17 +1,12 @@
-package Model.Email;
-
-import Model.DAO.DBConnection;
+package Model.Utils;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 
-public class Utils {
+public class Email {
     private static String username;
     private static String password;
 
@@ -19,7 +14,7 @@ public class Utils {
         try {
             // Load properties từ src/main/resources/db.properties
             Properties props = new Properties();
-            InputStream input = Utils.class.getClassLoader().getResourceAsStream("email.properties");
+            InputStream input = Email.class.getClassLoader().getResourceAsStream("email.properties");
 
             if (input == null) {
                 throw new RuntimeException("Không tìm thấy file email.properties trong resources/");
