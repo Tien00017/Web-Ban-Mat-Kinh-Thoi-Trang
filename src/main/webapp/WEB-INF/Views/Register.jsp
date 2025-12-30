@@ -16,9 +16,10 @@
     <a href="${pageContext.request.contextPath}/Home" class="back-home-btn">← Trang chủ</a>
     <h2>Đăng ký</h2>
     <p>Tạo tài khoản mới của bạn!</p>
+
+    <% if (request.getAttribute("otpVerified") == null) { %>
     <form action="${pageContext.request.contextPath}/Register" method="post">
 
-        <!-- EMAIL -->
         <input type="email"
                name="email"
                placeholder="Email"
@@ -26,56 +27,54 @@
             <%= request.getAttribute("otpSent") != null ? "readonly" : "" %>
                required>
 
-        <!-- OTP (chỉ hiện sau khi gửi OTP) -->
-        <% if (request.getAttribute("otpSent") != null) { %>
-        <input type="text" name="otp" placeholder="Nhập OTP" required>
-        <% } %>
+        <input type="text"
+               name="otp"
+               placeholder="Nhập OTP"
+            <%= request.getAttribute("otpSent") != null ? "" : "disabled" %>
+               class="<%= request.getAttribute("otpSent") != null ? "otp-active" : "otp-disabled" %>">
 
-        <!-- BUTTON -->
-        <% if (request.getAttribute("otpSent") == null) { %>
-        <button type="submit" name="action" value="sendOTP">Gửi OTP</button>
-        <% } else { %>
-        <button type="submit" name="action" value="verifyOTP">Xác nhận OTP</button>
-        <% } %>
+        <div class="otp-btn-group">
+            <button type="submit" name="action" value="sendOTP">
+                Gửi OTP
+            </button>
 
-        <% if (request.getAttribute("msg") != null) { %>
-        <div style="color:green"><%= request.getAttribute("msg") %></div>
-        <% } %>
-
-        <% if (request.getAttribute("error") != null) { %>
-        <div style="color:red"><%= request.getAttribute("error") %></div>
-        <% } %>
-
+            <button type="submit"
+                    name="action"
+                    value="verifyOTP"
+                    <%= request.getAttribute("otpSent") != null ? "" : "disabled" %>>
+                Xác nhận OTP
+            </button>
+        </div>
     </form>
+    <% } %>
 
     <% if (request.getAttribute("otpVerified") != null) { %>
+
     <form action="${pageContext.request.contextPath}/Register"
           method="post"
           onsubmit="return validateForm();">
 
         <input type="hidden" name="email" value="${email}">
 
-        <input type="text"
-               name="displayName"
-               placeholder="Tên hiển thị"
-               required>
-
-        <input type="password"
-               name="password"
-               placeholder="Mật khẩu"
-               required>
-
-        <input type="password"
-               name="confirmPassword"
-               placeholder="Xác nhận mật khẩu"
-               required>
+        <input type="text" name="displayName" placeholder="Tên hiển thị" required>
+        <input type="password" name="password" placeholder="Mật khẩu" required>
+        <input type="password" name="confirmPassword" placeholder="Xác nhận mật khẩu" required>
 
         <button type="submit" name="action" value="register">
             Đăng ký
         </button>
 
     </form>
+
     <% } %>
+
+    <div class="divider">hoặc</div>
+
+    <a class="google-btn"
+       href="${pageContext.request.contextPath}/GoogleLogin">
+        <img src="${pageContext.request.contextPath}/Images/Google/logo.png" width="18">
+        Đăng ký bằng Google
+    </a>
 
     <div class="switch-link">
         Đã có tài khoản? <a href="${pageContext.request.contextPath}/Login">Đăng nhập</a>

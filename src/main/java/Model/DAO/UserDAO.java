@@ -120,5 +120,24 @@ public class UserDAO {
         return false;
     }
 
+    public static boolean registerGoogle(User u) {
+        String sql = """
+        INSERT INTO users
+        (display_name, email, password, status, role, created_at)
+        VALUES (?, ?, NULL, 1, 1, NOW())
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, u.getDisplayName());
+            ps.setString(2, u.getEmail());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }

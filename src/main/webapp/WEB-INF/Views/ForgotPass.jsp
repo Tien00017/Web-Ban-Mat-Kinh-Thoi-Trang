@@ -17,41 +17,60 @@
 
     <h2>Quên mật khẩu</h2>
     <p>Chúng tôi sẽ hỗ trợ bạn tìm lại tài khoản!</p>
-    <form action="${pageContext.request.contextPath}/ForgotPass" method="post">
+    <% if (request.getAttribute("otpVerified") == null) { %>
+    <form action="${pageContext.request.contextPath}/ForgotPass"
+          method="post">
 
         <input type="email"
                name="email"
-               placeholder="Nhập email"
+               placeholder="Email"
                value="${email}"
             <%= request.getAttribute("otpSent") != null ? "readonly" : "" %>
                required>
 
-        <% if (request.getAttribute("otpSent") != null) { %>
-        <input type="text" name="otp" placeholder="Nhập OTP" required>
-        <% } %>
+        <input type="text"
+               name="otp"
+               placeholder="Nhập OTP"
+            <%= request.getAttribute("otpSent") != null ? "" : "disabled" %>>
 
-        <% if (request.getAttribute("otpSent") == null) { %>
-        <button type="submit" name="action" value="sendOTP">Gửi OTP</button>
-        <% } else { %>
-        <button type="submit" name="action" value="verifyOTP">Xác nhận OTP</button>
-        <% } %>
+        <div class="otp-btn-group">
+            <button type="submit"
+                    name="action"
+                    value="sendOTP">
+                Gửi OTP
+            </button>
+
+            <button type="submit"
+                    name="action"
+                    value="verifyOTP"
+                    <%= request.getAttribute("otpSent") != null ? "" : "disabled" %>>
+                Xác nhận OTP
+            </button>
+        </div>
 
         <% if (request.getAttribute("msg") != null) { %>
-        <div style="color:green"><%= request.getAttribute("msg") %></div>
+        <div style="color:green">
+            <%= request.getAttribute("msg") %>
+        </div>
         <% } %>
 
         <% if (request.getAttribute("error") != null) { %>
-        <div style="color:red"><%= request.getAttribute("error") %></div>
+        <div style="color:red">
+            <%= request.getAttribute("error") %>
+        </div>
         <% } %>
 
     </form>
-
+    <% } %>
 
     <% if (request.getAttribute("otpVerified") != null) { %>
     <form action="${pageContext.request.contextPath}/ForgotPass"
           method="post"
           onsubmit="return validateForm();">
-        <input type="hidden" name="userId" value="${userId}">
+
+        <input type="hidden"
+               name="email"
+               value="${email}">
 
         <input type="password"
                name="newPassword"
@@ -63,13 +82,13 @@
                placeholder="Xác nhận mật khẩu"
                required>
 
-        <button type="submit" name="action" value="resetPass">
+        <button type="submit"
+                name="action"
+                value="resetPass">
             Đổi mật khẩu
         </button>
-
     </form>
     <% } %>
-
 
     <div class="switch-link">
         <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/Register">Đăng ký</a></p>

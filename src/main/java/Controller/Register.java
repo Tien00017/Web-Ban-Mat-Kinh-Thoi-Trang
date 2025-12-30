@@ -45,17 +45,24 @@ public class Register extends HttpServlet {
         String email = request.getParameter("email");
         request.setAttribute("email", email);
 
+        // 1. Check email tồn tại
         if (UserDAO.emailExists(email)) {
-            request.setAttribute("error", "Email đã tồn tại!");
+            request.setAttribute("error", "Đã tồn tại người dùng với email này!");
+            // ❌ KHÔNG set otpSent
             request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
             return;
         }
 
+        // 2. Sinh OTP
         String otp = String.valueOf((int) (Math.random() * 900000) + 100000);
+
+        // 3. Lưu OTP
         OTPDAO.saveOTP(null, email, otp, "VERIFY_EMAIL");
 
+        // 4. Gửi mail
         Email.send(email, "Xác nhận đăng ký", "Mã OTP của bạn là: " + otp);
 
+        // 5. Gửi thành công → MỞ OTP
         request.setAttribute("otpSent", true);
         request.setAttribute("msg", "OTP đã được gửi tới email!");
 
@@ -116,77 +123,4 @@ public class Register extends HttpServlet {
         }
     }
 
-
-//    private void handleSendOTP(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//
-//        String displayName = request.getParameter("displayName");
-//        String email = request.getParameter("email");
-//
-//        request.setAttribute("displayName", displayName);
-//        request.setAttribute("email", email);
-//
-//        // Email đã tồn tại
-//        if (UserDAO.emailExists(email)) {
-//            request.setAttribute("error", "Email đã tồn tại!");
-//            request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
-//            return;
-//        }
-//
-//        // Sinh OTP
-//        String otp = String.valueOf((int) (Math.random() * 900000) + 100000);
-//
-//        // Lưu OTP (theo email)
-//        OTPDAO.saveOTP(null, email, otp, "VERIFY_EMAIL");
-//
-//        // Gửi email
-//        Email.send(email, "Xác nhận đăng ký tài khoản",
-//                "Mã OTP của bạn là: " + otp);
-//
-//        request.setAttribute("msg", "OTP đã được gửi tới email!");
-//        request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
-//    }
-
-    // ================== VERIFY OTP & REGISTER ==================
-//    private void handleVerifyOTP(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//
-//        String displayName = request.getParameter("displayName");
-//        String email = request.getParameter("email");
-//        String otp = request.getParameter("otp");
-//        String password = request.getParameter("password");
-//        String confirm = request.getParameter("confirmPassword");
-//
-//        request.setAttribute("displayName", displayName);
-//        request.setAttribute("email", email);
-//
-//        // Check confirm password
-//        if (!password.equals(confirm)) {
-//            request.setAttribute("error", "Mật khẩu xác nhận không khớp!");
-//            request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
-//            return;
-//        }
-//
-//        // Verify OTP
-//        if (!OTPDAO.verifyOTP(null, email, otp, "VERIFY_EMAIL")) {
-//            request.setAttribute("error", "OTP không hợp lệ hoặc đã hết hạn!");
-//            request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
-//            return;
-//        }
-//
-//        // Tạo user
-//        User u = new User();
-//        u.setDisplayName(displayName);
-//        u.setEmail(email);
-//        u.setPassword(password);
-//
-//        boolean created = UserDAO.register(u);
-//
-//        if (created) {
-//            response.sendRedirect(request.getContextPath() + "/Login");
-//        } else {
-//            request.setAttribute("error", "Đăng ký thất bại!");
-//            request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
-//        }
-//    }
 }
