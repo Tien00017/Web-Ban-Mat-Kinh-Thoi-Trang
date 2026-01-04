@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kính Cận - Mắt Kinh Nông Lâm</title>
+    <link rel="stylesheet" href="../src/main/webapp/CSS/StyleOfKinh_Can.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <div class="header-left">
+            <a class="logo" href="#"><img src="../src/main/webapp/Images/Logo.jpg" alt="Logo" class="logo-img">Mắt kính Nông Lâm</a>
+            <nav class="main-nav" aria-label="Chính">
+                <a href="HomePage.html">Trang chủ</a>
+                <a href="AboutUs.html">Giới thiệu</a>
+                <a href="Contact.html">Liên hệ</a>
+            </nav>
+        </div>
+
+        <div class="header-right">
+            <div class="search-wrap">
+                <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
+                <button class="search-btn" aria-label="Tìm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                        <circle cx="8" cy="8" r="6"/>
+                        <line x1="18" y1="18" x2="13.65" y2="13.65"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="header-icons">
+                <a href="Cart.html" aria-label="Giỏ hàng">
+                    <button class="icon-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                        </svg>
+                    </button>
+                </a>
+                <a href="Profile.html" aria-label="Thông tin">
+                    <button class="icon-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                             stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon">
+                            <path d="M20 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M4 21v-2a4 4 0 0 1 3-3.87"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </button>
+                </a>
+                <a class="btn-outline" href="Login.html">Đăng nhập</a>
+                <a class="btn-primary" href="Register.html">Đăng ký</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CATEGORY BAR -->
+    <nav class="category-bar">
+        <a href="Kinh_Can.html" class="cat active">Kính Cận</a>
+        <a href="Kinh_Mat.jsp" class="cat">Kính Mát</a>
+        <a href="Kinh_Ap_Trong.jsp" class="cat">Kính Áp Tròng</a>
+        <a href="Gong_Kinh.jsp" class="cat">Gọng Kính</a>
+    </nav>
+</header>
+
+<div class="container">
+    <aside class="sidebar">
+        <h3> Lọc </h3>
+        <h4>Giới Tính</h4>
+        <label><input type="radio" name="gioitinh"> Nam </label>
+        <label><input type="radio" name="gioitinh"> Nữ </label>
+        <h4>Kiểu dáng</h4>
+            <label><input type="radio" name="kieudang"> Vuông</label>
+            <label><input type="radio" name="kieudang"> Tròn</label>
+            <label><input type="radio" name="kieudang"> Oval</label>
+            <label><input type="radio" name="kieudang"> Mắt mèo</label>
+        <h4>Độ cận</h4>
+        <label>
+            <input
+                    type="number"
+                    class="nearsightedness-input"
+                    placeholder="Nhập từ -0.00 đến -8.00"
+                    min="-8.00"
+                    max="0"
+                    step="0.25"
+            >
+        </label>
+
+        <h4>Giá</h4>
+        <label> <input type="radio" name="gia"> Dưới 500k</label>
+        <label> <input type="radio" name="gia"> 500k - 1tr </label>
+        <label> <input type="radio" name="gia"> Trên 1tr</label>
+
+        <h4>Sắp xếp theo giá</h4>
+        <label><input type="radio" name="sortPrice" value="desc"> Cao đến thấp</label>
+        <label><input type="radio" name="sortPrice" value="asc"> Thấp đến cao</label>
+
+        <button class="btn">Lọc</button>
+    </aside>
+
+    <section class="products">
+        <h2>Kính Cận Hot</h2>
+
+        <div class="product-grid">
+
+            <div class="product-card">
+                <span class="tag purple">Best Seller</span>
+                <img src="../src/main/webapp/Images/KinhCan/KinhCan1.jpg">
+                <h4>Greene Classic</h4>
+                <p class="price">650,000 VNĐ <span class="old-price">890,000 VNĐ</span></p>
+                <p class="rating">⭐ 4.9</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
+
+            </div>
+
+            <div class="product-card">
+                <span class="tag green">New</span>
+                <img src="../src/main/webapp/Images/KinhCan/KinhCan2.png">
+                <h4>Boston Retro</h4>
+                <p class="price">490,000 VNĐ <span class="old-price">750,000 VNĐ</span></p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
+
+            </div>
+
+            <div class="product-card">
+                <span class="tag pink">Hot</span>
+                <img src="../src/main/webapp/Images/KinhCan/KinhCan3.png">
+                <h4>Tokyo Slim</h4>
+                <p class="price">420,000 VNĐ</p>
+                <p class="rating">⭐ 4.7</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
+
+            </div>
+
+            <div class="product-card">
+                <span class="tag green">New</span>
+                <img src="../src/main/webapp/Images/KinhCan/KinhCan2.png">
+                <h4>Boston Retro</h4>
+                <p class="price">490,000 VNĐ <span class="old-price">750,000 VNĐ</span></p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
+
+            </div>
+
+            <div class="product-card">
+                <span class="tag pink">Hot</span>
+                <img src="../src/main/webapp/Images/KinhCan/KinhCan3.png">
+                <h4>Tokyo Slim</h4>
+                <p class="price">420,000 VNĐ</p>
+                <p class="rating">⭐ 4.7</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
+
+            </div>
+
+            <div class="product-card">
+                <span class="tag purple">Best Seller</span>
+                <img src="../src/main/webapp/Images/KinhCan/KinhCan1.jpg">
+                <h4>Greene Classic</h4>
+                <p class="price">650,000 VNĐ <span class="old-price">890,000 VNĐ</span></p>
+                <p class="rating">⭐ 4.9</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
+
+            </div>
+
+            <div class="product-card">
+                <span class="tag green">New</span>
+                <img src="../src/main/webapp/Images/KinhCan/KinhCan2.png">
+                <h4>Boston Retro</h4>
+                <p class="price">490,000 VNĐ <span class="old-price">750,000 VNĐ</span></p>
+                <p class="rating">⭐ 4.8</p>
+                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="footer-inner">
+
+        <!-- Chi nhánh -->
+        <div class="footer-branches">
+            <h4>Các chi nhánh</h4>
+            <p>Chi nhánh Hà Nội: 123 Phố Huế, Hoàn Kiếm</p>
+            <p>Chi nhánh TP.HCM: 456 Nguyễn Huệ, Quận 1</p>
+            <p>Chi nhánh Đà Nẵng: 789 Bạch Đằng, Hải Châu</p>
+        </div>
+
+        <!-- Liên hệ -->
+        <div class="footer-contact">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-envelope"></i> Email: support@example.com</p>
+            <p><i class="fas fa-phone"></i> Điện thoại: 0123 456 789</p>
+        </div>
+
+        <!-- Theo dõi -->
+        <div class="footer-social">
+            <h4>Theo dõi</h4>
+            <p class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-zalo"></i></a>
+            </p>
+        </div>
+
+    </div>
+</footer>
+</body>
+</html>
+
+    

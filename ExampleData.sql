@@ -6,6 +6,55 @@ INSERT INTO categories (category_name) VALUES
 ('Kính áp tròng'),
 ('Gọng kính');
 
+INSERT INTO	attributes (attribute_name) VALUES
+('Giới tính'),
+('Kiểu dáng'),
+('Màu kính'),
+('Màu áp tròng'),
+('Chất liệu');
+
+INSERT INTO	attribute_values (attribute_id, name_value) VALUES
+-- Giới tính
+(1, N'Nam'),
+(1, N'Nữ'),
+
+-- Kiểu dáng
+(2, N'Vuông'),
+(2, N'Tròn'),
+(2, N'Oval'),
+(2, N'Mắt mèo'),
+
+-- Độ cận ko thể chèn
+-- Màu kính
+(3, N'Đen'),
+(3, N'Nâu'),
+(3, N'Xám'),
+
+-- Màu áp tròng
+(4, N'Trắng'),
+(4, N'Xanh'),
+(4, N'Đỏ'),
+(4, N'Vàng'),
+
+-- Chất liệu
+(5, N'Kim loại'),
+(5, N'Nhựa'),
+(5, N'Titan');
+
+INSERT INTO	attribute_values (attribute_id, category_id) VALUES
+(1, 1), -- Kính cận - Giới tính
+(1, 2), -- Kính cận - Kiểu dáng
+
+(2, 1), -- Kính mát - Giới tính
+(2, 2), -- Kính mát - Kiểu dáng
+(2, 3), -- Kính mát - Màu kính
+
+(3, 4), -- Kính áp tròng - Màu kính
+
+(4, 2), -- Gọng kính - Màu kính
+(4, 5); -- Gọng kính - Chất liệu
+
+
 -- ================= KÍNH CẬN =================
 INSERT INTO products
 (category_id, product_name, brand, price, stock,
