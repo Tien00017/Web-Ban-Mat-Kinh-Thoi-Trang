@@ -4,18 +4,20 @@
 <%
     User user = (User) session.getAttribute("user");
 %>
-
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Mắt kính Nông Lâm - Trang profile</title>
+    <title>Mắt kính Nông Lâm - Giới thiệu</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfProfile.css">
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/CSS/StyleOfAboutUs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
 </head>
 <body>
 <!-- HEADER -->
@@ -28,8 +30,8 @@
                 Mắt kính Nông Lâm
             </a>
             <nav class="main-nav" aria-label="Chính">
-                <a href="${pageContext.request.contextPath}/Home" class="active">Trang chủ</a>
-                <a href="${pageContext.request.contextPath}/About">Giới thiệu</a>
+                <a href="${pageContext.request.contextPath}/Home" >Trang chủ</a>
+                <a href="${pageContext.request.contextPath}/About" class="active" > Giới thiệu </a>
                 <a href="Contact.html">Liên hệ</a>
             </nav>
         </div>
@@ -87,123 +89,71 @@
         <a href="${pageContext.request.contextPath}/Gong_Kinh" class="cat">Gọng Kính</a>
     </nav>
 </header>
+<!-- MAIN -->
+<main class="container about">
+    <section class="about-hero">
+        <h1>Về Mắt kính Nông Lâm</h1>
+        <p>Mắt kính Nông Lâm là thương hiệu thời trang mắt kính hiện đại, mang đến phong cách và chất lượng hàng đầu cho
+            người tiêu dùng Việt Nam.</p>
+    </section>
 
-<main class="container grid">
-
-    <!-- Tóm tắt hồ sơ -->
-    <section class="card profile" aria-labelledby="profile-title">
-        <h2 id="profile-title" class="sr-only">Tóm tắt hồ sơ</h2>
-
-        <div class="avatar-wrap">
-            <img id="avatarImg" src="${pageContext.request.contextPath}/Images/Profile/ball.png" class="avatar"
-                 alt="Ảnh đại diện người dùng"/>
-            <input type="file" id="avatarUpload" accept="image/*" style="display:none"/>
-            <label for="avatarUpload" class="btn small">Đổi ảnh</label>
+    <section class="about-content">
+        <div class="about-text">
+            <h2>Tầm nhìn & Sứ mệnh</h2>
+            <p>
+                Chúng tôi hướng đến việc trở thành thương hiệu kính mắt được yêu thích nhất tại Việt Nam —
+                nơi mà mỗi chiếc kính không chỉ là vật dụng, mà còn là tuyên ngôn về phong cách và cá tính.
+            </p>
+            <p>
+                Sứ mệnh của Mắt kính Nông Lâm là mang đến cho khách hàng những sản phẩm thời trang mắt kính chất lượng
+                cao,
+                giá cả hợp lý cùng dịch vụ tận tâm.
+            </p>
         </div>
+        <img src="${pageContext.request.contextPath}/Images/AboutUs/CuaHang.png" alt="Cửa hàng Mắt kính Nông Lâm">
+    </section>
 
-        <div class="profile-info">
-            <p class="name">Tên hiển thị</p>
-            <p class="email">email@example.com</p>
-            <p class="phone">(+84) 0123 456 789</p>
-        </div>
-        <div class="history-actions">
-            <a href="OrderHistory.html" class="btn primary">Xem lịch sử đơn hàng</a>
+    <section class="about-values">
+        <h2>Giá trị cốt lõi</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <h3>Chất lượng</h3>
+                <p>Mỗi sản phẩm đều trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo độ bền và độ chính xác cao.</p>
+            </div>
+            <div class="value-card">
+                <h3>Phong cách</h3>
+                <p>Đa dạng mẫu mã, cập nhật xu hướng thời trang mắt kính mới nhất thế giới.</p>
+            </div>
+            <div class="value-card">
+                <h3>Dịch vụ</h3>
+                <p>Đội ngũ chăm sóc khách hàng tận tình, luôn sẵn sàng hỗ trợ 24/7.</p>
+            </div>
         </div>
     </section>
 
-
-    <!-- Form chỉnh sửa thông tin -->
-    <section class="card" aria-labelledby="edit-title">
-        <h2 id="edit-title">Chỉnh sửa thông tin</h2>
-        <form novalidate>
-            <div class="form-grid">
-
-                <div class="field">
-                    <label for="fullName">Họ và tên <span class="req">*</span></label>
-                    <input id="fullName" type="text" placeholder="Họ và tên" required/>
-                    <small class="error"> </small>
-                </div>
-
-                <div class="field">
-                    <label for="email">Email <span class="req">*</span></label>
-                    <input id="email" type="email" placeholder="email@example.com" required/>
-                    <small class="error"></small>
-                </div>
-
-                <div class="field">
-                    <label for="phone">Số điện thoại</label>
-                    <input id="phone" type="tel" placeholder="0123 456 789"/>
-                    <small class="error"></small>
-                </div>
-
-                <div class="field">
-                    <label for="birthday">Ngày sinh</label>
-                    <input id="birthday" type="date" placeholder="2000-01-01"/>
-                </div>
-
-                <div class="field">
-                    <label for="gender">Giới tính</label>
-                    <select id="gender">
-                        <option value="" selected>-- Chọn --</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                        <option value="other">Khác</option>
-                    </select>
-                </div>
-
-                <div class="field span-2">
-                    <label for="address">Địa chỉ</label>
-                    <textarea id="address" rows="3" placeholder="123 Đường ABC, Quận 1, TP.HCM"></textarea>
-                </div>
+    <section class="about-team">
+        <h2>Đội ngũ của chúng tôi</h2>
+        <p>Mắt kính Nông Lâm tự hào có đội ngũ trẻ trung, sáng tạo và đầy nhiệt huyết.</p>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="${pageContext.request.contextPath}/Images/AboutUs/Ceo.jpg" alt="CEO">
+                <h4>Nguyễn Minh Tâm</h4>
+                <p>Giám đốc điều hành</p>
             </div>
-
-            <div class="form-actions">
-                <button type="button" class="btn primary disabled">Lưu thay đổi</button>
+            <div class="team-member">
+                <img src="${pageContext.request.contextPath}/Images/AboutUs/Designer.jpg" alt="Designer">
+                <h4>Trần Thu Hà</h4>
+                <p>Nhà thiết kế chính</p>
             </div>
-        </form>
-    </section>
-
-
-    <!-- Khu vực bảo mật -->
-    <section class="card" aria-labelledby="security-title">
-        <h2 id="security-title">Bảo mật</h2>
-        <form action="${pageContext.request.contextPath}/Profile" method="post">
-            <input type="hidden" name="action" value="changePassword"/>
-
-            <div class="field">
-                <label for="currentPassword">Mật khẩu hiện tại</label>
-                <input id="currentPassword" type="password"/>
+            <div class="team-member">
+                <img src="${pageContext.request.contextPath}/Images/AboutUs/Support.jpg" alt="Support">
+                <h4>Phạm Anh Quân</h4>
+                <p>Trưởng bộ phận CSKH</p>
             </div>
-
-            <div class="field">
-                <label for="newPassword">Mật khẩu mới</label>
-                <input id="newPassword" type="password"/>
-            </div>
-
-            <div class="field">
-                <label for="confirmPassword">Nhập lại mật khẩu</label>
-                <input id="confirmPassword" type="password"/>
-                <small class="error"></small>
-            </div>
-
-            <div class="form-actions">
-                <button type="button" id="changePassBtn" class="btn">Đổi mật khẩu</button>
-            </div>
-        </form>
-
-        <form action="${pageContext.request.contextPath}/Profile" method="post">
-            <div class="form-actions">
-                <input type="hidden" name="action" value="logout"/>
-                <button type="submit" class="btn danger">Đăng xuất</button>
-            </div>
-        </form>
-
         </div>
-        </form>
     </section>
 </main>
 
-<script src="../src/main/webapp/JavaScript/Profile.js"></script>
 <!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-inner">
@@ -235,6 +185,5 @@
 
     </div>
 </footer>
-
 </body>
 </html>

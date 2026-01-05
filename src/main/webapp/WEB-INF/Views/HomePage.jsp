@@ -32,7 +32,7 @@
             </a>
             <nav class="main-nav" aria-label="Chính">
                 <a href="${pageContext.request.contextPath}/Home" class="active">Trang chủ</a>
-                <a href="AboutUs.html">Giới thiệu</a>
+                <a href="${pageContext.request.contextPath}/About">Giới thiệu</a>
                 <a href="Contact.html">Liên hệ</a>
             </nav>
         </div>
@@ -84,10 +84,10 @@
 
     <!-- CATEGORY BAR -->
     <nav class="category-bar">
-        <a href="Kinh_Can.html" class="cat">Kính Cận</a>
-        <a href="Kinh_Mat.html" class="cat">Kính Mát</a>
-        <a href="Kinh_Ap_Trong.html" class="cat">Kính Áp Tròng</a>
-        <a href="Gong_Kinh.html" class="cat">Gọng Kính</a>
+        <a href="${pageContext.request.contextPath}/Kinh_Can" class="cat">Kính Cận</a>
+        <a href="${pageContext.request.contextPath}/Kinh_Mat" class="cat">Kính Mát</a>
+        <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong" class="cat">Kính Áp Tròng</a>
+        <a href="${pageContext.request.contextPath}/Gong_Kinh" class="cat">Gọng Kính</a>
     </nav>
 </header>
 

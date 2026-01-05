@@ -117,3 +117,54 @@ button:hover {
 .back-home-btn:hover {
     background: #362ccb;
 }
+
+.divider {
+    text-align: center;
+    margin: 15px 0;
+    color: #999;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin-top: 10px;
+    padding: 12px;
+
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s;
+}
+
+.google-btn:hover {
+    background: #f5f5f5;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.otp-btn-group {
+    display: flex;
+    gap: 12px;              /* khoảng cách giữa 2 nút */
+    margin-top: 15px;
+}
+
+.otp-btn-group button {
+    flex: 1;                /* 2 nút bằng nhau */
+}
+.otp-disabled {
+    background-color: #f0f0f0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.otp-active {
+    background-color: #fff;
+    color: #000;
+}
