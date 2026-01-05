@@ -5,14 +5,14 @@ USE web;
 CREATE TABLE `products` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `category_id` int,
-  `product_name` varchar(50),
+  `product_name` varchar(100),
   `brand` varchar(20),
-  `price` double,
+  `price` BIGINT UNSIGNED,
   `stock` integer,
   `origin` varchar(100),
-  `general_description` varchar(100),
-  `shipping_info` varchar(100),
-  `product_details` varchar(100),
+  `general_description` LONGTEXT,
+  `shipping_info` TEXT,
+  `product_details` TEXT,
   `sold_quantity` integer,
   `deleted` boolean,
   `created_at` timestamp
@@ -48,8 +48,8 @@ CREATE TABLE `attributes` (
 
 CREATE TABLE `category_attribute_map` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `attribute_id` int,
-  `category_id` int
+  `category_id` int,
+  `attribute_id` int
 );
 
 CREATE TABLE `attribute_values` (

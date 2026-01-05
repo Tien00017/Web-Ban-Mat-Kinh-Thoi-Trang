@@ -81,10 +81,10 @@
 
     <!-- CATEGORY BAR -->
     <nav class="category-bar">
-        <a href="Kinh_Can.jsp" class="cat">Kính Cận</a>
-        <a href="Kinh_Mat.jsp" class="cat">Kính Mát</a>
-        <a href="Kinh_Ap_Trong.jsp" class="cat">Kính Áp Tròng</a>
-        <a href="Gong_Kinh.jsp" class="cat">Gọng Kính</a>
+        <a href="${pageContext.request.contextPath}/Kinh_Can" class="cat">Kính Cận</a>
+        <a href="${pageContext.request.contextPath}/Kinh_Mat" class="cat">Kính Mát</a>
+        <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong" class="cat">Kính Áp Tròng</a>
+        <a href="${pageContext.request.contextPath}/Gong_Kinh" class="cat">Gọng Kính</a>
     </nav>
 </header>
 

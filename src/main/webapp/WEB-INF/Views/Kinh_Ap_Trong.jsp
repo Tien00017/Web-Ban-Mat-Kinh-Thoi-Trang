@@ -1,23 +1,37 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%@ page import="Model.Object.User" %>
+<%
+    User user = (User) session.getAttribute("user");
+%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kính Áp Tròng - Mắt Kinh Nông Lâm</title>
-    <link rel="stylesheet" href="../src/main/webapp/CSS/StyleOfKinh_Ap_Trong.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfKinh_Ap_Trong.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
         <div class="header-left">
-            <a class="logo" href="#"><img src="../src/main/webapp/Images/Logo.jpg" alt="Logo" class="logo-img">Mắt kính Nông Lâm</a>
+            <a class="logo" href="#">
+                <img src="${pageContext.request.contextPath}/Images/Logo.jpg"
+                     alt="Logo" class="logo-img">
+                Mắt kính Nông Lâm
+            </a>
             <nav class="main-nav" aria-label="Chính">
-                <a href="HomePage.html" >Trang chủ</a>
-                <a href="AboutUs.html">Giới thiệu</a>
-                <a href="Contact.html" >Liên hệ</a>
+                <a href="${pageContext.request.contextPath}/Home" class="active">Trang chủ</a>
+                <a href="${pageContext.request.contextPath}/About">Giới thiệu</a>
+                <a href="Contact.html">Liên hệ</a>
             </nav>
         </div>
 
@@ -25,7 +39,8 @@
             <div class="search-wrap">
                 <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
                 <button class="search-btn" aria-label="Tìm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
                     </svg>
@@ -33,160 +48,221 @@
             </div>
 
             <div class="header-icons">
+                <% if (user == null) { %>
+                <!-- Chưa đăng nhập: chỉ hiện Đăng nhập / Đăng ký -->
+                <a class="btn-outline" href="${pageContext.request.contextPath}/Login">Đăng nhập</a>
+                <a class="btn-primary" href="${pageContext.request.contextPath}/Register">Đăng ký</a>
+                <% } else { %>
+                <!-- Đã đăng nhập: hiện Cart, Profile, tên người dùng và Đăng xuất -->
                 <a href="Cart.html" aria-label="Giỏ hàng">
-                    <button class="icon-btn" >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                    <button class="icon-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                             <circle cx="9" cy="21" r="1"/>
                             <circle cx="20" cy="21" r="1"/>
                             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
                         </svg>
                     </button>
                 </a>
-                <a href="Profile.html" aria-label="Thông tin">
+                <a href="${pageContext.request.contextPath}/Profile" aria-label="Thông tin">
                     <button class="icon-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                             stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                             stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon">
                             <path d="M20 21v-2a4 4 0 0 0-3-3.87"/>
                             <path d="M4 21v-2a4 4 0 0 1 3-3.87"/>
                             <circle cx="12" cy="7" r="4"/>
                         </svg>
                     </button>
                 </a>
-                <a class="btn-outline" href="Login.html">Đăng nhập</a>
-                <a class="btn-primary" href="Register.html">Đăng ký</a>
+                <% } %>
             </div>
         </div>
     </div>
 
     <!-- CATEGORY BAR -->
     <nav class="category-bar">
-        <a href="Kinh_Can.jsp" class="cat">Kính Cận</a>
-        <a href="Kinh_Mat.jsp" class="cat">Kính Mát</a>
-        <a href="Kinh_Ap_Trong.html" class="cat active">Kính Áp Tròng</a>
-        <a href="Gong_Kinh.jsp" class="cat">Gọng Kính</a>
+        <a href="${pageContext.request.contextPath}/Kinh_Can" class="cat">Kính Cận</a>
+        <a href="${pageContext.request.contextPath}/Kinh_Mat" class="cat">Kính Mát</a>
+        <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong" class="cat active">Kính Áp Tròng</a>
+        <a href="${pageContext.request.contextPath}/Gong_Kinh" class="cat">Gọng Kính</a>
     </nav>
 </header>
 
-    <div class="container">
-        <aside class="sidebar">
-            <h3>Lọc</h3>
+<div class="container">
 
-            <h4>Màu áp tròng</h4>
-            <label><input type="radio" name="lensColor" value="trang"> Trắng</label>
-            <label><input type="radio" name="lensColor" value="xanh"> Xanh</label>
-            <label><input type="radio" name="lensColor" value="do"> Đỏ</label>
-            <label><input type="radio" name="lensColor" value="vang"> Vàng</label>
+    <form method="get"
+          action="${pageContext.request.contextPath}/Kinh_Ap_Trong"
+          class="sidebar">
+        <input type="hidden" name="page" value="${currentPage != null ? currentPage : 1}">
 
-            <h4>Độ cận</h4>
-            <label>
-                <input
-                        type="number"
-                        class="nearsightedness-input"
-                        placeholder="Nhập từ -0.00 đến -8.00"
-                        min="-8.00"
-                        max="0"
-                        step="0.25"
-                >
-            </label>
+        <h3>Lọc</h3>
 
-            <h4>Giá</h4>
-            <label> <input type="radio" name="gia"> Dưới 500k</label>
-            <label> <input type="radio" name="gia"> 500k - 1tr </label>
-            <label> <input type="radio" name="gia"> Trên 1tr</label>
+        <h4>Màu sắc</h4>
+        <label>
+            <input type="radio" name="color" value="Đen"
+                   <c:if test="${param.color == 'Đen'}">checked</c:if> >
+            Đen
+        </label>
+        <label>
+            <input type="radio" name="color" value="Nâu"
+                   <c:if test="${param.color == 'Nâu'}">checked</c:if> >
+            Nâu
+        </label>
+        <label>
+            <input type="radio" name="color" value="Trắng"
+                   <c:if test="${param.color == 'Trắng'}">checked</c:if> >
+            Trắng
+        </label>
+        <label>
+            <input type="radio" name="color" value="Trong suốt"
+                   <c:if test="${param.color == 'Trong suốt'}">checked</c:if> >
+            Trong suốt
+        </label>
+        <label>
+            <input type="radio" name="color" value="Xám"
+                   <c:if test="${param.color == 'Xám'}">checked</c:if> >
+            Xám
+        </label>
+        <label>
+            <input type="radio" name="color" value="Xanh"
+                   <c:if test="${param.color == 'Xanh'}">checked</c:if> >
+            Xanh
+        </label>
 
-            <h4>Sắp xếp theo giá</h4>
-            <label><input type="radio" name="sortPrice" value="desc"> Cao đến thấp</label>
-            <label><input type="radio" name="sortPrice" value="asc"> Thấp đến cao</label>
+        <label>
+            <input type="radio" name="color" value="Trắng"
+                   <c:if test="${param.color == 'Trắng'}">checked</c:if> >
+            Trắng
+        </label>
 
-            <button class="btn">Lọc</button>
-        </aside>
+        <h4>Giá</h4>
+        <label>
+            <input type="radio" name="priceRange" value="low"
+                   <c:if test="${param.priceRange == 'low'}">checked</c:if> >
+            Dưới 500k
+        </label>
+        <label>
+            <input type="radio" name="priceRange" value="mid"
+                   <c:if test="${param.priceRange == 'mid'}">checked</c:if> >
+            500k - 1tr
+        </label>
+        <label>
+            <input type="radio" name="priceRange" value="high"
+                   <c:if test="${param.priceRange == 'high'}">checked</c:if> >
+            Trên 1tr
+        </label>
 
+        <h4>Sắp xếp theo giá</h4>
+        <label>
+            <input type="radio" name="sortPrice" value="asc"
+                   <c:if test="${param.sortPrice == 'asc'}">checked</c:if> >
+            Thấp → cao
+        </label>
+        <label>
+            <input type="radio" name="sortPrice" value="desc"
+                   <c:if test="${param.sortPrice == 'desc'}">checked</c:if> >
+            Cao → thấp
+        </label>
 
-        <section class="products">
-        <h2>Áp Tròng Hot</h2>
+        <button type="submit" class="btn">Lọc</button>
+    </form>
 
+    <section class="products">
         <div class="product-grid">
+            <c:forEach var="p" items="${products}">
+                <div class="product-card">
 
-            <div class="product-card">
-                <span class="tag pink">Hot</span>
-                <img src="../src/main/webapp/Images/KinhApTrong/KinhApTrong1.jpg" alt="Gray Lens">
-                <h4>Gray Lens</h4>
-                <p class="price">120,000 VNĐ</p>
-                <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
-            </div>
+                    <c:set var="img" value="${imageMap[p.id]}"/>
 
-            <div class="product-card">
-                <span class="tag green">New</span>
-                <img src="../src/main/webapp/Images/HomePage/KinhApTrong2.jpg" alt="Brown Natural">
-                <h4>Brown Natural</h4>
-                <p class="price">150,000 VNĐ</p>
-                <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
-            </div>
+                    <c:choose>
+                        <c:when test="${img != null}">
+                            <img src="${img.imageUrl}" alt="${p.productName}">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${pageContext.request.contextPath}/Images/no-image.png"
+                                 alt="No image">
+                        </c:otherwise>
+                    </c:choose>
 
-            <div class="product-card">
-                <span class="tag purple">Best Seller</span>
-                <img src="../src/main/webapp/Images/HomePage/KinhApTrong3.jpg" alt="Crystal Clear">
-                <h4>Crystal Clear</h4>
-                <p class="price">100,000 VNĐ</p>
-                <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
-            </div>
+                    <h4>${p.productName}</h4>
+                    <p class="price">${p.price} VNĐ</p>
 
-            <div class="product-card">
-                <span class="tag pink">Hot</span>
-                <img src="../src/main/webapp/Images/KinhApTrong/KinhApTrong1.jpg" alt="Gray Lens">
-                <h4>Gray Lens</h4>
-                <p class="price">120,000 VNĐ</p>
-                <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
-            </div>
+                    <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
+                       class="try-btn">Xem sản phẩm</a>
+                </div>
+            </c:forEach>
+        </div>
+        <div class="pagination">
+            <c:if test="${totalPages > 1}">
+                <%
+                    int maxDisplay = 3; // số trang hiển thị tối đa
+                    int currentPage = (Integer) request.getAttribute("currentPage");
+                    int totalPages = (Integer) request.getAttribute("totalPages");
 
-            <div class="product-card">
-                <span class="tag green">New</span>
-                <img src="../src/main/webapp/Images/HomePage/KinhApTrong2.jpg" alt="Brown Natural">
-                <h4>Brown Natural</h4>
-                <p class="price">150,000 VNĐ</p>
-                <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
-            </div>
+                    int start = Math.max(1, currentPage - 2);
+                    int end = Math.min(totalPages, start + maxDisplay - 1);
+                    if (end - start + 1 < maxDisplay) {
+                        start = Math.max(1, end - maxDisplay + 1);
+                    }
+                %>
 
-            <div class="product-card">
-                <span class="tag purple">Best Seller</span>
-                <img src="../src/main/webapp/Images/HomePage/KinhApTrong3.jpg" alt="Crystal Clear">
-                <h4>Crystal Clear</h4>
-                <p class="price">100,000 VNĐ</p>
-                <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
-            </div>
-            <div class="product-card">
-                <span class="tag pink">Hot</span>
-                <img src="../src/main/webapp/Images/KinhApTrong/KinhApTrong1.jpg" alt="Gray Lens">
-                <h4>Gray Lens</h4>
-                <p class="price">120,000 VNĐ</p>
-                <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
-            </div>
+                <!-- Nút trang đầu tiên << -->
+                <c:if test="${currentPage > 1}">
+                    <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong?material=${param.material}&shape=${param.shape}&priceRange=${param.priceRange}&sortPrice=${param.sortPrice}&page=1"
+                       class="page-nav">&lt;&lt;</a>
+                </c:if>
 
-            <div class="product-card">
-                <span class="tag green">New</span>
-                <img src="../src/main/webapp/Images/HomePage/KinhApTrong2.jpg" alt="Brown Natural">
-                <h4>Brown Natural</h4>
-                <p class="price">150,000 VNĐ</p>
-                <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
-            </div>
+                <!-- Nút trang trước -->
+                <c:if test="${currentPage > 1}">
+                    <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong?material=${param.material}&shape=${param.shape}&priceRange=${param.priceRange}&sortPrice=${param.sortPrice}&page=${currentPage - 1}"
+                       class="page-nav">&lt;</a>
+                </c:if>
 
-            <div class="product-card">
-                <span class="tag purple">Best Seller</span>
-                <img src="../src/main/webapp/Images/HomePage/KinhApTrong3.jpg" alt="Crystal Clear">
-                <h4>Crystal Clear</h4>
-                <p class="price">100,000 VNĐ</p>
-                <p class="rating">⭐ 4.8</p>
-                <a href="ProductDetail.html" class="try-btn">Xem sản phẩm</a>
-            </div>
+                <!-- Trang đầu nếu start > 1 -->
+                <c:if test="${start > 1}">
+                    <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong?material=${param.material}&shape=${param.shape}&priceRange=${param.priceRange}&sortPrice=${param.sortPrice}&page=1"
+                       class="page">1</a>
+                    <span class="dots">…</span>
+                </c:if>
 
+                <!-- Các trang hiển thị -->
+                <c:forEach begin="<%=start%>" end="<%=end%>" var="i">
+                    <c:choose>
+                        <c:when test="${i == currentPage}">
+                            <span class="page current">${i}</span>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong?material=${param.material}&shape=${param.shape}&priceRange=${param.priceRange}&sortPrice=${param.sortPrice}&page=${i}"
+                               class="page">${i}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <!-- Trang cuối nếu end < totalPages -->
+                <c:if test="${end < totalPages}">
+                    <span class="dots">…</span>
+                    <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong?material=${param.material}&shape=${param.shape}&priceRange=${param.priceRange}&sortPrice=${param.sortPrice}&page=${totalPages}"
+                       class="page">${totalPages}</a>
+                </c:if>
+
+                <!-- Nút trang tiếp theo -->
+                <c:if test="${currentPage < totalPages}">
+                    <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong?material=${param.material}&shape=${param.shape}&priceRange=${param.priceRange}&sortPrice=${param.sortPrice}&page=${currentPage + 1}"
+                       class="page-nav">&gt;</a>
+                </c:if>
+
+                <!-- Nút trang cuối >> -->
+                <c:if test="${currentPage < totalPages}">
+                    <a href="${pageContext.request.contextPath}/Kinh_Ap_Trong?material=${param.material}&shape=${param.shape}&priceRange=${param.priceRange}&sortPrice=${param.sortPrice}&page=${totalPages}"
+                       class="page-nav">&gt;&gt;</a>
+                </c:if>
+
+                <!-- Dòng trạng thái -->
+                <div class="page-status">
+                    Trang ${currentPage} / ${totalPages}
+                </div>
+            </c:if>
         </div>
     </section>
 
@@ -222,6 +298,7 @@
 
     </div>
 </footer>
+<script src="${pageContext.request.contextPath}/JavaScript/Filter.js"></script>
 
 </body>
 </html>

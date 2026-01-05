@@ -402,3 +402,47 @@ html, body {
         padding: 10px 12px;
     }
 }
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    gap: 4px;
+}
+
+.pagination .page,
+.pagination .page-nav,
+.pagination .dots {
+    margin: 0 5px;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    color: #463AE8;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.pagination .page.current {
+    background-color: #463AE8;
+    color: white;
+    border-color: #463AE8;
+    font-weight: 600;
+}
+
+.pagination .page:hover,
+.pagination .page-nav:hover {
+    background-color: #463AE8;
+    color: white;
+    border-color: #463AE8;
+}
+
+.pagination .page-nav {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pagination .dots {
+    border: none;
+    cursor: default;
+    padding: 6px 4px;
+}
