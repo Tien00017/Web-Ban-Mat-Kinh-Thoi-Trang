@@ -1,8 +1,7 @@
 package Controller;
 
-import Model.DAO.OTPDAO;
-import Model.DAO.UserDAO;
-import Model.Utils.Email;
+import Model.Service.OTPService;
+import Model.Service.UserService;
 import Model.Object.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,14 +13,26 @@ import java.io.IOException;
 
 @WebServlet(name = "Register", value = "/Register")
 public class Register extends HttpServlet {
+
+    private final UserService userService = new UserService();
+    private final OTPService otpService = new OTPService();
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String action = request.getParameter("action");
+
+        if (action == null) {
+            response.sendRedirect(request.getContextPath() + "/Register");
+            return;
+        }
 
         switch (action) {
             case "sendOTP":
@@ -45,26 +56,16 @@ public class Register extends HttpServlet {
         String email = request.getParameter("email");
         request.setAttribute("email", email);
 
-        // 1. Check email tồn tại
-        if (UserDAO.emailExists(email)) {
-            request.setAttribute("error", "Đã tồn tại người dùng với email này!");
-            // ❌ KHÔNG set otpSent
-            request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
-            return;
+        try {
+            // gửi OTP qua Service (Service tự check email tồn tại)
+            otpService.sendOTP(email, "REGISTER");
+
+            request.setAttribute("otpSent", true);
+            request.setAttribute("msg", "OTP đã được gửi tới email!");
+
+        } catch (RuntimeException e) {
+            request.setAttribute("error", e.getMessage());
         }
-
-        // 2. Sinh OTP
-        String otp = String.valueOf((int) (Math.random() * 900000) + 100000);
-
-        // 3. Lưu OTP
-        OTPDAO.saveOTP(null, email, otp, "VERIFY_EMAIL");
-
-        // 4. Gửi mail
-        Email.send(email, "Xác nhận đăng ký", "Mã OTP của bạn là: " + otp);
-
-        // 5. Gửi thành công → MỞ OTP
-        request.setAttribute("otpSent", true);
-        request.setAttribute("msg", "OTP đã được gửi tới email!");
 
         request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
     }
@@ -77,22 +78,23 @@ public class Register extends HttpServlet {
         String otp = request.getParameter("otp");
 
         request.setAttribute("email", email);
-        request.setAttribute("otpSent", true); // giữ form OTP
+        request.setAttribute("otpSent", true);
 
-        if (!OTPDAO.verifyOTP(null, email, otp, "VERIFY_EMAIL")) {
+        boolean valid = otpService.verifyOTP(email, otp, "REGISTER");
+
+        if (!valid) {
             request.setAttribute("error", "OTP không hợp lệ hoặc đã hết hạn!");
             request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
             return;
         }
 
-        // ✅ OTP ĐÚNG → CHO PHÉP ĐĂNG KÝ
         request.setAttribute("otpVerified", true);
         request.setAttribute("msg", "Xác nhận email thành công!");
 
         request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
     }
 
-    // ================== VERIFY REGISTER ==================
+    // ================== REGISTER ==================
     private void handleRegister(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -110,17 +112,23 @@ public class Register extends HttpServlet {
             return;
         }
 
-        User u = new User();
-        u.setEmail(email);
-        u.setDisplayName(displayName);
-        u.setPassword(password); // 👉 sau này hash tại đây
+        User user = new User();
+        user.setEmail(email);
+        user.setDisplayName(displayName);
+        user.setPassword(password);
 
-        if (UserDAO.register(u)) {
+        try {
+            userService.register(user);
+
+            // nếu không exception → chắc chắn thành công
             response.sendRedirect(request.getContextPath() + "/Login");
-        } else {
-            request.setAttribute("error", "Đăng ký thất bại!");
-            request.getRequestDispatcher("/WEB-INF/Views/Register.jsp").forward(request, response);
+
+        } catch (RuntimeException e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/Views/Register.jsp")
+                    .forward(request, response);
         }
+
     }
 
 }

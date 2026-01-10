@@ -25,9 +25,15 @@
         <input type="password" name="password" placeholder="Mật khẩu" required>
         <button type="submit">Đăng nhập</button>
 
+        <% if (request.getAttribute("msg") != null) { %>
+        <div style="color:green">
+            <%= request.getAttribute("msg") %>
+        </div>
+        <% } %>
         <% if (request.getAttribute("error") != null) { %>
-        <p style="color:red"><%= request.getAttribute("error") %>
-        </p>
+        <div style="color:red">
+            <%= request.getAttribute("error") %>
+        </div>
         <% } %>
     </form>
     <div class="divider">hoặc</div>

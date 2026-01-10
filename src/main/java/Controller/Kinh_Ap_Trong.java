@@ -1,8 +1,11 @@
 package Controller;
 
 import Model.DAO.ProductDAO;
+import Model.DAO.ProductImgDAO;
 import Model.Object.Product;
 import Model.Object.ProductImage;
+import Model.Service.ProductImgService;
+import Model.Service.ProductService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -10,9 +13,20 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "Kinh_Ap_Trong", value = "/Kinh_Ap_Trong")
 public class Kinh_Ap_Trong extends HttpServlet {
+
+    private ProductService productService = new ProductService();
+    private ProductImgService productImgService = new ProductImgService();
+
+    @Override
+    public void init() {
+        productService = new ProductService();
+        productImgService = new ProductImgService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int categoryId = 3;
@@ -22,37 +36,34 @@ public class Kinh_Ap_Trong extends HttpServlet {
         String priceRange = request.getParameter("priceRange");
         String sortPrice = request.getParameter("sortPrice");
 
-        // ===== 2. LẤY TRANG HIỆN TẠI =====
+        // ===== 2. PAGE =====
         int page = 1;
-        String pageParam = request.getParameter("page");
-        if (pageParam != null) {
-            try {
-                page = Integer.parseInt(pageParam);
-                if (page < 1) page = 1;
-            } catch (NumberFormatException e) {
-                page = 1;
-            }
-        }
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
+            if (page < 1) page = 1;
+        } catch (Exception ignored) {}
 
         int pageSize = 9;
-        int offset = (page - 1) * pageSize;
 
         // ===== 3. LẤY DANH SÁCH SẢN PHẨM =====
-        List<Product> products = ProductDAO.getFilteredProducts(categoryId, null, null, color, priceRange, sortPrice);
+        List<Product> allProducts = productService.getFilteredProducts(categoryId, null, null, color, priceRange, sortPrice);
 
-        // ===== 4. LẤY TỔNG SỐ SẢN PHẨM =====
-        int totalProducts = products.size();
+        // ===== 4. PHÂN TRANG =====
+        int totalProducts = allProducts.size();
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
 
+        List<Product> displayProducts =
+                productService.paginate(allProducts, page, pageSize);
+
         // ===== 5. LẤY ẢNH CHÍNH =====
-        List<Integer> ids = products.stream()
+        List<Integer> productIds = displayProducts.stream()
                 .map(Product::getId)
-                .toList();
+                .collect(Collectors.toList());
 
-        Map<Integer, ProductImage> imageMap = ProductDAO.getMainImagesByProductIds(ids);
-        List<Product> displayProducts = ProductDAO.getProductsByPage(products, offset, pageSize);;
+        Map<Integer, ProductImage> imageMap =
+                productImgService.getMainImages(productIds);
 
-        // ===== 6. ĐẨY DỮ LIỆU RA JSP =====
+        // ===== 6. ĐẨY RA JSP =====
         request.setAttribute("products", displayProducts);
         request.setAttribute("imageMap", imageMap);
         request.setAttribute("currentPage", page);

@@ -2,6 +2,7 @@ package Controller;
 
 import Model.DAO.UserDAO;
 import Model.Object.User;
+import Model.Service.UserService;
 import Model.Utils.Google;
 import Model.Utils.Http;
 import com.google.gson.JsonObject;
@@ -17,8 +18,13 @@ import java.io.IOException;
 
 @WebServlet(name = "GoogleCallback", value = "/GoogleCallback")
 public class GoogleCallback extends HttpServlet {
+
+    private final UserService userService = new UserService();
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String code = request.getParameter("code");
         if (code == null) {
             response.sendRedirect("Login");
@@ -45,16 +51,11 @@ public class GoogleCallback extends HttpServlet {
         String email = userJson.get("email").getAsString();
         String name = userJson.get("name").getAsString();
 
-        User u = UserDAO.getUserByEmail(email);
-        if (u == null) {
-            u = new User();
-            u.setEmail(email);
-            u.setDisplayName(name);
-            UserDAO.registerGoogle(u);
-        }
+        // ✅ GỌI SERVICE
+        User user = userService.loginWithGoogle(email, name);
 
         HttpSession session = request.getSession();
-        session.setAttribute("user", u);
+        session.setAttribute("user", user);
 
         response.sendRedirect(request.getContextPath() + "/Home");
     }

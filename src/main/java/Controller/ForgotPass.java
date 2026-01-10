@@ -1,27 +1,35 @@
 package Controller;
 
-import Model.DAO.OTPDAO;
-import Model.DAO.UserDAO;
-import Model.Object.User;
-import Model.Utils.Email;
+import Model.Service.OTPService;
+import Model.Service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
 @WebServlet(name = "ForgotPass", value = "/ForgotPass")
 public class ForgotPass extends HttpServlet {
+
+    private final UserService userService = new UserService();
+    private final OTPService otpService = new OTPService();
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/Views/ForgotPass.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String action = request.getParameter("action");
+
+        if (action == null) {
+            response.sendRedirect(request.getContextPath() + "/ForgotPass");
+            return;
+        }
 
         switch (action) {
             case "sendOTP":
@@ -38,44 +46,40 @@ public class ForgotPass extends HttpServlet {
         }
     }
 
+    // ================= SEND OTP =================
     private void handleSendOTP(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String email = request.getParameter("email");
         request.setAttribute("email", email);
 
-        User u = UserDAO.getUserByEmail(email);
-        if (u == null || u.getRole() == 0) {
-            request.setAttribute("error", "Email không hợp lệ!");
-            request.getRequestDispatcher("/WEB-INF/Views/ForgotPass.jsp").forward(request, response);
-            return;
+        try {
+            otpService.sendOTP(email, "RESET_PASSWORD");
+
+            request.setAttribute("otpSent", true);
+            request.setAttribute("msg", "OTP đã được gửi qua email!");
+
+        } catch (RuntimeException e) {
+            request.setAttribute("error", e.getMessage());
         }
-
-        String otp = String.valueOf((int) (Math.random() * 900000) + 100000);
-        OTPDAO.saveOTP(u.getId(), null, otp, "RESET_PASSWORD");
-
-        Email.send(email, "Mã OTP đặt lại mật khẩu", "OTP của bạn là: " + otp);
-
-        request.setAttribute("otpSent", true);
-        request.setAttribute("userId", u.getId());
-        request.setAttribute("msg", "OTP đã gửi qua email!");
 
         request.getRequestDispatcher("/WEB-INF/Views/ForgotPass.jsp").forward(request, response);
     }
 
+    // ================= VERIFY OTP =================
     private void handleVerifyOTP(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String email = request.getParameter("email");
         String otp = request.getParameter("otp");
 
-        User u = UserDAO.getUserByEmail(email);
         request.setAttribute("email", email);
         request.setAttribute("otpSent", true);
-        request.setAttribute("userId", u.getId());
 
-        if (!OTPDAO.verifyOTP(u.getId(), null, otp, "RESET_PASSWORD")) {
-            request.setAttribute("error", "OTP không hợp lệ hoặc hết hạn!");
+        boolean valid = otpService.verifyOTP(email, otp, "RESET_PASSWORD");
+
+        if (!valid) {
+            request.setAttribute("error", "OTP không hợp lệ hoặc đã hết hạn!");
             request.getRequestDispatcher("/WEB-INF/Views/ForgotPass.jsp").forward(request, response);
             return;
         }
@@ -86,6 +90,7 @@ public class ForgotPass extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/Views/ForgotPass.jsp").forward(request, response);
     }
 
+    // ================= RESET PASSWORD =================
     private void handleResetPassword(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -93,19 +98,22 @@ public class ForgotPass extends HttpServlet {
         String newPw = request.getParameter("newPassword");
         String confirm = request.getParameter("confirm");
 
-        User u = UserDAO.getUserByEmail(email);
+        request.setAttribute("email", email);
+        request.setAttribute("otpVerified", true);
 
         if (!newPw.equals(confirm)) {
             request.setAttribute("error", "Mật khẩu xác nhận không khớp!");
-            request.setAttribute("otpVerified", true);
-            request.setAttribute("email", email);
             request.getRequestDispatcher("/WEB-INF/Views/ForgotPass.jsp").forward(request, response);
             return;
         }
 
-        UserDAO.updatePassword(u.getId(), newPw);
-        response.sendRedirect(request.getContextPath() + "/Login");
+        try {
+            userService.resetPasswordByEmail(email, newPw);
+            response.sendRedirect(request.getContextPath() + "/Login");
+
+        } catch (RuntimeException e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/Views/ForgotPass.jsp").forward(request, response);
+        }
     }
-
-
 }
