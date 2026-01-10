@@ -279,6 +279,7 @@
 
     </div>
 </footer>
+<button id="backToTop" aria-label="Lên đầu trang"><i class="fa-solid fa-up-long"></i></button>
 <script src="${pageContext.request.contextPath}/JavaScript/HomePage.js"></script>
 </body>
 </html>

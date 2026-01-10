@@ -189,7 +189,11 @@
                     </c:choose>
 
                     <h4>${p.productName}</h4>
-                    <p class="price">${p.price} VNĐ</p>
+                    <p class="price">
+                        <p class="price">
+                            <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/> VNĐ
+                        </p>
+                    </p>
 
                     <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
                        class="try-btn">Xem sản phẩm</a>

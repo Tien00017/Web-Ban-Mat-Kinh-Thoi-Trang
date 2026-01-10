@@ -29,3 +29,40 @@ backToTopBtn.addEventListener("click", () => {
         behavior: "smooth"
     });
 });
+
+const stars = document.querySelectorAll(".rating-input .stars i");
+const ratingText = document.querySelector(".rating-text");
+const ratingValue = document.getElementById("ratingValue");
+
+let selectedRating = 0;
+
+stars.forEach(star => {
+    const value = parseInt(star.dataset.value);
+
+    star.addEventListener("mouseenter", () => {
+        highlightStars(value);
+        ratingText.textContent = value + " sao";
+    });
+
+    star.addEventListener("click", () => {
+        selectedRating = value;
+        ratingValue.value = value;
+        ratingText.textContent = value + " sao";
+    });
+
+    star.addEventListener("mouseleave", () => {
+        highlightStars(selectedRating);
+        ratingText.textContent = selectedRating
+            ? selectedRating + " sao"
+            : "0 sao";
+    });
+});
+
+function highlightStars(count) {
+    stars.forEach(star => {
+        star.classList.toggle(
+            "active",
+            parseInt(star.dataset.value) <= count
+        );
+    });
+}
