@@ -299,6 +299,12 @@ html, body {
     width: 200px;
 }
 
+.action-buttons .btn.add {
+    width: 200px;
+    font-weight: bold;
+    text-align: center;
+}
+
 /* Info boxes */
 .info-box {
     margin-top: 25px;
@@ -465,7 +471,6 @@ html, body {
     margin-bottom: 25px;
     object-fit: contain;
 }
-
 
 /* DESCRIPTION */
 .description {

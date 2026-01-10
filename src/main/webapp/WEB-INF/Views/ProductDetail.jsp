@@ -130,8 +130,13 @@
         </div>
 
         <div class="action-buttons">
-            <a href="${pageContext.request.contextPath}/AddToCart?id=${product.id}"
-               class="btn-outline big">Thêm vào giỏ hàng</a>
+            <form action="${pageContext.request.contextPath}/Cart" method="post">
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="productId" value="${product.id}">
+                <button type="submit" class="btn add big">
+                    Thêm vào giỏ hàng
+                </button>
+            </form>
         </div>
     </div>
 </section>

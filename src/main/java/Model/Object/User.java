@@ -1,10 +1,12 @@
 package Model.Object;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
     private int id;
+    private static final long serialVersionUID = 1L;
     private String fullName;
     private String displayName;
     private String avatar;
