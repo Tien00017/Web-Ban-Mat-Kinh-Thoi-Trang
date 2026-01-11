@@ -105,9 +105,13 @@
             <c:forEach var="item" items="${cart.cartItems.values()}">
                 <div class="cart-item">
 
-                    <label class="checkbox">
-                        <input type="checkbox" class="row-check" checked>
-                    </label>
+                    <div class="checkbox">
+                        <input type="checkbox"
+                               class="row-check"
+                               checked
+                               data-price="${item.price}"
+                               data-qty="${item.quantity}">
+                    </div>
 
                     <div class="thumb">
                         <img src="${item.image}" alt="${item.name}">
@@ -177,15 +181,15 @@
 
             <div class="summary-row">
                 <span>Số lượng sản phẩm</span>
-                <span class="count">${totalQty}</span>
+                <span class="count" id="totalQty" >${totalQty}</span>
             </div>
 
             <hr>
 
             <div class="summary-row total">
                 <span>Thành tiền</span>
-                <strong class="val">
-                    <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/> VNĐ
+                <strong class="val" id="totalPrice">
+                    <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/>
                 </strong>
             </div>
 

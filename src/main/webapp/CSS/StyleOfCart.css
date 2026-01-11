@@ -284,6 +284,7 @@ html, body {
 .checkbox input {
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 
 .cart-list {
@@ -353,7 +354,7 @@ html, body {
     text-decoration: underline;
 }
 .row-2 {
-    display: grid;
+    display: flex;
     grid-template-columns: 120px 1fr 140px;
     gap: 12px;
     align-items: center;
@@ -632,7 +633,8 @@ hr {
 .qty {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    margin-left: auto;
 }
 
 .qty .label {
