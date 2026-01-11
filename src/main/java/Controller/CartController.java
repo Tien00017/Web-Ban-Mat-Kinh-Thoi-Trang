@@ -34,6 +34,21 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Cart cart = (user != null) ? getCart(session, user) : null;
+
+        int totalQty = 0;
+        double totalPrice = 0;
+
+        if (cart != null) {
+            totalQty = cartService.getTotalQuantity(cart);
+            totalPrice = cartService.getTotalPrice(cart);
+        }
+
+        request.setAttribute("totalQty", totalQty);
+        request.setAttribute("totalPrice", totalPrice);
+
         request.getRequestDispatcher("/WEB-INF/Views/Cart.jsp").forward(request, response);
     }
 
@@ -84,7 +99,7 @@ public class CartController extends HttpServlet {
 
         List<ProductImage> images = productImgService.getProductImages(product.getId());
 
-        String mainImage = "src/main/webapp/Images/no-image.png";
+        String mainImage = "Images/no-image.png";
 
         if (images != null && !images.isEmpty()) {
             mainImage = images.get(0).getImageUrl();
