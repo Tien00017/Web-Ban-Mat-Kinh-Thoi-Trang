@@ -66,3 +66,60 @@ function highlightStars(count) {
         );
     });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.querySelector(".js-add-to-cart");
+
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+        const productId = btn.dataset.productId;
+
+        fetch(contextPath() + "/Cart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                action: "add",
+                productId: productId
+            })
+        })
+            .then(res => {
+                if (res.status === 401) {
+                    window.location.href = contextPath() + "/Login";
+                    return;
+                }
+
+                if (!res.ok) throw new Error();
+
+                showToast("Đã thêm vào giỏ hàng");
+            })
+            .catch(() => {
+                showToast("Có lỗi xảy ra", true);
+            });
+    });
+});
+
+/* ===== Helper ===== */
+
+function showToast(message, isError = false) {
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = message;
+
+    if (isError) toast.classList.add("error");
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add("show"), 10);
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+
+function contextPath() {
+    return document.body.getAttribute("data-context") || "";
+}

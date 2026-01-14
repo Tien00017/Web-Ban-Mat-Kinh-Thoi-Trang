@@ -10,18 +10,19 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Mắt kính Nông Lâm - Trang profile</title>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfCart.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfHomePage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfCheckout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
+
 </head>
 <body>
+
 <!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
@@ -92,115 +93,108 @@
     </nav>
 </header>
 
-<main>
-    <div class="cart-wrapper">
+<section class="checkout-wrapper">
+    <div class="checkout-container">
 
-        <!-- LEFT: CART LIST -->
-        <div id="cartList" class="cart-list">
+        <div class="checkout-left">
+            <h2>Thông tin thanh toán</h2>
 
-            <c:if test="${empty cart || empty cart.cartItems}">
-                <p>Giỏ hàng của bạn đang trống</p>
-            </c:if>
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" placeholder="Nhập họ tên" required>
+            </div>
 
-            <c:forEach var="item" items="${cart.cartItems.values()}">
-                <div class="cart-item">
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="tel" placeholder="Nhập số điện thoại" required>
+            </div>
 
-                        <%--                        <div class="checkbox">--%>
-                        <%--                            <input type="checkbox"--%>
-                        <%--                                   class="row-check"--%>
-                        <%--                                   checked--%>
-                        <%--                                   data-price="${item.price}"--%>
-                        <%--                                   data-qty="${item.quantity}">--%>
-                        <%--                        </div>--%>
+            <div class="form-group">
+                <label>Địa chỉ giao hàng</label>
+                <input type="text" placeholder="Nhập địa chỉ" required>
+            </div>
 
-                    <div class="thumb">
-                        <img src="${item.image}" alt="${item.name}">
-                    </div>
+            <div class="payment-box">
+                <h3>Phương thức thanh toán</h3>
 
-                    <div class="info">
+                <label class="payment-option">
+                    <input type="radio" name="pay" checked>
+                    <span>Thanh toán khi giao hàng (COD)</span>
+                </label>
 
-                        <div class="row-1">
-                            <div class="meta">
-                                <div>
-                                    <div>
-                                        <span class="label">Tên sản phẩm:</span>
-                                    </div>
-                                    <div>
-                                        <span class="val">${item.name}</span>
-                                    </div>
-                                </div>
-                            </div>
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>Chuyển khoản qua ngân hàng</span>
+                </label>
 
-                            <!-- FORM XÓA -->
-                            <div class="row-links">
-                                <form action="${pageContext.request.contextPath}/Cart" method="post">
-                                    <input type="hidden" name="action" value="remove">
-                                    <input type="hidden" name="productId" value="${item.productId}">
-                                    <button class="link danger js-delete" type="submit">Xóa</button>
-                                </form>
-                            </div>
-                        </div>
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>
+                        Thanh toán qua cổng VNPAY (ATM / Visa / MasterCard / JCB / QR Pay)
+                    </span>
+                </label>
 
-                        <div class="row-2">
-                            <div class="price js-price">
-                                <span class="label">Giá:</span>
-                                <fmt:formatNumber value="${item.price}" type="number" groupingUsed="true"/> VNĐ
-                            </div>
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>Thanh toán qua ví MoMo</span>
+                </label>
 
-                            <div class="qty">
-                                <span class="label">Số lượng:</span>
+                <label class="payment-option">
+                    <input type="radio" name="pay">
+                    <span>Thanh toán qua ZaloPay</span>
+                </label>
+            </div>
 
-                                <div class="qty-ctl">
-
-                                    <!-- GIẢM -->
-                                    <form action="${pageContext.request.contextPath}/Cart" method="post">
-                                        <input type="hidden" name="action" value="decrease">
-                                        <input type="hidden" name="productId" value="${item.productId}">
-                                        <button class="qty-btn js-dec" type="submit">−</button>
-                                    </form>
-
-                                    <input class="js-qty" type="number" value="${item.quantity}" readonly>
-
-                                    <!-- TĂNG -->
-                                    <form action="${pageContext.request.contextPath}/Cart" method="post">
-                                        <input type="hidden" name="action" value="increase">
-                                        <input type="hidden" name="productId" value="${item.productId}">
-                                        <button class="qty-btn js-inc" type="submit">+</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </c:forEach>
+            <a href="OrderHistory.html" class="btn-order">Đặt hàng</a>
         </div>
 
-        <aside class="summary-box">
-            <h2 class="title">Tổng đơn hàng</h2>
+        <div class="checkout-right">
+            <h3>Tóm tắt đơn hàng</h3>
 
-            <div class="summary-row">
-                <span>Số lượng sản phẩm</span>
-                <span class="count" id="totalQty">${totalQty}</span>
+            <div class="summary-list">
+                <c:forEach var="item" items="${cart.cartItems.values()}">
+                    <div class="summary-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div>
+                            <p>${item.name} × ${item.quantity}</p>
+                            <strong>
+                                <fmt:formatNumber value="${item.price * item.quantity}" type="number"/> VNĐ
+                            </strong>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
 
-            <hr>
+<%--            <div class="summary-line">--%>
+<%--                <span>Tạm tính</span>--%>
+<%--                <strong>1.350.000đ</strong>--%>
+<%--            </div>--%>
 
-            <div class="summary-row total">
-                <span>Thành tiền</span>
-                <strong class="val" id="totalPrice">
-                    <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/>
+            <%--            <div class="voucher-box">--%>
+            <%--    <label for="voucher">Mã giảm giá</label>--%>
+            <%--    <div class="voucher-input">--%>
+            <%--        <input type="text" id="voucher" placeholder="Nhập mã giảm giá...">--%>
+            <%--        <button type="button" id="applyVoucher">Áp dụng</button>--%>
+            <%--    </div>--%>
+
+            <%--                <p id="voucherMessage" class="voucher-msg"></p>--%>
+            <%--            </div>--%>
+
+            <%--            <div class="summary-line">--%>
+            <%--                <span>Giảm giá</span>--%>
+            <%--                <strong id="discountAmount">0đ</strong>--%>
+            <%--            </div>--%>
+
+            <div class="summary-total">
+                <span>Tổng tiền</span>
+                <strong>
+                    <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/> VNĐ
                 </strong>
             </div>
-
-            <a href="${pageContext.request.contextPath}/Checkout"  class="checkout-btn">Thanh Toán</a>
-
-            <a href="${pageContext.request.contextPath}/Home" class="continue">Tiếp tục mua hàng</a>
-        </aside>
+        </div>
     </div>
-</main>
+</section>
 
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-inner">
 
@@ -231,6 +225,6 @@
 
     </div>
 </footer>
-<%--<script src="${pageContext.request.contextPath}/JavaScript/Cart.js" defer></script>--%>
+
 </body>
 </html>
