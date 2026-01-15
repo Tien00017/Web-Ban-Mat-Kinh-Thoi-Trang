@@ -6,6 +6,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -96,77 +97,87 @@
 
         <h2>Đơn hàng của tôi</h2>
 
-        <div class="order-item">
-            <div class="order-header">
-                <span>Đơn hàng #123456</span>
-                <span>Ngày đặt: 29/11/2025</span>
-                <span class="status pending">Chờ xử lý</span>
-            </div>
-            <div class="order-products">
-                <div class="product">
-                    <img src="../src/main/webapp/Images/ProductDetail/Kinh1.jpg" alt="">
-                    <div>
-                        <p>Kính thời trang bảo vệ mắt</p>
-                        <span>Số lượng: 1</span>
-                        <strong>1.350.000đ</strong>
-                    </div>
-                </div>
-                <div class="product">
-                    <img src="../src/main/webapp/Images/ProductDetail/Kinh2.jpg" alt="">
-                    <div>
-                        <p>Kính mát nữ thời trang</p>
-                        <span>Số lượng: 2</span>
-                        <strong>2.700.000đ</strong>
-                    </div>
-                </div>
-            </div>
-            <div class="order-summary">
-                <span>Tổng tiền:</span>
-                <strong>4.050.000đ</strong>
-            </div>
-        </div>
+        <c:forEach var="order" items="${orders}">
+            <div class="order-item">
 
-        <div class="order-item">
-            <div class="order-header">
-                <span>Đơn hàng #123457</span>
-                <span>Ngày đặt: 20/11/2025</span>
-                <span class="status delivered">Đã giao</span>
-            </div>
-            <div class="order-products">
-                <div class="product">
-                    <img src="../src/main/webapp/Images/ProductDetail/Kinh3.jpg" alt="">
-                    <div>
-                        <p>Kính chống tia UV</p>
-                        <span>Số lượng: 1</span>
-                        <strong>1.200.000đ</strong>
-                    </div>
+                <div class="order-header">
+                    <span>Đơn hàng #${order.id}</span>
+                    <span>
+                        Ngày đặt:
+                        <fmt:formatDate value="${order.createdAt}" pattern="dd/MM/yyyy"/>
+                    </span>
+                    <span class="status ${fn:toLowerCase(order.status)}">
+                        <c:choose>
+                            <c:when test="${order.status == 'PENDING'}">Đang xử lý</c:when>
+                            <c:when test="${order.status == 'DELIVERED'}">Đã giao</c:when>
+                            <c:otherwise>${order.status}</c:otherwise>
+                        </c:choose>
+                    </span>
+                </div>
+
+                <div class="order-products">
+                    <c:forEach var="item" items="${orderItemsMap[order.id]}">
+                        <div class="product">
+
+                            <c:forEach var="entry"
+                                       items="${orderItemProductMap[item.id]}">
+
+                                <img src="${entry.value}" alt="">
+
+                                <div>
+                                    <p>${entry.key.productName}</p>
+                                    <span>Số lượng: ${item.quantity}</span>
+                                    <strong>
+                                        <fmt:formatNumber value="${item.price * item.quantity}" type="number"/> VNĐ
+                                    </strong>
+                                </div>
+
+                            </c:forEach>
+
+                        </div>
+                    </c:forEach>
+                </div>
+
+                <div class="order-summary">
+                    <span>Tổng tiền:</span>
+                    <strong>
+                        <fmt:formatNumber value="${order.totalAmount}" type="number"/> VNĐ
+                    </strong>
                 </div>
             </div>
-            <div class="order-summary">
-                <span>Tổng tiền:</span>
-                <strong>1.200.000đ</strong>
-            </div>
-        </div>
+        </c:forEach>
 
     </div>
 </section>
 
 <footer class="site-footer">
     <div class="footer-inner">
+
+        <!-- Chi nhánh -->
         <div class="footer-branches">
             <h4>Các chi nhánh</h4>
             <p>Chi nhánh Hà Nội: 123 Phố Huế, Hoàn Kiếm</p>
             <p>Chi nhánh TP.HCM: 456 Nguyễn Huệ, Quận 1</p>
             <p>Chi nhánh Đà Nẵng: 789 Bạch Đằng, Hải Châu</p>
         </div>
+
+        <!-- Liên hệ -->
         <div class="footer-contact">
             <h4>Liên hệ</h4>
-            <p>Email: support@example.com</p>
-            <p>Điện thoại: 0123 456 789</p>
+            <p><i class="fas fa-envelope"></i> Email: support@example.com</p>
+            <p><i class="fas fa-phone"></i> Điện thoại: 0123 456 789</p>
         </div>
+
+        <!-- Theo dõi -->
         <div class="footer-social">
             <h4>Theo dõi</h4>
+            <p class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-zalo"></i></a>
+            </p>
         </div>
+
     </div>
 </footer>
 

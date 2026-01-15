@@ -107,7 +107,7 @@
             <p class="phone">(+84) 0123 456 789</p>
         </div>
         <div class="history-actions">
-            <a href="OrderHistory.html" class="btn primary">Xem lịch sử đơn hàng</a>
+            <a href="${pageContext.request.contextPath}/OrderHistory" class="btn primary">Xem lịch sử đơn hàng</a>
         </div>
     </section>
 

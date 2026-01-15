@@ -96,9 +96,8 @@
 <section class="checkout-wrapper">
     <div class="checkout-container">
 
-        <form action="${pageContext.request.contextPath}/Checkout">
+        <form action="${pageContext.request.contextPath}/Checkout" method="post">
             <div class="checkout-left">
-                method="post">
                 <h2>Thông tin thanh toán</h2>
 
                 <div class="form-group">
@@ -159,7 +158,9 @@
                     </label>
                 </div>
 
-                <a href="OrderHistory.html" class="btn-order">Đặt hàng</a>
+                <button type="submit" class="btn-order">
+                    Đặt hàng
+                </button>
             </div>
         </form>
         <div class="checkout-right">

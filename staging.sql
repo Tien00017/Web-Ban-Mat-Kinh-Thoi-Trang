@@ -7,10 +7,11 @@ CREATE TABLE product_csv_staging (
     price_raw VARCHAR(50),
     stock INT,
     origin VARCHAR(100),
-    general_description TEXT,
+    general_description LONGTEXT,
     shipping_infor TEXT,
     guarantee_details TEXT,
     image_url TEXT,
     material VARCHAR(100),
-    style VARCHAR(100)
+    style VARCHAR(100),
+    color VARCHAR(100)
 );
