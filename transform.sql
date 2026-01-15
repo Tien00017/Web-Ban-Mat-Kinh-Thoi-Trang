@@ -67,15 +67,15 @@ INSERT INTO products (
     origin,
     general_description,
     shipping_info,
-    product_details,
+    guarantee_details,
     sold_quantity,
     deleted,
     created_at
 )
 SELECT
     c.id,
-    s.product_name,
-    s.brand,
+    TRIM(s.product_name),
+    NULLIF(TRIM(s.brand), 'Null'),
     CAST(
         REPLACE(
             REPLACE(
@@ -84,7 +84,7 @@ SELECT
         'VND', '')
     AS UNSIGNED),
     s.stock,
-    s.origin,
+	NULLIF(TRIM(s.origin), 'Null'),
     s.general_description,
     s.shipping_infor,
     s.guarantee_details,
@@ -92,18 +92,18 @@ SELECT
     false,
     NOW()
 FROM product_csv_staging s
-JOIN categories c ON c.category_name = s.category;
- 
+JOIN categories c ON c.category_name = TRIM(s.category);
+
 INSERT INTO product_images (product_id, image_url, is_main, type, created_at)
 SELECT
     p.id,
-    s.image_url,
+    NULLIF(TRIM(s.image_url), 'Null'),
     true,
     'main',
     NOW()
 FROM product_csv_staging s
-JOIN products p ON p.product_name = s.product_name;
-
+JOIN products p ON p.product_name = TRIM(s.product_name);
+  
 -- Material
 INSERT INTO products_attribute_values_map (product_id, attribute_values_id)
 SELECT
@@ -111,7 +111,10 @@ SELECT
     av.id
 FROM product_csv_staging s
 JOIN products p ON p.product_name = s.product_name
-JOIN attribute_values av ON av.name_value = s.material;
+JOIN attribute_values av 
+    ON av.name_value = s.material
+WHERE s.material IS NOT NULL
+  AND s.material <> 'Null';
 
 -- Style
 INSERT INTO products_attribute_values_map (product_id, attribute_values_id)
@@ -120,6 +123,21 @@ SELECT
     av.id
 FROM product_csv_staging s
 JOIN products p ON p.product_name = s.product_name
-JOIN attribute_values av ON av.name_value = s.style;
+JOIN attribute_values av 
+    ON av.name_value = s.style
+WHERE s.style IS NOT NULL
+  AND s.style <> 'Null';
+
+-- Color
+INSERT INTO products_attribute_values_map (product_id, attribute_values_id)
+SELECT
+    p.id,
+    av.id
+FROM product_csv_staging s
+JOIN products p ON p.product_name = s.product_name
+JOIN attribute_values av 
+    ON av.name_value = s.color
+WHERE s.color IS NOT NULL
+  AND s.color <> 'Null';
 
 

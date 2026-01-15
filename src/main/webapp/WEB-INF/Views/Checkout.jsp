@@ -4,20 +4,25 @@
 <%
     User user = (User) session.getAttribute("user");
 %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Mắt kính Nông Lâm - Trang profile</title>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfProfile.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfHomePage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfCheckout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+
 </head>
 <body>
+
 <!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
@@ -88,123 +93,123 @@
     </nav>
 </header>
 
-<main class="container grid">
+<section class="checkout-wrapper">
+    <div class="checkout-container">
 
-    <!-- Tóm tắt hồ sơ -->
-    <section class="card profile" aria-labelledby="profile-title">
-        <h2 id="profile-title" class="sr-only">Tóm tắt hồ sơ</h2>
+        <form action="${pageContext.request.contextPath}/Checkout" method="post">
+            <div class="checkout-left">
+                <h2>Thông tin thanh toán</h2>
 
-        <div class="avatar-wrap">
-            <img id="avatarImg" src="${pageContext.request.contextPath}/Images/Profile/ball.png" class="avatar"
-                 alt="Ảnh đại diện người dùng"/>
-            <input type="file" id="avatarUpload" accept="image/*" style="display:none"/>
-            <label for="avatarUpload" class="btn small">Đổi ảnh</label>
-        </div>
-
-        <div class="profile-info">
-            <p class="name">Tên hiển thị</p>
-            <p class="email">email@example.com</p>
-            <p class="phone">(+84) 0123 456 789</p>
-        </div>
-        <div class="history-actions">
-            <a href="${pageContext.request.contextPath}/OrderHistory" class="btn primary">Xem lịch sử đơn hàng</a>
-        </div>
-    </section>
-
-
-    <!-- Form chỉnh sửa thông tin -->
-    <section class="card" aria-labelledby="edit-title">
-        <h2 id="edit-title">Chỉnh sửa thông tin</h2>
-        <form novalidate>
-            <div class="form-grid">
-
-                <div class="field">
-                    <label for="fullName">Họ và tên <span class="req">*</span></label>
-                    <input id="fullName" type="text" placeholder="Họ và tên" required/>
-                    <small class="error"> </small>
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input type="text"
+                           name="fullName"
+                           placeholder="Nhập họ tên"
+                           value="<c:out value='${user.fullName}'/>"
+                           required>
                 </div>
 
-                <div class="field">
-                    <label for="email">Email <span class="req">*</span></label>
-                    <input id="email" type="email" placeholder="email@example.com" required/>
-                    <small class="error"></small>
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="tel"
+                           name="phone"
+                           placeholder="Nhập số điện thoại"
+                           value="<c:out value='${user.phone}'/>"
+                           required>
                 </div>
 
-                <div class="field">
-                    <label for="phone">Số điện thoại</label>
-                    <input id="phone" type="tel" placeholder="0123 456 789"/>
-                    <small class="error"></small>
+                <div class="form-group">
+                    <label>Địa chỉ giao hàng</label>
+                    <input type="text"
+                           name="address"
+                           placeholder="Nhập địa chỉ"
+                           value="<c:out value='${user.address}'/>"
+                           required>
                 </div>
 
-                <div class="field">
-                    <label for="birthday">Ngày sinh</label>
-                    <input id="birthday" type="date" placeholder="2000-01-01"/>
+                <div class="payment-box">
+                    <h3>Phương thức thanh toán</h3>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay" checked>
+                        <span>Thanh toán khi giao hàng (COD)</span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay">
+                        <span>Chuyển khoản qua ngân hàng</span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay">
+                        <span>
+                        Thanh toán qua cổng VNPAY (ATM / Visa / MasterCard / JCB / QR Pay)
+                    </span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay">
+                        <span>Thanh toán qua ví MoMo</span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay">
+                        <span>Thanh toán qua ZaloPay</span>
+                    </label>
                 </div>
 
-                <div class="field">
-                    <label for="gender">Giới tính</label>
-                    <select id="gender">
-                        <option value="" selected>-- Chọn --</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                        <option value="other">Khác</option>
-                    </select>
-                </div>
-
-                <div class="field span-2">
-                    <label for="address">Địa chỉ</label>
-                    <textarea id="address" rows="3" placeholder="123 Đường ABC, Quận 1, TP.HCM"></textarea>
-                </div>
-            </div>
-
-            <div class="form-actions">
-                <button type="button" class="btn primary disabled">Lưu thay đổi</button>
+                <button type="submit" class="btn-order">
+                    Đặt hàng
+                </button>
             </div>
         </form>
-    </section>
+        <div class="checkout-right">
+            <h3>Tóm tắt đơn hàng</h3>
 
-
-    <!-- Khu vực bảo mật -->
-    <section class="card" aria-labelledby="security-title">
-        <h2 id="security-title">Bảo mật</h2>
-        <form action="${pageContext.request.contextPath}/Profile" method="post">
-            <input type="hidden" name="action" value="changePassword"/>
-
-            <div class="field">
-                <label for="currentPassword">Mật khẩu hiện tại</label>
-                <input id="currentPassword" type="password"/>
+            <div class="summary-list">
+                <c:forEach var="item" items="${cart.cartItems.values()}">
+                    <div class="summary-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div>
+                            <p>${item.name} × ${item.quantity}</p>
+                            <strong>
+                                <fmt:formatNumber value="${item.price * item.quantity}" type="number"/> VNĐ
+                            </strong>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
 
-            <div class="field">
-                <label for="newPassword">Mật khẩu mới</label>
-                <input id="newPassword" type="password"/>
-            </div>
+            <%--            <div class="summary-line">--%>
+            <%--                <span>Tạm tính</span>--%>
+            <%--                <strong>1.350.000đ</strong>--%>
+            <%--            </div>--%>
 
-            <div class="field">
-                <label for="confirmPassword">Nhập lại mật khẩu</label>
-                <input id="confirmPassword" type="password"/>
-                <small class="error"></small>
-            </div>
+            <%--            <div class="voucher-box">--%>
+            <%--    <label for="voucher">Mã giảm giá</label>--%>
+            <%--    <div class="voucher-input">--%>
+            <%--        <input type="text" id="voucher" placeholder="Nhập mã giảm giá...">--%>
+            <%--        <button type="button" id="applyVoucher">Áp dụng</button>--%>
+            <%--    </div>--%>
 
-            <div class="form-actions">
-                <button type="button" id="changePassBtn" class="btn">Đổi mật khẩu</button>
-            </div>
-        </form>
+            <%--                <p id="voucherMessage" class="voucher-msg"></p>--%>
+            <%--            </div>--%>
 
-        <form action="${pageContext.request.contextPath}/Profile" method="post">
-            <div class="form-actions">
-                <input type="hidden" name="action" value="logout"/>
-                <button type="submit" class="btn danger">Đăng xuất</button>
-            </div>
-        </form>
+            <%--            <div class="summary-line">--%>
+            <%--                <span>Giảm giá</span>--%>
+            <%--                <strong id="discountAmount">0đ</strong>--%>
+            <%--            </div>--%>
 
+            <div class="summary-total">
+                <span>Tổng tiền</span>
+                <strong>
+                    <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/> VNĐ
+                </strong>
+            </div>
         </div>
-        </form>
-    </section>
-</main>
+    </div>
+</section>
 
-<script src="../src/main/webapp/JavaScript/Profile.js"></script>
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-inner">
 

@@ -105,13 +105,13 @@
             <c:forEach var="item" items="${cart.cartItems.values()}">
                 <div class="cart-item">
 
-                    <div class="checkbox">
-                        <input type="checkbox"
-                               class="row-check"
-                               checked
-                               data-price="${item.price}"
-                               data-qty="${item.quantity}">
-                    </div>
+                        <%--                        <div class="checkbox">--%>
+                        <%--                            <input type="checkbox"--%>
+                        <%--                                   class="row-check"--%>
+                        <%--                                   checked--%>
+                        <%--                                   data-price="${item.price}"--%>
+                        <%--                                   data-qty="${item.quantity}">--%>
+                        <%--                        </div>--%>
 
                     <div class="thumb">
                         <img src="${item.image}" alt="${item.name}">
@@ -181,7 +181,7 @@
 
             <div class="summary-row">
                 <span>Số lượng sản phẩm</span>
-                <span class="count" id="totalQty" >${totalQty}</span>
+                <span class="count" id="totalQty">${totalQty}</span>
             </div>
 
             <hr>
@@ -193,7 +193,7 @@
                 </strong>
             </div>
 
-            <a href="Checkout.html" class="checkout-btn">Thanh Toán</a>
+            <a href="${pageContext.request.contextPath}/Checkout"  class="checkout-btn">Thanh Toán</a>
 
             <a href="${pageContext.request.contextPath}/Home" class="continue">Tiếp tục mua hàng</a>
         </aside>
@@ -231,6 +231,6 @@
 
     </div>
 </footer>
-<script src="${pageContext.request.contextPath}/JavaScript/Cart.js" defer></script>
+<%--<script src="${pageContext.request.contextPath}/JavaScript/Cart.js" defer></script>--%>
 </body>
 </html>

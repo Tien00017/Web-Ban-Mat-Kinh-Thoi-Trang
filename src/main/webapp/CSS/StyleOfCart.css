@@ -301,7 +301,7 @@ html, body {
 
 .cart-item {
     display: grid;
-    grid-template-columns: auto 120px 1fr;
+    grid-template-columns: 120px 1fr;
     gap: 16px;
     padding: 16px;
     border: 1px solid #e6e8f2;

@@ -133,7 +133,9 @@
             <form action="${pageContext.request.contextPath}/Cart" method="post">
                 <input type="hidden" name="action" value="add">
                 <input type="hidden" name="productId" value="${product.id}">
-                <button type="submit" class="btn add big">
+                <button type="button"
+                        class="btn add big js-add-to-cart"
+                        data-product-id="${product.id}">
                     Thêm vào giỏ hàng
                 </button>
             </form>
@@ -363,5 +365,6 @@
 </footer>
 <button id="backToTop" aria-label="Lên đầu trang"><i class="fa-solid fa-up-long"></i></button>
 <script src="${pageContext.request.contextPath}/JavaScript/ProductDetail.js"></script>
+<body data-context="${pageContext.request.contextPath}">
 </body>
 </html>

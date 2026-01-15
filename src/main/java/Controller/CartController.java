@@ -58,6 +58,21 @@ public class CartController extends HttpServlet {
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        String action = request.getParameter("action");
+
+        if ("add".equals(action)) {
+
+            if (user == null) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+                return;
+            }
+
+            Cart cart = getCart(session, user);
+            addToCart(request, cart);
+
+            response.setStatus(HttpServletResponse.SC_OK); // 200
+            return;
+        }
 
         if (user == null) {
             response.sendRedirect("Login");
@@ -65,7 +80,6 @@ public class CartController extends HttpServlet {
         }
 
         Cart cart = getCart(session, user);
-        String action = request.getParameter("action");
 
         if (action == null) {
             response.sendRedirect("Cart");

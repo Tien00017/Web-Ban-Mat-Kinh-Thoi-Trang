@@ -4,20 +4,24 @@
 <%
     User user = (User) session.getAttribute("user");
 %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Mắt kính Nông Lâm - Trang profile</title>
+    <meta charset="UTF-8">
+    <title>Đơn hàng của tôi</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfProfile.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfHomePage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfOrderHistory.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
+
 <!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
@@ -88,123 +92,64 @@
     </nav>
 </header>
 
-<main class="container grid">
+<section class="order-history-wrapper">
+    <div class="order-history-container">
 
-    <!-- Tóm tắt hồ sơ -->
-    <section class="card profile" aria-labelledby="profile-title">
-        <h2 id="profile-title" class="sr-only">Tóm tắt hồ sơ</h2>
+        <h2>Đơn hàng của tôi</h2>
 
-        <div class="avatar-wrap">
-            <img id="avatarImg" src="${pageContext.request.contextPath}/Images/Profile/ball.png" class="avatar"
-                 alt="Ảnh đại diện người dùng"/>
-            <input type="file" id="avatarUpload" accept="image/*" style="display:none"/>
-            <label for="avatarUpload" class="btn small">Đổi ảnh</label>
-        </div>
+        <c:forEach var="order" items="${orders}">
+            <div class="order-item">
 
-        <div class="profile-info">
-            <p class="name">Tên hiển thị</p>
-            <p class="email">email@example.com</p>
-            <p class="phone">(+84) 0123 456 789</p>
-        </div>
-        <div class="history-actions">
-            <a href="${pageContext.request.contextPath}/OrderHistory" class="btn primary">Xem lịch sử đơn hàng</a>
-        </div>
-    </section>
-
-
-    <!-- Form chỉnh sửa thông tin -->
-    <section class="card" aria-labelledby="edit-title">
-        <h2 id="edit-title">Chỉnh sửa thông tin</h2>
-        <form novalidate>
-            <div class="form-grid">
-
-                <div class="field">
-                    <label for="fullName">Họ và tên <span class="req">*</span></label>
-                    <input id="fullName" type="text" placeholder="Họ và tên" required/>
-                    <small class="error"> </small>
+                <div class="order-header">
+                    <span>Đơn hàng #${order.id}</span>
+                    <span>
+                        Ngày đặt:
+                        <fmt:formatDate value="${order.createdAt}" pattern="dd/MM/yyyy"/>
+                    </span>
+                    <span class="status ${fn:toLowerCase(order.status)}">
+                        <c:choose>
+                            <c:when test="${order.status == 'PENDING'}">Đang xử lý</c:when>
+                            <c:when test="${order.status == 'DELIVERED'}">Đã giao</c:when>
+                            <c:otherwise>${order.status}</c:otherwise>
+                        </c:choose>
+                    </span>
                 </div>
 
-                <div class="field">
-                    <label for="email">Email <span class="req">*</span></label>
-                    <input id="email" type="email" placeholder="email@example.com" required/>
-                    <small class="error"></small>
+                <div class="order-products">
+                    <c:forEach var="item" items="${orderItemsMap[order.id]}">
+                        <div class="product">
+
+                            <c:forEach var="entry"
+                                       items="${orderItemProductMap[item.id]}">
+
+                                <img src="${entry.value}" alt="">
+
+                                <div>
+                                    <p>${entry.key.productName}</p>
+                                    <span>Số lượng: ${item.quantity}</span>
+                                    <strong>
+                                        <fmt:formatNumber value="${item.price * item.quantity}" type="number"/> VNĐ
+                                    </strong>
+                                </div>
+
+                            </c:forEach>
+
+                        </div>
+                    </c:forEach>
                 </div>
 
-                <div class="field">
-                    <label for="phone">Số điện thoại</label>
-                    <input id="phone" type="tel" placeholder="0123 456 789"/>
-                    <small class="error"></small>
-                </div>
-
-                <div class="field">
-                    <label for="birthday">Ngày sinh</label>
-                    <input id="birthday" type="date" placeholder="2000-01-01"/>
-                </div>
-
-                <div class="field">
-                    <label for="gender">Giới tính</label>
-                    <select id="gender">
-                        <option value="" selected>-- Chọn --</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                        <option value="other">Khác</option>
-                    </select>
-                </div>
-
-                <div class="field span-2">
-                    <label for="address">Địa chỉ</label>
-                    <textarea id="address" rows="3" placeholder="123 Đường ABC, Quận 1, TP.HCM"></textarea>
+                <div class="order-summary">
+                    <span>Tổng tiền:</span>
+                    <strong>
+                        <fmt:formatNumber value="${order.totalAmount}" type="number"/> VNĐ
+                    </strong>
                 </div>
             </div>
+        </c:forEach>
 
-            <div class="form-actions">
-                <button type="button" class="btn primary disabled">Lưu thay đổi</button>
-            </div>
-        </form>
-    </section>
+    </div>
+</section>
 
-
-    <!-- Khu vực bảo mật -->
-    <section class="card" aria-labelledby="security-title">
-        <h2 id="security-title">Bảo mật</h2>
-        <form action="${pageContext.request.contextPath}/Profile" method="post">
-            <input type="hidden" name="action" value="changePassword"/>
-
-            <div class="field">
-                <label for="currentPassword">Mật khẩu hiện tại</label>
-                <input id="currentPassword" type="password"/>
-            </div>
-
-            <div class="field">
-                <label for="newPassword">Mật khẩu mới</label>
-                <input id="newPassword" type="password"/>
-            </div>
-
-            <div class="field">
-                <label for="confirmPassword">Nhập lại mật khẩu</label>
-                <input id="confirmPassword" type="password"/>
-                <small class="error"></small>
-            </div>
-
-            <div class="form-actions">
-                <button type="button" id="changePassBtn" class="btn">Đổi mật khẩu</button>
-            </div>
-        </form>
-
-        <form action="${pageContext.request.contextPath}/Profile" method="post">
-            <div class="form-actions">
-                <input type="hidden" name="action" value="logout"/>
-                <button type="submit" class="btn danger">Đăng xuất</button>
-            </div>
-        </form>
-
-        </div>
-        </form>
-    </section>
-</main>
-
-<script src="../src/main/webapp/JavaScript/Profile.js"></script>
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-inner">
 
