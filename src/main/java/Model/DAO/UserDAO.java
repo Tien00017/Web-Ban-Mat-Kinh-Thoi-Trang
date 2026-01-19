@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import Model.Object.User;
+import Model.Utils.DBContext;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,10 +32,10 @@ public class UserDAO extends BaseDAO {
 
     public boolean insert(User u) {
         String sql = """
-            INSERT INTO users
-            (full_name, display_name, avatar, email, phone, birth_date, gender, address, password, status, role, created_at)
-            VALUES (NULL, ?, NULL, ?, NULL, NULL, 0, NULL, ?, 1, 1, NOW())
-        """;
+                    INSERT INTO users
+                    (full_name, display_name, avatar, email, phone, birth_date, gender, address, password, status, role, created_at)
+                    VALUES (NULL, ?, NULL, ?, NULL, NULL, 0, NULL, ?, 1, 1, NOW())
+                """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -92,4 +93,87 @@ public class UserDAO extends BaseDAO {
         }
         return false;
     }
+
+    public User getById(int id) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                User u = new User();
+                u.setId(id);
+                u.setFullName(rs.getString("full_name"));
+                u.setDisplayName(rs.getString("display_name"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setEmail(rs.getString("email"));
+                u.setPhone(rs.getString("phone"));
+                u.setBirthDate(rs.getDate("birth_date")); // Date
+                u.setGender(rs.getInt("gender"));
+                u.setAddress(rs.getString("address"));
+                u.setPassword(rs.getString("password"));
+                u.setStatus(rs.getBoolean("status"));
+                u.setRole(rs.getInt("role"));
+                u.setCreatedAt(rs.getTimestamp("created_at"));
+                return u;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void updateProfile(User u) {
+        String sql = """
+                    UPDATE users
+                    SET full_name = ?, 
+                        display_name = ?, 
+                        phone = ?, 
+                        birth_date = ?, 
+                        gender = ?, 
+                        address = ?
+                    WHERE id = ?
+                """;
+
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, u.getFullName());
+            ps.setString(2, u.getDisplayName());
+            ps.setString(3, u.getPhone());
+
+            // Date → java.sql.Date
+            if (u.getBirthDate() != null) {
+                ps.setDate(4, new java.sql.Date(u.getBirthDate().getTime()));
+            } else {
+                ps.setNull(4, java.sql.Types.DATE);
+            }
+            ps.setInt(5, u.getGender());
+            ps.setString(6, u.getAddress());
+            ps.setInt(7, u.getId());
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean changePassword(int userId, String oldHash, String newHash) {
+        String sql = "UPDATE users SET password = ? WHERE id = ? AND password = ?";
+
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, newHash);
+            ps.setInt(2, userId);
+            ps.setString(3, oldHash);
+
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
