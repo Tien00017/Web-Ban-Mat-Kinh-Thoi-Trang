@@ -150,6 +150,100 @@ public class ProductDAO extends BaseDAO {
         }
         return list;
     }
+    public List<Product> getSimilarProducts(Product base, int limit) {
+        List<Product> list = new ArrayList<>();
+
+        String sql = """
+                    SELECT *
+                    FROM products
+                    WHERE id <> ?
+                      AND deleted = false
+                      AND category_id = ?
+                    LIMIT ?
+                """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, base.getId());
+            ps.setInt(2, base.getCategoryId());
+            ps.setInt(3, limit);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(mapProduct(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getAllProductsAdmin() {
+        List<Product> list = new ArrayList<>();
+
+        String sql = """
+                    SELECT p.*, c.name AS categoryName
+                    FROM products p
+                    JOIN categories c ON p.category_id = c.id
+                    WHERE p.deleted = false
+                    ORDER BY p.id DESC
+                """;
+
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Product p = mapProduct(rs);
+                p.setCategoryName(rs.getString("categoryName"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void update(Product p) {
+        String sql = """
+                    UPDATE products
+                    SET name = ?, price = ?, quantity = ?, brand = ?,
+                        category_id = ?, origin = ?, description = ?,
+                        shipping_info = ?, guarantee = ?
+                    WHERE id = ?
+                """;
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, p.getName());
+            ps.setDouble(2, p.getPrice());
+            ps.setInt(3, p.getQuantity());
+            ps.setString(4, p.getBrand());
+            ps.setInt(5, p.getCategoryId());
+            ps.setString(6, p.getOrigin());
+            ps.setString(7, p.getDescription());
+            ps.setString(8, p.getShippingInfo());
+            ps.setString(9, p.getGuarantee());
+            ps.setInt(10, p.getId());
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int id) {
+        String sql = "UPDATE products SET deleted = true WHERE id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
 
 }
 
