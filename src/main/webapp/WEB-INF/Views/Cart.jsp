@@ -4,7 +4,8 @@
 <%
     User user = (User) session.getAttribute("user");
 %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -15,7 +16,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfProfile.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfCart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
 </head>
 <body>
 <!-- HEADER -->
@@ -88,122 +92,114 @@
     </nav>
 </header>
 
-<main class="container grid">
+<main>
+    <div class="cart-wrapper">
 
-    <!-- Tóm tắt hồ sơ -->
-    <section class="card profile" aria-labelledby="profile-title">
-        <h2 id="profile-title" class="sr-only">Tóm tắt hồ sơ</h2>
+        <!-- LEFT: CART LIST -->
+        <div id="cartList" class="cart-list">
 
-        <div class="avatar-wrap">
-            <img id="avatarImg" src="${pageContext.request.contextPath}/Images/Profile/ball.png" class="avatar"
-                 alt="Ảnh đại diện người dùng"/>
-            <input type="file" id="avatarUpload" accept="image/*" style="display:none"/>
-            <label for="avatarUpload" class="btn small">Đổi ảnh</label>
+            <c:if test="${empty cart || empty cart.cartItems}">
+                <p>Giỏ hàng của bạn đang trống</p>
+            </c:if>
+
+            <c:forEach var="item" items="${cart.cartItems.values()}">
+                <div class="cart-item">
+
+                        <%--                        <div class="checkbox">--%>
+                        <%--                            <input type="checkbox"--%>
+                        <%--                                   class="row-check"--%>
+                        <%--                                   checked--%>
+                        <%--                                   data-price="${item.price}"--%>
+                        <%--                                   data-qty="${item.quantity}">--%>
+                        <%--                        </div>--%>
+
+                    <div class="thumb">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+
+                    <div class="info">
+
+                        <div class="row-1">
+                            <div class="meta">
+                                <div>
+                                    <div>
+                                        <span class="label">Tên sản phẩm:</span>
+                                    </div>
+                                    <div>
+                                        <span class="val">${item.name}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FORM XÓA -->
+                            <div class="row-links">
+                                <form action="${pageContext.request.contextPath}/Cart" method="post">
+                                    <input type="hidden" name="action" value="remove">
+                                    <input type="hidden" name="productId" value="${item.productId}">
+                                    <button class="link danger js-delete" type="submit">Xóa</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="row-2">
+                            <div class="price js-price">
+                                <span class="label">Giá:</span>
+                                <fmt:formatNumber value="${item.price}" type="number" groupingUsed="true"/> VNĐ
+                            </div>
+
+                            <div class="qty">
+                                <span class="label">Số lượng:</span>
+
+                                <div class="qty-ctl">
+
+                                    <!-- GIẢM -->
+                                    <form action="${pageContext.request.contextPath}/Cart" method="post">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <input type="hidden" name="productId" value="${item.productId}">
+                                        <button class="qty-btn js-dec" type="submit">−</button>
+                                    </form>
+
+                                    <input class="js-qty" type="number" value="${item.quantity}" readonly>
+
+                                    <!-- TĂNG -->
+                                    <form action="${pageContext.request.contextPath}/Cart" method="post">
+                                        <input type="hidden" name="action" value="increase">
+                                        <input type="hidden" name="productId" value="${item.productId}">
+                                        <button class="qty-btn js-inc" type="submit">+</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </c:forEach>
         </div>
 
-        <div class="profile-info">
-            <p class="name">Tên hiển thị</p>
-            <p class="email">email@example.com</p>
-            <p class="phone">(+84) 0123 456 789</p>
-        </div>
-        <div class="history-actions">
-            <a href="${pageContext.request.contextPath}/OrderHistory" class="btn primary">Xem lịch sử đơn hàng</a>
-        </div>
-    </section>
+        <aside class="summary-box">
+            <h2 class="title">Tổng đơn hàng</h2>
 
-
-    <!-- Form chỉnh sửa thông tin -->
-    <section class="card" aria-labelledby="edit-title">
-        <h2 id="edit-title">Chỉnh sửa thông tin</h2>
-        <form novalidate>
-            <div class="form-grid">
-
-                <div class="field">
-                    <label for="fullName">Họ và tên <span class="req">*</span></label>
-                    <input id="fullName" type="text" placeholder="Họ và tên" required/>
-                    <small class="error"> </small>
-                </div>
-
-                <div class="field">
-                    <label for="email">Email <span class="req">*</span></label>
-                    <input id="email" type="email" placeholder="email@example.com" required/>
-                    <small class="error"></small>
-                </div>
-
-                <div class="field">
-                    <label for="phone">Số điện thoại</label>
-                    <input id="phone" type="tel" placeholder="0123 456 789"/>
-                    <small class="error"></small>
-                </div>
-
-                <div class="field">
-                    <label for="birthday">Ngày sinh</label>
-                    <input id="birthday" type="date" placeholder="2000-01-01"/>
-                </div>
-
-                <div class="field">
-                    <label for="gender">Giới tính</label>
-                    <select id="gender">
-                        <option value="" selected>-- Chọn --</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                        <option value="other">Khác</option>
-                    </select>
-                </div>
-
-                <div class="field span-2">
-                    <label for="address">Địa chỉ</label>
-                    <textarea id="address" rows="3" placeholder="123 Đường ABC, Quận 1, TP.HCM"></textarea>
-                </div>
+            <div class="summary-row">
+                <span>Số lượng sản phẩm</span>
+                <span class="count" id="totalQty">${totalQty}</span>
             </div>
 
-            <div class="form-actions">
-                <button type="button" class="btn primary disabled">Lưu thay đổi</button>
-            </div>
-        </form>
-    </section>
+            <hr>
 
-
-    <!-- Khu vực bảo mật -->
-    <section class="card" aria-labelledby="security-title">
-        <h2 id="security-title">Bảo mật</h2>
-        <form action="${pageContext.request.contextPath}/Profile" method="post">
-            <input type="hidden" name="action" value="changePassword"/>
-
-            <div class="field">
-                <label for="currentPassword">Mật khẩu hiện tại</label>
-                <input id="currentPassword" type="password"/>
+            <div class="summary-row total">
+                <span>Thành tiền</span>
+                <strong class="val" id="totalPrice">
+                    <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/>
+                </strong>
             </div>
 
-            <div class="field">
-                <label for="newPassword">Mật khẩu mới</label>
-                <input id="newPassword" type="password"/>
-            </div>
+            <a href="${pageContext.request.contextPath}/Checkout"  class="checkout-btn">Thanh Toán</a>
 
-            <div class="field">
-                <label for="confirmPassword">Nhập lại mật khẩu</label>
-                <input id="confirmPassword" type="password"/>
-                <small class="error"></small>
-            </div>
-
-            <div class="form-actions">
-                <button type="button" id="changePassBtn" class="btn">Đổi mật khẩu</button>
-            </div>
-        </form>
-
-        <form action="${pageContext.request.contextPath}/Profile" method="post">
-            <div class="form-actions">
-                <input type="hidden" name="action" value="logout"/>
-                <button type="submit" class="btn danger">Đăng xuất</button>
-            </div>
-        </form>
-
-        </div>
-        </form>
-    </section>
+            <a href="${pageContext.request.contextPath}/Home" class="continue">Tiếp tục mua hàng</a>
+        </aside>
+    </div>
 </main>
 
-<script src="../src/main/webapp/JavaScript/Profile.js"></script>
 <!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-inner">
@@ -235,6 +231,6 @@
 
     </div>
 </footer>
-
+<%--<script src="${pageContext.request.contextPath}/JavaScript/Cart.js" defer></script>--%>
 </body>
 </html>

@@ -284,6 +284,7 @@ html, body {
 .checkbox input {
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 
 .cart-list {
@@ -300,12 +301,13 @@ html, body {
 
 .cart-item {
     display: grid;
-    grid-template-columns: auto 120px 1fr;
+    grid-template-columns: 120px 1fr;
     gap: 16px;
     padding: 16px;
     border: 1px solid #e6e8f2;
     border-radius: 12px;
     background: #fff;
+    align-items: center;
 }
 
 
@@ -352,7 +354,7 @@ html, body {
     text-decoration: underline;
 }
 .row-2 {
-    display: grid;
+    display: flex;
     grid-template-columns: 120px 1fr 140px;
     gap: 12px;
     align-items: center;
@@ -627,4 +629,66 @@ hr {
         flex-wrap: wrap;
         padding: 10px 12px;
     }
+}
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.qty .label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+}
+
+.qty-ctl {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.qty-ctl form {
+    margin: 0;
+}
+
+.qty-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #cfd5e6;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:hover {
+    background: #f4f6fb;
+}
+
+.js-qty {
+    width: 48px;
+    height: 32px;
+    border: 1px solid #cfd5e6;
+    border-radius: 6px;
+
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+
+    background: #fff;
+}
+
+.qty-btn,
+.js-qty {
+    user-select: none;
 }

@@ -1,191 +1,196 @@
-DROP DATABASE web;
-CREATE DATABASE web CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+DROP DATABASE IF EXISTS web;
+CREATE DATABASE web;
 USE web;
 
-CREATE TABLE `products` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `category_id` int,
-  `product_name` varchar(100),
-  `brand` varchar(20),
-  `price` BIGINT UNSIGNED,
-  `stock` integer,
-  `origin` varchar(100),
-  `general_description` LONGTEXT,
-  `shipping_info` TEXT,
-  `product_details` TEXT,
-  `sold_quantity` integer,
-  `deleted` boolean,
-  `created_at` timestamp
-);
+CREATE TABLE categories (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category_name VARCHAR(100)
+) ENGINE=InnoDB;
 
-CREATE TABLE `reviews` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `user_id` int,
-  `product_id` int,
-  `rating` integer,
-  `comment` text,
-  `created_at` timestamp
-);
+CREATE TABLE products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category_id INT,
+  product_name VARCHAR(50),
+  brand VARCHAR(20),
+  price DOUBLE,
+  stock INT,
+  short_infor_decription VARCHAR(100),
+  short_guarantee_decription VARCHAR(100),
+  general_description VARCHAR(100),
+  shipping_info VARCHAR(100),
+  product_details VARCHAR(100),
+  glass_details VARCHAR(100),
+  sold_quantity INT,
+  created_at TIMESTAMP,
+  FOREIGN KEY (category_id) REFERENCES categories(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `product_images` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `product_id` int,
-  `image_url` VARCHAR(255),
-  `is_main` boolean,
-  `type` varchar(50),
-  `created_at` timestamp
-);
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  full_name VARCHAR(100),
+  display_name VARCHAR(100),
+  avatar VARCHAR(255),
+  email VARCHAR(250) NOT NULL UNIQUE, 
+  phone VARCHAR(20),
+  birth_date DATE,
+  gender INT,
+  address VARCHAR(250),
+  password VARCHAR(500) NOT NULL,
+  status BOOLEAN DEFAULT TRUE,
+  role INT, 
+  created_at TIMESTAMP
+) ENGINE=InnoDB;
 
-CREATE TABLE `categories` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `category_name` varchar(100)
-);
+CREATE TABLE reviews (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  product_id INT,
+  rating INT,
+  comment TEXT,
+  created_at TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (product_id) REFERENCES products(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `attributes` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `attribute_name` varchar(50)
-);
+CREATE TABLE product_images (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT,
+  image_url VARCHAR(255),
+  is_main BOOLEAN,
+  type VARCHAR(50),
+  created_at TIMESTAMP,
+  FOREIGN KEY (product_id) REFERENCES products(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `category_attribute_map` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `category_id` int,
-  `attribute_id` int
-);
+CREATE TABLE attributes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category_id INT,
+  name VARCHAR(50),
+  FOREIGN KEY (category_id) REFERENCES categories(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `attribute_values` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `attribute_id` int,
-  `name_value` varchar(50)
-);
+CREATE TABLE category_attribute_map (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category_id INT,
+  attribute_id INT,
+  FOREIGN KEY (category_id) REFERENCES categories(id),
+  FOREIGN KEY (attribute_id) REFERENCES attributes(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `products_attribute_values_map` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `product_id` int,
-  `attribute_values_id` int
-);
+CREATE TABLE attribute_values (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  attribute_id INT,
+  name_value VARCHAR(50),
+  FOREIGN KEY (attribute_id) REFERENCES attributes(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `users` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `full_name` varchar(100),
-  `display_name` varchar(100),
-  `avatar` varchar(255),
-  `email` varchar(250) UNIQUE,
-  `phone` varchar(20),
-  `birth_date` date,
-  `gender` integer,
-  `address` varchar(250),
-  `password` varchar(500),
-  `status` boolean,
-  `role` integer,
-  `created_at` timestamp
-);
+CREATE TABLE products_attribute_values_map (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT,
+  attribute_values_id INT,
+  FOREIGN KEY (product_id) REFERENCES products(id),
+  FOREIGN KEY (attribute_values_id) REFERENCES attribute_values(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `otp` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `user_id` int,
-  `email` VARCHAR(255),
-  `otp` varchar(6),
-  `type` VARCHAR(30),
-  `status` boolean,
-  `expired_at` timestamp
-);
+CREATE TABLE password_reset (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  otp VARCHAR(6),
+  status BOOLEAN DEFAULT TRUE,
+  expired_at TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `messages` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `sender_id` int,
-  `receiver_id` int,
-  `content` text,
-  `sent_at` timestamp,
-  `status` varchar(20)
-);
+CREATE TABLE messages (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  sender_id INT,
+  receiver_id INT,
+  content TEXT,
+  sent_at TIMESTAMP,
+  status VARCHAR(20),
+  FOREIGN KEY (sender_id) REFERENCES users(id),
+  FOREIGN KEY (receiver_id) REFERENCES users(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `order_item_attribute` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `order_item_id` int,
-  `attribute_values_id` int
-);
+CREATE TABLE carts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  created_at TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `orders` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `user_id` int,
-  `total_amount` double,
-  `status` varchar(30),
-  `name` varchar(20),
-  `phone` varchar(20),
-  `payment_method` varchar(30),
-  `shipping_address` varchar(255),
-  `created_at` timestamp
-);
+CREATE TABLE cart_item (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cart_id INT,
+  product_id INT,
+  quantity INT,
+  FOREIGN KEY (cart_id) REFERENCES carts(id),
+  FOREIGN KEY (product_id) REFERENCES products(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `order_items` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `product_id` int,
-  `order_id` int,
-  `quantity` integer,
-  `price` double
-);
+CREATE TABLE cart_item_attribute (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cart_item_id INT,
+  attribute_values_id INT,
+  FOREIGN KEY (cart_item_id) REFERENCES cart_item(id),
+  FOREIGN KEY (attribute_values_id) REFERENCES attribute_values(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `promotions` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `title` varchar(100),
-  `content` varchar(1000),
-  `start_date` date,
-  `end_date` date,
-  `discount_type` varchar(20),
-  `discount_value` double,
-  `status` varchar(20)
-);
+CREATE TABLE orders (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  total_amount DOUBLE,
+  status VARCHAR(30),
+  name VARCHAR(20),
+  phone VARCHAR(20),
+  payment_method VARCHAR(30),
+  shipping_address VARCHAR(255),
+  created_at TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `promotion_product` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `promotion_id` int,
-  `product_id` int
-);
+CREATE TABLE order_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT,
+  order_id INT,
+  quantity INT,
+  price DOUBLE,
+  FOREIGN KEY (order_id) REFERENCES orders(id),
+  FOREIGN KEY (product_id) REFERENCES products(id)
+) ENGINE=InnoDB;
 
-CREATE TABLE `banners` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `promotions_id` int,
-  `image_url` VARCHAR(255),
-  `is_main` boolean,
-  `created_at` timestamp
-);
+CREATE TABLE order_item_attribute (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_item_id INT,
+  attribute_values_id INT,
+  FOREIGN KEY (order_item_id) REFERENCES order_items(id),
+  FOREIGN KEY (attribute_values_id) REFERENCES attribute_values(id)
+) ENGINE=InnoDB;
 
-ALTER TABLE `products` ADD FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
+CREATE TABLE promotions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(100),
+  content VARCHAR(1000),
+  start_date DATE,
+  end_date DATE,
+  discount_type VARCHAR(20),
+  discount_value DOUBLE,
+  status VARCHAR(20)
+) ENGINE=InnoDB;
 
-ALTER TABLE `reviews` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+CREATE TABLE promotion_product (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  promotion_id INT,
+  product_id INT,
+  FOREIGN KEY (promotion_id) REFERENCES promotions(id),
+  FOREIGN KEY (product_id) REFERENCES products(id)
+) ENGINE=InnoDB;
 
-ALTER TABLE `reviews` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
-ALTER TABLE `product_images` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
-ALTER TABLE `category_attribute_map` ADD FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
-
-ALTER TABLE `category_attribute_map` ADD FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`);
-
-ALTER TABLE `attribute_values` ADD FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`);
-
-ALTER TABLE `products_attribute_values_map` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
-ALTER TABLE `products_attribute_values_map` ADD FOREIGN KEY (`attribute_values_id`) REFERENCES `attribute_values` (`id`);
-
-ALTER TABLE `messages` ADD FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`);
-
-ALTER TABLE `messages` ADD FOREIGN KEY (`receiver_id`) REFERENCES `users` (`id`);
-
-ALTER TABLE `otp` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
-ALTER TABLE `order_item_attribute` ADD FOREIGN KEY (`order_item_id`) REFERENCES `order_items` (`id`);
-
-ALTER TABLE `order_item_attribute` ADD FOREIGN KEY (`attribute_values_id`) REFERENCES `attribute_values` (`id`);
-
-ALTER TABLE `orders` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
-ALTER TABLE `order_items` ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
-
-ALTER TABLE `order_items` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
-ALTER TABLE `promotion_product` ADD FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
-
-ALTER TABLE `promotion_product` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
-ALTER TABLE `banners` ADD FOREIGN KEY (`promotions_id`) REFERENCES `promotions` (`id`);
+CREATE TABLE banners (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  promotions_id INT,
+  image_url VARCHAR(255),
+  is_main BOOLEAN,
+  created_at TIMESTAMP,
+  FOREIGN KEY (promotions_id) REFERENCES promotions(id)
+) ENGINE=InnoDB;

@@ -55,7 +55,7 @@
                 <a class="btn-primary" href="${pageContext.request.contextPath}/Register">Đăng ký</a>
                 <% } else { %>
                 <!-- Đã đăng nhập: hiện Cart, Profile, tên người dùng và Đăng xuất -->
-                <a href="Cart.html" aria-label="Giỏ hàng">
+                <a href="${pageContext.request.contextPath}/Cart" aria-label="Giỏ hàng">
                     <button class="icon-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="black"
                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
@@ -188,7 +188,11 @@
                     </c:choose>
 
                     <h4>${p.productName}</h4>
-                    <p class="price">${p.price} VNĐ</p>
+                    <p class="price">
+                        <p class="price">
+                            <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/> VNĐ
+                        </p>
+                    </p>
 
                     <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
                        class="try-btn">Xem sản phẩm</a>

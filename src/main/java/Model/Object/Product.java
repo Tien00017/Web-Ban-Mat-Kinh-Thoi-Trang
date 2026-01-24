@@ -12,7 +12,7 @@ public class Product {
     private String origin;
     private String generalDescription;
     private String shippingInfo;
-    private String productDetails;
+    private String guaranteeDetails;
     private int soldQuantity;
     private boolean deleted;
     private Timestamp createdAt;
@@ -30,7 +30,7 @@ public class Product {
         this.origin = origin;
         this.generalDescription = generalDescription;
         this.shippingInfo = shippingInfo;
-        this.productDetails = productDetails;
+        this.guaranteeDetails = guaranteeDetails;
         this.soldQuantity = soldQuantity;
         this.deleted = deleted;
         this.createdAt = createdAt;
@@ -108,12 +108,12 @@ public class Product {
         this.shippingInfo = shippingInfo;
     }
 
-    public String getProductDetails() {
-        return productDetails;
+    public String getGuaranteeDetails() {
+        return guaranteeDetails;
     }
 
-    public void setProductDetails(String productDetails) {
-        this.productDetails = productDetails;
+    public void setGuaranteeDetails(String productDetails) {
+        this.guaranteeDetails = productDetails;
     }
 
     public int getSoldQuantity() {
@@ -139,4 +139,18 @@ public class Product {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
 }

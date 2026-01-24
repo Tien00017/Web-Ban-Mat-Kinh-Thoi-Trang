@@ -299,6 +299,12 @@ html, body {
     width: 200px;
 }
 
+.action-buttons .btn.add {
+    width: 200px;
+    font-weight: bold;
+    text-align: center;
+}
+
 /* Info boxes */
 .info-box {
     margin-top: 25px;
@@ -466,7 +472,6 @@ html, body {
     object-fit: contain;
 }
 
-
 /* DESCRIPTION */
 .description {
     padding: 40px;
@@ -515,72 +520,82 @@ html, body {
 }
 
 /*sản phẩm tương tự*/
+/* ==============================
+   PRODUCT DETAIL – RELATED PRODUCTS
+   ============================== */
+
 .reco-section {
-    padding: 10px 20px 40px;
+    padding: 20px 0 40px;
 }
 
 .reco-section h2 {
-    text-align: center;
-    font-size: 24px;
-    margin: 8px 0 18px;
-    font-weight: 800;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 22px;
+    font-weight: 700;
 }
 
+/* GRID giống product-grid */
 .reco-grid {
     display: grid;
-    gap: 16px;
     grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
 }
 
+/* CARD giống product-card */
 .reco-card {
     background: #fff;
-    border: 1px solid #e6e8f2;
-    border-radius: 14px;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    padding: 12px;
+    border-radius: var(--radius);
+    text-align: left;
+    transition: 0.2s;
 }
 
-.reco-img {
+.reco-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+/* IMAGE */
+.reco-card img {
     width: 100%;
-    height: 220px;
-    object-fit: contain;
-    background: #f7f7fb;
-    border-radius: 12px;
-    border: 1px solid #f0f1f6;
+    height: 170px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    margin-bottom: 8px;
 }
 
-.reco-info {
-    display: grid;
-    gap: 6px;
-}
-
+/* NAME */
 .reco-name {
-    font-weight: 800;
+    font-weight: 700;
+    margin-bottom: 4px;
+    text-align: left;
 }
 
+/* PRICE */
 .reco-price {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-weight: 700;
+    margin: 6px 0;
+    text-align: left;
 }
 
-.muted {
-    color: #6b7280;
+/* BUTTON giống try-btn */
+.reco-card a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border-radius: var(--radius);
+    font-weight: 600;
+    margin-top: 8px;
+    transition: 0.2s;
 }
 
-.reco-colors {
-    display: flex;
-    gap: 8px;
-}
-
-.reco-dot {
-    width: 16px;
-    height: 16px;
-    border-radius: 999px;
-    border: 2px solid #fff;
-    outline: 1px solid #e1e3ef;
+.reco-card a:hover {
+    opacity: 0.92;
 }
 
 .btn.add {
@@ -990,4 +1005,56 @@ html, body {
     border: 1px solid #eee;
 }
 
+/* ===== STAR RATING INPUT ===== */
 
+.rating-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.rating-input .stars {
+    display: flex;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.rating-input .stars i {
+    font-size: 26px;
+    color: #d1d5db; /* xám */
+    transition: color 0.2s;
+}
+
+.rating-input .stars i.active {
+    color: #fbbf24; /* vàng */
+}
+
+.rating-text {
+    font-size: 14px;
+    color: #555;
+    min-width: 60px;
+}
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #2ecc71;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 9999;
+}
+
+.toast.error {
+    background: #e74c3c;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}

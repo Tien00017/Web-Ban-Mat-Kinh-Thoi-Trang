@@ -45,6 +45,17 @@
                 Xác nhận OTP
             </button>
         </div>
+        <% if (request.getAttribute("msg") != null) { %>
+        <div style="color:green">
+            <%= request.getAttribute("msg") %>
+        </div>
+        <% } %>
+
+        <% if (request.getAttribute("error") != null) { %>
+        <div style="color:red">
+            <%= request.getAttribute("error") %>
+        </div>
+        <% } %>
     </form>
     <% } %>
 

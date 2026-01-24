@@ -4,22 +4,24 @@
 <%
     User user = (User) session.getAttribute("user");
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Mắt kính Nông Lâm - Giới thiệu</title>
+    <meta charset="UTF-8">
+    <title>Đơn hàng của tôi</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/StyleOfAboutUs.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfHomePage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfOrderHistory.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
 </head>
 <body>
+
 <!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
@@ -30,8 +32,8 @@
                 Mắt kính Nông Lâm
             </a>
             <nav class="main-nav" aria-label="Chính">
-                <a href="${pageContext.request.contextPath}/Home" >Trang chủ</a>
-                <a href="${pageContext.request.contextPath}/About" class="active" > Giới thiệu </a>
+                <a href="${pageContext.request.contextPath}/Home" class="active">Trang chủ</a>
+                <a href="${pageContext.request.contextPath}/About">Giới thiệu</a>
                 <a href="Contact.html">Liên hệ</a>
             </nav>
         </div>
@@ -89,72 +91,65 @@
         <a href="${pageContext.request.contextPath}/Gong_Kinh" class="cat">Gọng Kính</a>
     </nav>
 </header>
-<!-- MAIN -->
-<main class="container about">
-    <section class="about-hero">
-        <h1>Về Mắt kính Nông Lâm</h1>
-        <p>Mắt kính Nông Lâm là thương hiệu thời trang mắt kính hiện đại, mang đến phong cách và chất lượng hàng đầu cho
-            người tiêu dùng Việt Nam.</p>
-    </section>
 
-    <section class="about-content">
-        <div class="about-text">
-            <h2>Tầm nhìn & Sứ mệnh</h2>
-            <p>
-                Chúng tôi hướng đến việc trở thành thương hiệu kính mắt được yêu thích nhất tại Việt Nam —
-                nơi mà mỗi chiếc kính không chỉ là vật dụng, mà còn là tuyên ngôn về phong cách và cá tính.
-            </p>
-            <p>
-                Sứ mệnh của Mắt kính Nông Lâm là mang đến cho khách hàng những sản phẩm thời trang mắt kính chất lượng
-                cao,
-                giá cả hợp lý cùng dịch vụ tận tâm.
-            </p>
-        </div>
-        <img src="${pageContext.request.contextPath}/Images/AboutUs/CuaHang.png" alt="Cửa hàng Mắt kính Nông Lâm">
-    </section>
+<section class="order-history-wrapper">
+    <div class="order-history-container">
 
-    <section class="about-values">
-        <h2>Giá trị cốt lõi</h2>
-        <div class="values-grid">
-            <div class="value-card">
-                <h3>Chất lượng</h3>
-                <p>Mỗi sản phẩm đều trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo độ bền và độ chính xác cao.</p>
-            </div>
-            <div class="value-card">
-                <h3>Phong cách</h3>
-                <p>Đa dạng mẫu mã, cập nhật xu hướng thời trang mắt kính mới nhất thế giới.</p>
-            </div>
-            <div class="value-card">
-                <h3>Dịch vụ</h3>
-                <p>Đội ngũ chăm sóc khách hàng tận tình, luôn sẵn sàng hỗ trợ 24/7.</p>
-            </div>
-        </div>
-    </section>
+        <h2>Đơn hàng của tôi</h2>
 
-    <section class="about-team">
-        <h2>Đội ngũ của chúng tôi</h2>
-        <p>Mắt kính Nông Lâm tự hào có đội ngũ trẻ trung, sáng tạo và đầy nhiệt huyết.</p>
-        <div class="team-grid">
-            <div class="team-member">
-                <img src="${pageContext.request.contextPath}/Images/AboutUs/Ceo.jpg" alt="CEO">
-                <h4>Nguyễn Minh Tâm</h4>
-                <p>Giám đốc điều hành</p>
-            </div>
-            <div class="team-member">
-                <img src="${pageContext.request.contextPath}/Images/AboutUs/Designer.jpg" alt="Designer">
-                <h4>Trần Thu Hà</h4>
-                <p>Nhà thiết kế chính</p>
-            </div>
-            <div class="team-member">
-                <img src="${pageContext.request.contextPath}/Images/AboutUs/Support.jpg" alt="Support">
-                <h4>Phạm Anh Quân</h4>
-                <p>Trưởng bộ phận CSKH</p>
-            </div>
-        </div>
-    </section>
-</main>
+        <c:forEach var="order" items="${orders}">
+            <div class="order-item">
 
-<!-- FOOTER -->
+                <div class="order-header">
+                    <span>Đơn hàng #${order.id}</span>
+                    <span>
+                        Ngày đặt:
+                        <fmt:formatDate value="${order.createdAt}" pattern="dd/MM/yyyy"/>
+                    </span>
+                    <span class="status ${fn:toLowerCase(order.status)}">
+                        <c:choose>
+                            <c:when test="${order.status == 'PENDING'}">Đang xử lý</c:when>
+                            <c:when test="${order.status == 'DELIVERED'}">Đã giao</c:when>
+                            <c:otherwise>${order.status}</c:otherwise>
+                        </c:choose>
+                    </span>
+                </div>
+
+                <div class="order-products">
+                    <c:forEach var="item" items="${orderItemsMap[order.id]}">
+                        <div class="product">
+
+                            <c:forEach var="entry"
+                                       items="${orderItemProductMap[item.id]}">
+
+                                <img src="${entry.value}" alt="">
+
+                                <div>
+                                    <p>${entry.key.productName}</p>
+                                    <span>Số lượng: ${item.quantity}</span>
+                                    <strong>
+                                        <fmt:formatNumber value="${item.price * item.quantity}" type="number"/> VNĐ
+                                    </strong>
+                                </div>
+
+                            </c:forEach>
+
+                        </div>
+                    </c:forEach>
+                </div>
+
+                <div class="order-summary">
+                    <span>Tổng tiền:</span>
+                    <strong>
+                        <fmt:formatNumber value="${order.totalAmount}" type="number"/> VNĐ
+                    </strong>
+                </div>
+            </div>
+        </c:forEach>
+
+    </div>
+</section>
+
 <footer class="site-footer">
     <div class="footer-inner">
 
@@ -185,5 +180,6 @@
 
     </div>
 </footer>
+
 </body>
 </html>

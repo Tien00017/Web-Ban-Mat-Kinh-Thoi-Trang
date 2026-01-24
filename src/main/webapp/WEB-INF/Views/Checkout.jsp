@@ -4,22 +4,25 @@
 <%
     User user = (User) session.getAttribute("user");
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Mắt kính Nông Lâm - Giới thiệu</title>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/StyleOfAboutUs.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfHomePage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfCheckout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
+
 </head>
 <body>
+
 <!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
@@ -30,8 +33,8 @@
                 Mắt kính Nông Lâm
             </a>
             <nav class="main-nav" aria-label="Chính">
-                <a href="${pageContext.request.contextPath}/Home" >Trang chủ</a>
-                <a href="${pageContext.request.contextPath}/About" class="active" > Giới thiệu </a>
+                <a href="${pageContext.request.contextPath}/Home" class="active">Trang chủ</a>
+                <a href="${pageContext.request.contextPath}/About">Giới thiệu</a>
                 <a href="Contact.html">Liên hệ</a>
             </nav>
         </div>
@@ -89,72 +92,124 @@
         <a href="${pageContext.request.contextPath}/Gong_Kinh" class="cat">Gọng Kính</a>
     </nav>
 </header>
-<!-- MAIN -->
-<main class="container about">
-    <section class="about-hero">
-        <h1>Về Mắt kính Nông Lâm</h1>
-        <p>Mắt kính Nông Lâm là thương hiệu thời trang mắt kính hiện đại, mang đến phong cách và chất lượng hàng đầu cho
-            người tiêu dùng Việt Nam.</p>
-    </section>
 
-    <section class="about-content">
-        <div class="about-text">
-            <h2>Tầm nhìn & Sứ mệnh</h2>
-            <p>
-                Chúng tôi hướng đến việc trở thành thương hiệu kính mắt được yêu thích nhất tại Việt Nam —
-                nơi mà mỗi chiếc kính không chỉ là vật dụng, mà còn là tuyên ngôn về phong cách và cá tính.
-            </p>
-            <p>
-                Sứ mệnh của Mắt kính Nông Lâm là mang đến cho khách hàng những sản phẩm thời trang mắt kính chất lượng
-                cao,
-                giá cả hợp lý cùng dịch vụ tận tâm.
-            </p>
+<section class="checkout-wrapper">
+    <div class="checkout-container">
+
+        <form action="${pageContext.request.contextPath}/Checkout" method="post">
+            <div class="checkout-left">
+                <h2>Thông tin thanh toán</h2>
+
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input type="text"
+                           name="fullName"
+                           placeholder="Nhập họ tên"
+                           value="<c:out value='${user.fullName}'/>"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="tel"
+                           name="phone"
+                           placeholder="Nhập số điện thoại"
+                           value="<c:out value='${user.phone}'/>"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Địa chỉ giao hàng</label>
+                    <input type="text"
+                           name="address"
+                           placeholder="Nhập địa chỉ"
+                           value="<c:out value='${user.address}'/>"
+                           required>
+                </div>
+
+                <div class="payment-box">
+                    <h3>Phương thức thanh toán</h3>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay" checked>
+                        <span>Thanh toán khi giao hàng (COD)</span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay">
+                        <span>Chuyển khoản qua ngân hàng</span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay">
+                        <span>
+                        Thanh toán qua cổng VNPAY (ATM / Visa / MasterCard / JCB / QR Pay)
+                    </span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay">
+                        <span>Thanh toán qua ví MoMo</span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="pay">
+                        <span>Thanh toán qua ZaloPay</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-order">
+                    Đặt hàng
+                </button>
+            </div>
+        </form>
+        <div class="checkout-right">
+            <h3>Tóm tắt đơn hàng</h3>
+
+            <div class="summary-list">
+                <c:forEach var="item" items="${cart.cartItems.values()}">
+                    <div class="summary-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div>
+                            <p>${item.name} × ${item.quantity}</p>
+                            <strong>
+                                <fmt:formatNumber value="${item.price * item.quantity}" type="number"/> VNĐ
+                            </strong>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+
+            <%--            <div class="summary-line">--%>
+            <%--                <span>Tạm tính</span>--%>
+            <%--                <strong>1.350.000đ</strong>--%>
+            <%--            </div>--%>
+
+            <%--            <div class="voucher-box">--%>
+            <%--    <label for="voucher">Mã giảm giá</label>--%>
+            <%--    <div class="voucher-input">--%>
+            <%--        <input type="text" id="voucher" placeholder="Nhập mã giảm giá...">--%>
+            <%--        <button type="button" id="applyVoucher">Áp dụng</button>--%>
+            <%--    </div>--%>
+
+            <%--                <p id="voucherMessage" class="voucher-msg"></p>--%>
+            <%--            </div>--%>
+
+            <%--            <div class="summary-line">--%>
+            <%--                <span>Giảm giá</span>--%>
+            <%--                <strong id="discountAmount">0đ</strong>--%>
+            <%--            </div>--%>
+
+            <div class="summary-total">
+                <span>Tổng tiền</span>
+                <strong>
+                    <fmt:formatNumber value="${totalPrice}" type="number" groupingUsed="true"/> VNĐ
+                </strong>
+            </div>
         </div>
-        <img src="${pageContext.request.contextPath}/Images/AboutUs/CuaHang.png" alt="Cửa hàng Mắt kính Nông Lâm">
-    </section>
+    </div>
+</section>
 
-    <section class="about-values">
-        <h2>Giá trị cốt lõi</h2>
-        <div class="values-grid">
-            <div class="value-card">
-                <h3>Chất lượng</h3>
-                <p>Mỗi sản phẩm đều trải qua quy trình kiểm tra nghiêm ngặt để đảm bảo độ bền và độ chính xác cao.</p>
-            </div>
-            <div class="value-card">
-                <h3>Phong cách</h3>
-                <p>Đa dạng mẫu mã, cập nhật xu hướng thời trang mắt kính mới nhất thế giới.</p>
-            </div>
-            <div class="value-card">
-                <h3>Dịch vụ</h3>
-                <p>Đội ngũ chăm sóc khách hàng tận tình, luôn sẵn sàng hỗ trợ 24/7.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="about-team">
-        <h2>Đội ngũ của chúng tôi</h2>
-        <p>Mắt kính Nông Lâm tự hào có đội ngũ trẻ trung, sáng tạo và đầy nhiệt huyết.</p>
-        <div class="team-grid">
-            <div class="team-member">
-                <img src="${pageContext.request.contextPath}/Images/AboutUs/Ceo.jpg" alt="CEO">
-                <h4>Nguyễn Minh Tâm</h4>
-                <p>Giám đốc điều hành</p>
-            </div>
-            <div class="team-member">
-                <img src="${pageContext.request.contextPath}/Images/AboutUs/Designer.jpg" alt="Designer">
-                <h4>Trần Thu Hà</h4>
-                <p>Nhà thiết kế chính</p>
-            </div>
-            <div class="team-member">
-                <img src="${pageContext.request.contextPath}/Images/AboutUs/Support.jpg" alt="Support">
-                <h4>Phạm Anh Quân</h4>
-                <p>Trưởng bộ phận CSKH</p>
-            </div>
-        </div>
-    </section>
-</main>
-
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-inner">
 
@@ -185,5 +240,6 @@
 
     </div>
 </footer>
+
 </body>
 </html>
