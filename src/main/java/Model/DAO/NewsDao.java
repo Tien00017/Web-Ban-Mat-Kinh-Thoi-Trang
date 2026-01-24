@@ -1,6 +1,12 @@
 package Model.DAO;
 
-import ...
+import Model.Object.News;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class NewsDAO extends BaseDAO {
 
