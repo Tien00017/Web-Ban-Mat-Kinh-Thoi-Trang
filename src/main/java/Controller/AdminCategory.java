@@ -10,7 +10,7 @@ import java.io.IOException;
 public class AdminCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/Views/AdminCategory.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/Views/Admin/AdminCategory.jsp").forward(request, response);
     }
 
     @Override

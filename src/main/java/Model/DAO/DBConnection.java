@@ -40,5 +40,17 @@ public class DBConnection {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, username, password);
     }
+//    public static Connection getConnection() throws SQLException {
+//        Connection con = DriverManager.getConnection(url, username, password);
+//        System.out.println(">>> DB CONNECTED <<<");
+//        return con;
+//    }
+//    public static void main(String[] args) {
+//        try (Connection con = DBConnection.getConnection()) {
+//            System.out.println("KẾT NỐI DATABASE THÀNH CÔNG!");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

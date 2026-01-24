@@ -10,7 +10,7 @@ import java.io.IOException;
 public class AdminAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/Views/AdminAccount.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/Views/Admin/AdminAccount.jsp").forward(request, response);
     }
 
     @Override

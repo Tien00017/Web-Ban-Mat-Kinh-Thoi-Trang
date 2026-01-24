@@ -6,11 +6,11 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "AdminAddProduct", value = "/AdminAddProduct")
-public class AdminAddProduct extends HttpServlet {
+@WebServlet(name = "AdminListEvent", value = "/AdminListEvent")
+public class AdminListEvent extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/Views/Admin/AdminAddProduct.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/Views/Admin/AdminListEvent.jsp").forward(request, response);
     }
 
     @Override

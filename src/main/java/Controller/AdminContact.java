@@ -39,7 +39,7 @@ public class AdminContact extends HttpServlet {
             request.setAttribute("messages", messages);
             request.setAttribute("currentUserId", userId);
         }
-        request.getRequestDispatcher("/WEB-INF/Views/AdminContact.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/Views/Admin/AdminContact.jsp").forward(request, response);
     }
 
     @Override
