@@ -44,10 +44,8 @@ public class ProductService {
         int to = Math.min(from + pageSize, products.size());
         return products.subList(from, to);
     }
-
-    public int getStockQuantity(int productId) {
-        Product p = productDAO.getProductById(productId);
-        return p.getStock();
-    }
+    public List<Product> search(String keyword) {
+    return productDAO.search(keyword);
+}
 }
 

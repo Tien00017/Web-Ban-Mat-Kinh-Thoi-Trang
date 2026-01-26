@@ -295,5 +295,32 @@ public class ProductDAO extends BaseDAO {
         return -1;
     }
 }
+    public List<Product> search(String keyword) {
+    List<Product> list = new ArrayList<>();
+
+    String sql = """
+        SELECT *
+        FROM products
+        WHERE deleted = false
+          AND (product_name LIKE ? OR brand LIKE ?)
+    """;
+
+    try (Connection con = DBConnection.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        String key = "%" + keyword + "%";
+        ps.setString(1, key);
+        ps.setString(2, key);
+
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            list.add(mapProduct(rs)); // BaseDAO mapping
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return list;
+}
 
 
