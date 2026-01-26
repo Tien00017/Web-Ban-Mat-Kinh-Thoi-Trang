@@ -6,6 +6,8 @@ import Model.Utils.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO extends BaseDAO {
 
@@ -175,5 +177,45 @@ public class UserDAO extends BaseDAO {
         }
         return false;
     }
+    // 1. Lấy danh sách user (cho AdminAccount)
+    public List<User> findAll() {
+        List<User> list = new ArrayList<>();
 
+        String sql = """
+            SELECT *
+            FROM users
+            ORDER BY id DESC
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(mapUser(rs));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    // 2. Cập nhật trạng thái + vai trò
+    public boolean updateStatusRole(int id, boolean status, int role) {
+        String sql = "UPDATE users SET status = ?, role = ? WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setBoolean(1, status);
+            ps.setInt(2, role);
+            ps.setInt(3, id);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

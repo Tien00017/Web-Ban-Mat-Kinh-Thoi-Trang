@@ -1,80 +1,46 @@
 package Model.Object;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Promotion {
 
-        private int id;
-        private String title;
-        private String content;
-        private Date startDate;
-        private Date endDate;
-        private String discountType;
-        private double discountValue;
-        private String status;
+    private int id;
+    private String title;
+    private String content;
 
-        public String getTitle() {
-            return title;
-        }
+    private Date startDate;
+    private Date endDate;
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
+    private String discountType;
+    private double discountValue;
 
-        public String getContent() {
-            return content;
-        }
+    // VD: ACTIVE / INACTIVE
+    private String status;
 
-        public void setContent(String content) {
-            this.content = content;
-        }
+    public Promotion() {}
 
-        public Date getStartDate() {
-            return startDate;
-        }
+    // ===== Getter / Setter =====
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-        public void setStartDate(Date startDate) {
-            this.startDate = startDate;
-        }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-        public Date getEndDate() {
-            return endDate;
-        }
+    public String getContent() { return content; }
+    public void setContent(String content) { this.content = content; }
 
-        public void setEndDate(Date endDate) {
-            this.endDate = endDate;
-        }
+    public Date getStartDate() { return startDate; }
+    public void setStartDate(Date startDate) { this.startDate = startDate; }
 
-        public String getDiscountType() {
-            return discountType;
-        }
+    public Date getEndDate() { return endDate; }
+    public void setEndDate(Date endDate) { this.endDate = endDate; }
 
-        public void setDiscountType(String discountType) {
-            this.discountType = discountType;
-        }
+    public String getDiscountType() { return discountType; }
+    public void setDiscountType(String discountType) { this.discountType = discountType; }
 
-        public double getDiscountValue() {
-            return discountValue;
-        }
+    public double getDiscountValue() { return discountValue; }
+    public void setDiscountValue(double discountValue) { this.discountValue = discountValue; }
 
-        public void setDiscountValue(double discountValue) {
-            this.discountValue = discountValue;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

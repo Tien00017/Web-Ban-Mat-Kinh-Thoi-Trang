@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="vi">
 <head>
@@ -23,9 +24,9 @@
             <a href="${pageContext.request.contextPath}/AdminCategory">Quản lí danh mục</a>
             <a href="${pageContext.request.contextPath}/AdminProduct">Quản lí sản phẩm</a>
             <a href="${pageContext.request.contextPath}/AdminAddProduct">Thêm sản phẩm</a>
-            <a href="${pageContext.request.contextPath}/AdminOrders" class="active">Quản lí đơn hàng</a>
+            <a href="${pageContext.request.contextPath}/AdminOrders" >Quản lí đơn hàng</a>
             <a href="${pageContext.request.contextPath}/AdminAccount">Quản lí tài khoản</a>
-            <a href="${pageContext.request.contextPath}/AdminAccount" >Thêm sự kiện</a>
+            <a href="${pageContext.request.contextPath}/admin/event/list" class="active">Quản lí sự kiện</a>
             <a href="${pageContext.request.contextPath}/AdminContact">Liên hệ</a>
         </nav>
 
@@ -59,69 +60,55 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td>OD1023</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>0978276791</td>
-                        <td>Kính Cận C07</td>
-                        <td>1</td>
-                        <td>14/02/2025</td>
-                        <td><span class="stock-low">Chờ xử lý</span></td>
-                        <td>1,250,000 VNĐ</td>
-                        <td class="text-align">
-                            <button class="btn ghost">Hoàn thành</button>
-                            <button class="btn ghost">Đang vận chuyển</button>
-                            <button class="btn ghost">Hủy</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>OD1047</td>
-                        <td>Trần Thị B</td>
-                        <td>0813939729</td>
-                        <td>Kính Mát R27</td>
-                        <td>1</td>
-                        <td>14/02/2025</td>
-                        <td><span class="stock-high">Hoàn tất</span></td>
-                        <td>990,000 VNĐ</td>
-                        <td class="text-align">
-                            <button class="btn ghost">Hoàn thành</button>
-                            <button class="btn ghost">Đang vận chuyển</button>
-                            <button class="btn ghost">Hủy</button>
-                        </td>
-                    </tr>
+                    <c:forEach var="o" items="${orders}">
+                        <tr>
+                            <td>OD${o.id}</td>
+                            <td>${o.customerName}</td>
+                            <td>${o.phone}</td>
+                            <td>${o.productsSummary}</td>
+                            <td>${o.totalQuantity}</td>
+                            <td>${o.createdAt}</td>
 
-                    <tr>
-                        <td>OD1023</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>0978276791</td>
-                        <td>Kính Cận C07</td>
-                        <td>1</td>
-                        <td>14/02/2025</td>
-                        <td><span class="stock-high">Đang vận chuyển</span></td>
-                        <td>1,250,000 VNĐ</td>
-                        <td class="text-align">
-                            <button class="btn ghost">Hoàn thành</button>
-                            <button class="btn ghost">Đang vận chuyển</button>
-                            <button class="btn ghost">Hủy</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>OD1033</td>
-                        <td>Phạm C</td>
-                        <td>0385667219</td>
-                        <td>Kính Áp Tròng</td>
-                        <td>1</td>
-                        <td>14/02/2025</td>
-                        <td><span class="stock-out ">Đã hủy</span></td>
-                        <td>320,000 VNĐ</td>
-                        <td class="text-align">
-                            <button class="btn ghost">Hoàn thành</button>
-                            <button class="btn ghost">Đang vận chuyển</button>
-                            <button class="btn ghost">Hủy</button>
-                        </td>
-                    </tr>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${o.status == 'Chờ xử lý'}">
+                                        <span class="stock-low">${o.status}</span>
+                                    </c:when>
+                                    <c:when test="${o.status == 'Đã hủy'}">
+                                        <span class="stock-out">${o.status}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="stock-high">${o.status}</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
 
+                            <td>${o.totalAmount} VNĐ</td>
+
+                            <td class="text-align">
+                                <form action="${pageContext.request.contextPath}/AdminOrders" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="${o.id}">
+                                    <input type="hidden" name="action" value="complete">
+                                    <button class="btn ghost" type="submit">Hoàn thành</button>
+                                </form>
+
+                                <form action="${pageContext.request.contextPath}/AdminOrders" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="${o.id}">
+                                    <input type="hidden" name="action" value="shipping">
+                                    <button class="btn ghost" type="submit">Đang vận chuyển</button>
+                                </form>
+
+                                <form action="${pageContext.request.contextPath}/AdminOrders" method="post" style="display:inline;"
+                                      onsubmit="return confirm('Bạn chắc chắn muốn hủy đơn?');">
+                                    <input type="hidden" name="id" value="${o.id}">
+                                    <input type="hidden" name="action" value="cancel">
+                                    <button class="btn ghost" type="submit">Hủy</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
+
                 </table>
 
             </div>

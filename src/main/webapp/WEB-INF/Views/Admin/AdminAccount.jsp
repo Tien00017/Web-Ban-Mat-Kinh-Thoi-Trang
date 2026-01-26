@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +26,7 @@
             <a href="${pageContext.request.contextPath}/AdminAddProduct">Thêm sản phẩm</a>
             <a href="${pageContext.request.contextPath}/AdminOrders">Quản lí đơn hàng</a>
             <a href="${pageContext.request.contextPath}/AdminAccount" class="active">Quản lí tài khoản</a>
-            <a href="${pageContext.request.contextPath}/AdminAccount" >Thêm sự kiện</a>
+            <a href="${pageContext.request.contextPath}/admin/event/list" >Quản lí sự kiện</a>
             <a href="${pageContext.request.contextPath}/AdminContact">Liên hệ</a>
         </nav>
 
@@ -60,51 +62,69 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td>U001</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>0978276791</td>
-                        <td>nguyenvana@example.com</td>
-                        <td>1990-02-15</td>
-                        <td>Nam</td>
-                        <td>123 ĐBP, Q.1, TP.HCM</td>
-                        <td><span class="open">Mở</span></td>
-                        <td><span class="tag success">user</span></td>
-                        <td class="text-right">
-                            <button class="btn ghost ">Sửa</button>
-                        </td>
-                    </tr>
+                    <c:forEach var="u" items="${users}">
+                        <tr>
+                            <td>U${u.id}</td>
+                            <td>${u.fullName}</td>
+                            <td>${u.phone}</td>
+                            <td>${u.email}</td>
+                            <td>${u.birthDate}</td>
 
-                    <tr>
-                        <td>U002</td>
-                        <td>Trần Thị B</td>
-                        <td>0813939729</td>
-                        <td>tranthib@example.com</td>
-                        <td>1994-07-10</td>
-                        <td>Nữ</td>
-                        <td>45 Lý Tự Trọng, Q.3</td>
-                        <td><span class="open">Mở</span></td>
-                        <td><span class="tag pending">admin</span></td>
-                        <td class="text-right">
-                            <button class="btn ghost ">Sửa</button>
-                        </td>
-                    </tr>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${u.gender == 1}">Nam</c:when>
+                                    <c:when test="${u.gender == 0}">Nữ</c:when>
+                                    <c:otherwise>Khác</c:otherwise>
+                                </c:choose>
+                            </td>
 
-                    <tr>
-                        <td>U003</td>
-                        <td>Phạm C</td>
-                        <td>0385667219</td>
-                        <td>phamc@example.com</td>
-                        <td>1986-11-22</td>
-                        <td>Khác</td>
-                        <td>78 Nguyễn Huệ, Q.1</td>
-                        <td><span class="close">Khóa</span></td>
-                        <td><span class="tag success">user</span></td>
-                        <td class="text-right">
-                            <button class="btn ghost ">Sửa</button>
-                        </td>
-                    </tr>
+                            <td>${u.address}</td>
+
+                            <td>
+                                <c:choose>
+                                    <c:when test="${u.status}">
+                                        <span class="open">Mở</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="close">Khóa</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+
+                            <td>
+                                <c:choose>
+                                    <c:when test="${u.role == 1}">
+                                        <span class="tag pending">admin</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="tag success">user</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+
+                            <td class="text-right">
+                                <!-- Form update status/role -->
+                                <form action="${pageContext.request.contextPath}/AdminAccount" method="post" style="display:inline;">
+                                    <input type="hidden" name="action" value="update">
+                                    <input type="hidden" name="id" value="${u.id}">
+
+                                    <select name="status">
+                                        <option value="1" ${u.status ? 'selected' : ''}>Mở</option>
+                                        <option value="0" ${!u.status ? 'selected' : ''}>Khóa</option>
+                                    </select>
+
+                                    <select name="role">
+                                        <option value="0" ${u.role == 0 ? 'selected' : ''}>user</option>
+                                        <option value="1" ${u.role == 1 ? 'selected' : ''}>admin</option>
+                                    </select>
+
+                                    <button class="btn ghost" type="submit">Lưu</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
+
                 </table>
             </div>
         </div>

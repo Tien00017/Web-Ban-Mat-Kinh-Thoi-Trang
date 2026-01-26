@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin - Quản lý sự kiện</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfAdminAddEvent.css.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfAdminEvent.css">
 </head>
 <body>
 
@@ -23,7 +23,7 @@
             <a href="${pageContext.request.contextPath}/AdminAddProduct">Thêm sản phẩm</a>
             <a href="${pageContext.request.contextPath}/AdminOrders">Quản lí đơn hàng</a>
             <a href="${pageContext.request.contextPath}/AdminAccount">Quản lí tài khoản</a>
-            <a href="${pageContext.request.contextPath}/AdminEvents" class="active">Quản lý sự kiện</a>
+            <a href="${pageContext.request.contextPath}/admin/event/list" class="active">Quản lí sự kiện</a>
             <a href="${pageContext.request.contextPath}/AdminContact">Liên hệ</a>
         </nav>
 
@@ -34,27 +34,26 @@
 
     <!-- CONTENT -->
     <div class="container">
-        <h2>Danh sách sự kiện</h2>
+        <h2>Quản lý sự kiện / khuyến mãi</h2>
 
-        <a href="${pageContext.request.contextPath}/AdminAddEvent"
-           style="margin-bottom: 15px; display: inline-block;">
-            ➕ Thêm sự kiện mới
+        <a href="${pageContext.request.contextPath}/admin/event/add" class="btn btn-primary">
+            + Thêm sự kiện
         </a>
 
-        <table border="1" width="100%" cellpadding="8" cellspacing="0">
-            <thead>
+        <p>số lượng sự kiện:
+            <c:out value="${events != null ? events.size() : 'null'}"/>
+        </p>
+        <table border="1" width="100%" cellpadding="8">
             <tr>
                 <th>ID</th>
-                <th>Tên sự kiện</th>
+                <th>Tiêu đề</th>
                 <th>Thời gian</th>
                 <th>Giảm giá</th>
                 <th>Trạng thái</th>
-                <th>Thao tác</th>
+                <th>Hành động</th>
             </tr>
-            </thead>
 
-            <tbody>
-            <c:forEach var="e" items="${events}">
+            <c:forEach items="${events}" var="e">
                 <tr>
                     <td>${e.id}</td>
                     <td>${e.title}</td>
@@ -64,33 +63,32 @@
                     <td>
                         <c:choose>
                             <c:when test="${e.discountType == 'PERCENT'}">
-                                ${e.discountValue} %
-                            </c:when>
-                            <c:when test="${e.discountType == 'AMOUNT'}">
-                                ${e.discountValue} đ
+                                ${e.discountValue}%
                             </c:when>
                             <c:otherwise>
-                                Không giảm
+                                ${e.discountValue} VNĐ
                             </c:otherwise>
                         </c:choose>
                     </td>
-                    <td>${e.status}</td>
+                    <c:set var="statusLabel"
+                           value="${e.status == 'ACTIVE' ? 'Hoạt động' :
+                                    e.status == 'INACTIVE' ? 'Tạm dừng' :
+                                    e.status == 'EXPIRED' ? 'Hết hạn' : 'Không rõ'}" />
+
                     <td>
-                        <a href="${pageContext.request.contextPath}/AdminEditEvent?id=${e.id}">
-                            ✏️ Sửa
-                        </a>
+                        <span class="status ${e.status}">
+                            ${statusLabel}
+                        </span>
+                    </td>
+
+                    <td>
+                        <a href="${pageContext.request.contextPath}/admin/event/edit?id=${e.id}">Sửa</a> |
+                        <a href="${pageContext.request.contextPath}/admin/event/delete?id=${e.id}"
+                           onclick="return confirm('Xóa sự kiện này?')">Xóa</a>
+
                     </td>
                 </tr>
             </c:forEach>
-
-            <c:if test="${empty events}">
-                <tr>
-                    <td colspan="6" align="center">
-                        Chưa có sự kiện nào
-                    </td>
-                </tr>
-            </c:if>
-            </tbody>
         </table>
     </div>
 </div>
