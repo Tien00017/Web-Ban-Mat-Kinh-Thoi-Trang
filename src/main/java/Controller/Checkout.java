@@ -1,10 +1,12 @@
 package Controller;
 
 import Model.Object.Cart;
+import Model.Object.CartItem;
 import Model.Object.User;
 import Model.Service.CartService;
 import Model.Service.OrderItemService;
 import Model.Service.OrderService;
+import Model.Service.ProductService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -75,6 +77,14 @@ public class Checkout extends HttpServlet {
 
         if (orderId > 0) {
             orderItemService.insertOrderItems(orderId, cart);
+
+            for (CartItem item : cart.getCartItems().values()) {
+                ProductService.updateQuantityAfterOrder(
+                        item.getProductId(),
+                        item.getQuantity()
+                );
+            }
+
             session.removeAttribute("cart");
             response.sendRedirect("OrderHistory");
         } else {

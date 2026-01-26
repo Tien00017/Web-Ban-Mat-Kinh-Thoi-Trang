@@ -7,7 +7,11 @@ import java.util.List;
 
 public class ProductService {
 
-    private final ProductDAO productDAO = new ProductDAO();
+    private static final ProductDAO productDAO = new ProductDAO();
+
+    public static void updateQuantityAfterOrder(int productId, int quantity) {
+        productDAO.decreaseStockAndIncreaseSold(productId,quantity );
+    }
 
     public Product getProductDetail(int productId) {
         Product p = productDAO.getProductById(productId);
