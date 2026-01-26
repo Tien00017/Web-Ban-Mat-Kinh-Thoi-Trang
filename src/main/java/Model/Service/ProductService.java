@@ -47,5 +47,11 @@ public class ProductService {
     public List<Product> search(String keyword) {
     return productDAO.search(keyword);
 }
+
+
+    public int getStockQuantity(int productId) {
+        Product p = productDAO.getProductById(productId);
+        return p.getStock();
+    }
 }
 

@@ -1,9 +1,6 @@
 package Model.DAO;
 
-import Model.Object.Product;
-import Model.Object.ProductImage;
-import Model.Object.Promotion;
-import Model.Object.User;
+import Model.Object.*;
 
 import java.sql.ResultSet;
 
@@ -66,5 +63,16 @@ public abstract class BaseDAO {
         p.setDiscountValue(rs.getDouble("discount_value"));
         p.setStatus(rs.getString("status"));
         return p;
+    }
+
+    protected Review mapReview(ResultSet rs) throws Exception {
+        Review r = new Review();
+        r.setId(rs.getInt("id"));
+        r.setUserId(rs.getInt("user_id"));
+        r.setProductId(rs.getInt("product_id"));
+        r.setRating(rs.getInt("rating"));
+        r.setComment(rs.getString("comment"));
+        r.setCreatedAt(rs.getTimestamp("created_at"));
+        return r;
     }
 }
