@@ -135,27 +135,27 @@
                         <span>Thanh toán khi giao hàng (COD)</span>
                     </label>
 
-                    <label class="payment-option">
-                        <input type="radio" name="pay">
-                        <span>Chuyển khoản qua ngân hàng</span>
-                    </label>
+<%--                    <label class="payment-option">--%>
+<%--                        <input type="radio" name="pay">--%>
+<%--                        <span>Chuyển khoản qua ngân hàng</span>--%>
+<%--                    </label>--%>
 
-                    <label class="payment-option">
-                        <input type="radio" name="pay">
-                        <span>
-                        Thanh toán qua cổng VNPAY (ATM / Visa / MasterCard / JCB / QR Pay)
-                    </span>
-                    </label>
+<%--                    <label class="payment-option">--%>
+<%--                        <input type="radio" name="pay">--%>
+<%--                        <span>--%>
+<%--                        Thanh toán qua cổng VNPAY (ATM / Visa / MasterCard / JCB / QR Pay)--%>
+<%--                    </span>--%>
+<%--                    </label>--%>
 
-                    <label class="payment-option">
-                        <input type="radio" name="pay">
-                        <span>Thanh toán qua ví MoMo</span>
-                    </label>
+<%--                    <label class="payment-option">--%>
+<%--                        <input type="radio" name="pay">--%>
+<%--                        <span>Thanh toán qua ví MoMo</span>--%>
+<%--                    </label>--%>
 
-                    <label class="payment-option">
-                        <input type="radio" name="pay">
-                        <span>Thanh toán qua ZaloPay</span>
-                    </label>
+<%--                    <label class="payment-option">--%>
+<%--                        <input type="radio" name="pay">--%>
+<%--                        <span>Thanh toán qua ZaloPay</span>--%>
+<%--                    </label>--%>
                 </div>
 
                 <button type="submit" class="btn-order">

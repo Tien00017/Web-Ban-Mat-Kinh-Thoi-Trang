@@ -205,41 +205,41 @@
 
 </section>
 <!-- BÌNH LUẬN SẢN PHẨM -->
-<c:if test="${user != null}">
+<c:if test="${canReview}">
 <section class="comment-section">
     <h2>Bình luận sản phẩm</h2>
 
-        <form action="${pageContext.request.contextPath}/AddReview"
-              method="post"
-              class="comment-form">
+    <form action="${pageContext.request.contextPath}/ProductDetail"
+          method="post"
+          class="comment-form">
 
-            <!-- bắt buộc: productId -->
-            <input type="hidden" name="productId" value="${product.id}">
+        <!-- bắt buộc: productId -->
+        <input type="hidden" name="productId" value="${product.id}">
 
-            <!-- Rating -->
-            <div class="rating-input">
-                <div class="stars">
-                    <i data-value="1">★</i>
-                    <i data-value="2">★</i>
-                    <i data-value="3">★</i>
-                    <i data-value="4">★</i>
-                    <i data-value="5">★</i>
-                </div>
-                <span class="rating-text">0 sao</span>
-
-                <!-- gửi về server -->
-                <input type="hidden" name="rating" id="ratingValue" required>
+        <!-- Rating -->
+        <div class="rating-input">
+            <div class="stars">
+                <i data-value="1">★</i>
+                <i data-value="2">★</i>
+                <i data-value="3">★</i>
+                <i data-value="4">★</i>
+                <i data-value="5">★</i>
             </div>
+            <span class="rating-text">0 sao</span>
 
-            <!-- Comment -->
-            <textarea name="comment"
-                      placeholder="Viết bình luận của bạn..."
-                      rows="3"
-                      required></textarea>
+            <!-- gửi về server -->
+            <input type="hidden" name="rating" id="ratingValue" required>
+        </div>
 
-            <button type="submit">Gửi bình luận</button>
-        </form>
-    </section>
+        <!-- Comment -->
+        <textarea name="comment"
+                  placeholder="Viết bình luận của bạn..."
+                  rows="3"
+                  required></textarea>
+
+        <button type="submit">Gửi bình luận</button>
+    </form>
+</section>
 </c:if>
 <!--rating-->
 <section class="rating-section">

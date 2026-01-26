@@ -43,11 +43,11 @@ public class ProductImgDAO extends BaseDAO {
         List<ProductImage> list = new ArrayList<>();
 
         String sql = """
-            SELECT *
-            FROM product_images
-            WHERE product_id = ?
-            ORDER BY is_main DESC, created_at ASC
-        """;
+                    SELECT *
+                    FROM product_images
+                    WHERE product_id = ?
+                    ORDER BY is_main DESC, created_at ASC
+                """;
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -62,6 +62,32 @@ public class ProductImgDAO extends BaseDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public void insert(ProductImage img) {
+        String sql = """
+                    INSERT INTO product_images (
+                        product_id,
+                        image_url,
+                        is_main,
+                        type,
+                        created_at
+                    )
+                    VALUES (?, ?, ?, ?, NOW())
+                """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, img.getProductId());
+            ps.setString(2, img.getImageUrl());
+            ps.setBoolean(3, img.isMain());
+            ps.setString(4, img.getType());
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

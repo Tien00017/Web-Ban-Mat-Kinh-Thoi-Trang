@@ -32,13 +32,13 @@ public class AdminProduct extends HttpServlet {
 
         if ("edit".equals(action)) {
             int id = Integer.parseInt(req.getParameter("id"));
-            Product p = dao.getById(id);
+            Product p = dao.getProductById(id);
             req.setAttribute("product", p);
             req.getRequestDispatcher("/AdminEditProduct.jsp").forward(req, resp);
             return;
         }
 
-        List<Product> list = dao.getAllProducts();
+        List<Product> list = dao.getAllProductsAdmin();
         req.setAttribute("products", list);
         req.getRequestDispatcher("/AdminProduct.jsp").forward(req, resp);
     }
