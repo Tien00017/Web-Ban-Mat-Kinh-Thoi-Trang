@@ -107,29 +107,56 @@ html, body {
 }
 
 /* ----- Search Box ----- */
+/* ----- Search Box (FINAL FIX) ----- */
 .search-wrap {
     display: flex;
     align-items: center;
+    gap: 6px;
+
     border: 1px solid #e6e6e6;
     padding: 6px;
     border-radius: 10px;
+
+    background: #fff;
 }
-.search-wrap input {
+
+.search-wrap input[type="search"] {
     border: 0;
     outline: none;
+
     padding: 8px 10px;
     min-width: 200px;
+
     font-size: 14px;
-    background: transparent;
+    color: #111;
+
+    background: #fff;
 }
+
+.search-wrap input[type="search"]:focus {
+    outline: none;
+}
+
 .search-btn {
     border: 0;
     background: var(--accent);
     color: white;
+
     padding: 8px 12px;
     border-radius: 8px;
+
     font-weight: 600;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: auto;
+}
+
+.search-btn svg {
+    stroke: #fff;
 }
 
 /* ----- Header Icons & Buttons ----- */
