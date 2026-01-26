@@ -2,6 +2,7 @@ package Model.DAO;
 
 import Model.Object.Product;
 import Model.Object.ProductImage;
+import Model.Object.Promotion;
 import Model.Object.User;
 
 import java.sql.ResultSet;
@@ -51,6 +52,19 @@ public abstract class BaseDAO {
         p.setSoldQuantity(rs.getInt("sold_quantity"));
         p.setDeleted(rs.getBoolean("deleted"));
         p.setCreatedAt(rs.getTimestamp("created_at"));
+        return p;
+    }
+
+    protected Promotion mapPromotion(ResultSet rs) throws Exception {
+        Promotion p = new Promotion();
+        p.setId(rs.getInt("id"));
+        p.setTitle(rs.getString("title"));
+        p.setContent(rs.getString("content"));
+        p.setStartDate(rs.getDate("start_date"));
+        p.setEndDate(rs.getDate("end_date"));
+        p.setDiscountType(rs.getString("discount_type"));
+        p.setDiscountValue(rs.getDouble("discount_value"));
+        p.setStatus(rs.getString("status"));
         return p;
     }
 }
