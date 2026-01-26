@@ -40,5 +40,8 @@ public class ProductService {
         int to = Math.min(from + pageSize, products.size());
         return products.subList(from, to);
     }
+    public List<Product> search(String keyword) {
+    return productDAO.search(keyword);
+}
 }
 
