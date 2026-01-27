@@ -46,5 +46,7 @@ public class OrderService {
     }
 
 
-
+    public boolean hasPurchased(int id, int productId) {
+        return orderDAO.hasPurchased(id, productId);
+    }
 }

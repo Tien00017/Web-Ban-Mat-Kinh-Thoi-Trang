@@ -6,6 +6,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -159,7 +160,21 @@
                                         <button class="qty-btn js-dec" type="submit">−</button>
                                     </form>
 
-                                    <input class="js-qty" type="number" value="${item.quantity}" readonly>
+                                    <form action="${pageContext.request.contextPath}/Cart" method="post">
+                                        <input type="hidden" name="action" value="update">
+                                        <input type="hidden" name="productId" value="${item.productId}">
+
+                                        <input
+                                                class="js-qty"
+                                                type="number"
+                                                name="quantity"
+                                                value="${item.quantity}"
+                                                min="1"
+                                                step="1"
+                                                onchange="this.form.submit()"
+                                        >
+                                    </form>
+
 
                                     <!-- TĂNG -->
                                     <form action="${pageContext.request.contextPath}/Cart" method="post">
@@ -193,7 +208,9 @@
                 </strong>
             </div>
 
-            <a href="${pageContext.request.contextPath}/Checkout"  class="checkout-btn">Thanh Toán</a>
+            <button type="button" class="checkout-btn js-checkout">
+                Thanh Toán
+            </button>
 
             <a href="${pageContext.request.contextPath}/Home" class="continue">Tiếp tục mua hàng</a>
         </aside>
@@ -231,6 +248,9 @@
 
     </div>
 </footer>
-<%--<script src="${pageContext.request.contextPath}/JavaScript/Cart.js" defer></script>--%>
+<script>
+    const CONTEXT_PATH = "${pageContext.request.contextPath}";
+</script>
+<script src="${pageContext.request.contextPath}/JavaScript/Cart.js" defer></script>
 </body>
 </html>
