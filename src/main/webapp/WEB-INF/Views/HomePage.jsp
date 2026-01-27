@@ -4,6 +4,9 @@
 <%
     User user = (User) session.getAttribute("user");
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -108,52 +111,21 @@
     <section class="news-section">
         <h2>Tin tức & Sự kiện</h2>
 
-<div class="news-track">
+        <div class="news-slider">
+            <button class="slide-btn prev">&#10094;</button>
 
-    <!-- BANNER 1 → FLASH SALE -->
-    <article class="news-card">
-        <a href="${pageContext.request.contextPath}/NewsEvent#event-flash">
-            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner1.jpg">
-        </a>
-    </article>
-
-    <!-- BANNER 2 → FLASH SALE -->
-    <article class="news-card">
-        <a href="${pageContext.request.contextPath}/NewsEvent#event-flash">
-            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner2.jpg">
-        </a>
-    </article>
-
-    <!-- BANNER 3 → ƯU ĐÃI TẾT -->
-    <article class="news-card">
-        <a href="${pageContext.request.contextPath}/NewsEvent#event-tet">
-            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner3.jpg">
-        </a>
-    </article>
-
-    <!-- BANNER 4 → ƯU ĐÃI TẾT -->
-    <article class="news-card">
-        <a href="${pageContext.request.contextPath}/NewsEvent#event-tet">
-            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner4.jpg">
-        </a>
-    </article>
-
-    <!-- BANNER 5 → SUMMER SALE -->
-    <article class="news-card">
-        <a href="${pageContext.request.contextPath}/NewsEvent#event-summer">
-            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner5.jpg">
-        </a>
-    </article>
-
-    <!-- BANNER 6 → SUMMER SALE -->
-    <article class="news-card">
-        <a href="${pageContext.request.contextPath}/NewsEvent#event-summer">
-            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner6.jpg">
-        </a>
-    </article>
-
-</div>
-
+            <div class="news-track">
+                <c:forEach var="promo" items="${promotions}">
+                    <c:forEach var="banner" items="${bannerMap[promo.id]}">
+                        <article class="news-card">
+                            <a href="${pageContext.request.contextPath}/NewsEvent?id=${promo.id}">
+                                <img src="${pageContext.request.contextPath}${banner.imageUrl}"
+                                     alt="${promo.title}">
+                            </a>
+                        </article>
+                    </c:forEach>
+                </c:forEach>
+            </div>
 
             <button class="slide-btn next">&#10095;</button>
 

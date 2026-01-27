@@ -4,7 +4,7 @@
 .flash-banner {
     width: 100%;
     height: 420px; /* tùy chỉnh */
-    background-image: url('../Images/News&Event/Banner1.jpg');
+    background: white;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
