@@ -5,46 +5,35 @@ import Model.Object.Promotion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PromotionDAO extends BaseDAO {
 
-    // Lấy các chương trình khuyến mãi mới nhất (hiển thị trang chủ)
-    public List<Promotion> getLatestPromotions(int limit) {
-        List<Promotion> list = new ArrayList<>();
+    // Lấy promotion theo id
+    public Promotion getById(int id) {
 
         String sql = """
             SELECT *
             FROM promotions
-            WHERE status = 'ACTIVE'
-            ORDER BY start_date DESC
-            LIMIT ?
+            WHERE id = ? AND status = 'ACTIVE'
         """;
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, limit);
-            ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                list.add(mapPromotion(rs));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    // Lấy chi tiết 1 khuyến mãi theo ID
-    public Promotion getById(int id) {
-        String sql = "SELECT * FROM promotions WHERE id = ?";
-        try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
+
             if (rs.next()) {
-                return mapPromotion(rs);
+                Promotion p = new Promotion();
+                p.setId(rs.getInt("id"));
+                p.setTitle(rs.getString("title"));
+                p.setContent(rs.getString("content"));
+                p.setStartDate(rs.getDate("start_date"));
+                p.setEndDate(rs.getDate("end_date"));
+                p.setDiscountType(rs.getString("discount_type"));
+                p.setDiscountValue(rs.getDouble("discount_value"));
+                p.setStatus(rs.getString("status"));
+                return p;
             }
         } catch (Exception e) {
             e.printStackTrace();
