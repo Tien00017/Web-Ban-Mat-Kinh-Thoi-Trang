@@ -8,9 +8,12 @@ import java.util.List;
 
 public class PromotionProductDAO extends BaseDAO {
 
-    // Lấy danh sách product_id thuộc 1 promotion
-    public List<Integer> getProductIdsByPromotion(int promotionId) {
-        List<Integer> list = new ArrayList<>();
+    /**
+     * Lấy danh sách product_id thuộc promotion
+     */
+    public List<Integer> getProductIdsByPromotionId(int promotionId) {
+
+        List<Integer> productIds = new ArrayList<>();
 
         String sql = """
             SELECT product_id
@@ -25,11 +28,13 @@ public class PromotionProductDAO extends BaseDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(rs.getInt("product_id"));
+                productIds.add(rs.getInt("product_id"));
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return list;
+
+        return productIds;
     }
 }
