@@ -22,6 +22,7 @@ public class ProductDAO extends BaseDAO {
             String sortPrice
     ) {
         List<Product> list = new ArrayList<>();
+
         StringBuilder sql = new StringBuilder("SELECT DISTINCT p.* FROM products p ");
 
         if (material != null && !material.isEmpty()) {
@@ -154,6 +155,30 @@ public class ProductDAO extends BaseDAO {
         }
         return list;
     }
+    public List<Product> findAll() {
+        List<Product> list = new ArrayList<>();
+
+        String sql = """
+        SELECT *
+        FROM products
+        WHERE deleted = false
+        ORDER BY id DESC
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(mapProduct(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
 
     public boolean decreaseStockAndIncreaseSold(int productId, int quantity) {
         String sql = """
