@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -19,7 +20,8 @@
 <header class="site-header">
     <div class="header-inner">
         <div class="header-left">
-            <a class="logo" href="#"><img src="${pageContext.request.contextPath}/Images/Logo.jpg" alt="Logo" class="logo-img">Mắt kính Nông Lâm</a>
+            <a class="logo" href="#"><img src="${pageContext.request.contextPath}/Images/Logo.jpg" alt="Logo"
+                                          class="logo-img">Mắt kính Nông Lâm</a>
             <nav class="main-nav" aria-label="Chính">
                 <a href="${pageContext.request.contextPath}/Home">Trang chủ</a>
                 <a href="${pageContext.request.contextPath}/AboutUs">Giới thiệu</a>
@@ -61,8 +63,12 @@
                         </svg>
                     </button>
                 </a>
-                <a class="btn-outline" href="${pageContext.request.contextPath}/Login">Đăng nhập</a>
-                <a class="btn-primary" href="${pageContext.request.contextPath}/Register">Đăng ký</a>
+                <c:choose>
+                    <c:when test="${sessionScope.user == null}">
+                        <a class="btn-outline" href="${pageContext.request.contextPath}/Login">Đăng nhập</a>
+                        <a class="btn-primary" href="${pageContext.request.contextPath}/Register">Đăng ký</a>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -76,18 +82,20 @@
     </nav>
 </header>
 
-<main class="layout">
+<main class="page-main">
+    <div class="layout">
 
-    <aside class="review-pane" aria-labelledby="reviewTitle">
-        <!-- STORE PROFILE (nổi bật) -->
-        <div class="store-card">
-            <div class="store-media">
-                <img src="${pageContext.request.contextPath}/Images/Logo.jpg" alt="Logo cửa hàng" class="store-logo">
-            </div>
-            <div class="store-info">
-                <h2 class="store-name">Mắt kính Nông Lâm</h2>
-                <div class="store-meta">
-                    <div class="store-rating" aria-hidden="true">
+        <aside class="review-pane" aria-labelledby="reviewTitle">
+            <!-- STORE PROFILE (nổi bật) -->
+            <div class="store-card">
+                <div class="store-media">
+                    <img src="${pageContext.request.contextPath}/Images/Logo.jpg" alt="Logo cửa hàng"
+                         class="store-logo">
+                </div>
+                <div class="store-info">
+                    <h2 class="store-name">Mắt kính Nông Lâm</h2>
+                    <div class="store-meta">
+                        <div class="store-rating" aria-hidden="true">
                         <span class="stars-inline">
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -95,148 +103,95 @@
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
                         </span>
-                        <span class="rating-val">4.8</span>
+                            <span class="rating-val">4.8</span>
+                        </div>
+                        <div class="store-line"><strong>Địa chỉ:</strong> 123 Điện Biên Phủ, Q.1, TP.HCM</div>
+                        <div class="store-line"><Strong>Giờ mở cửa:</Strong> 08:00 — 20:00 (T2–CN)</div>
+                        <div class="store-line"><strong>Hotline:</strong><a href="#">(+84) 38 5667 219</a></div>
+                        <div class="store-line"><strong>Email:</strong> <a href="#">info@matkinh.com</a></div>
                     </div>
-                    <div class="store-line"><strong>Địa chỉ:</strong> 123 Điện Biên Phủ, Q.1, TP.HCM</div>
-                    <div class="store-line"><Strong>Giờ mở cửa:</Strong> 08:00 — 20:00 (T2–CN)</div>
-                    <div class="store-line"><strong>Hotline:</strong><a href="#">(+84) 38 5667 219</a></div>
-                    <div class="store-line"><strong>Email:</strong> <a href="#">info@matkinh.com</a></div>
-                </div>
 
-                <div class="store-actions">
-                    <a href="#" class="icon-link" title="Gọi ngay"><i class="fa-solid fa-phone"></i></a>
-                    <a href="#" class="icon-link" title="Gửi email"><i class="fa-solid fa-envelope"></i></a>
-                    <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn">Chỉ đường</a>
+                    <div class="store-actions">
+                        <a href="#" class="icon-link" title="Gọi ngay"><i class="fa-solid fa-phone"></i></a>
+                        <a href="#" class="icon-link" title="Gửi email"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn">Chỉ đường</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="img-map">
-            <img src="${pageContext.request.contextPath}/Images/Contact/map.png" alt="google map" class="map">
-        </div>
-
-    </aside>
-
-
-    <section class="chat-pane" aria-labelledby="chatTitle">
-
-        <header class="chat-head">
-            <div class="user-avatar" style="background-image:url('${pageContext.request.contextPath}/Images/Contact/avatar.jpg');"></div>
-
-            <div class="user-meta">
-                <h2 id="chatTitle">CỬA HÀNG MẮT KÍNH NÔNG LÂM</h2>
-                <div id="chatSub" class="muted">Chat với chúng tôi</div>
+            <div class="img-map">
+                <img src="${pageContext.request.contextPath}/Images/Contact/map.png" alt="google map" class="map">
             </div>
-        </header>
 
-        <div id="chatBody" class="chat-body">
-            <c:forEach var="m" items="${messages}">
-                <div class="row">
-                    <div>
+        </aside>
+
+
+        <section class="chat-pane" aria-labelledby="chatTitle">
+
+            <header class="chat-head">
+                <div class="user-avatar"
+                     style="background-image:url('${pageContext.request.contextPath}/Images/Contact/avatar.jpg');"></div>
+
+                <div class="user-meta">
+                    <h2 id="chatTitle">CỬA HÀNG MẮT KÍNH NÔNG LÂM</h2>
+                    <div id="chatSub" class="muted">Chat với chúng tôi</div>
+                </div>
+            </header>
+
+            <div id="chatBody" class="chat-body">
+                <c:forEach var="m" items="${messages}">
+                    <div class="row ${m.senderId == sessionScope.user.id ? 'me-row' : ''}">
                         <div class="msg ${m.senderId == sessionScope.user.id ? 'me' : ''}">
                                 ${m.content}
                         </div>
                     </div>
-                </div>
-            </c:forEach>
+                </c:forEach>
+            </div>
 
-        <%--            <div class="row">--%>
-<%--                <div>--%>
-<%--                    <div class="msg">Bạn muốn tư vấn về vấn đề gì?</div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="row">--%>
-<%--                <div>--%>
-<%--                    <div class="msg">bạn muốn tìm hiểu về sản phẩm nào?</div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="row">--%>
-<%--                <div>--%>
-<%--                    <div class="msg">Độ cận của bạn là bao nhiêu? Có thể đến cửa hàng trực tiếp để đo độ cận miễn phí!!!!!</div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="row">--%>
-<%--                <div>--%>
-<%--                    <div class="msg">Hơn 300 loại mẫu kính khác nhau nhiều mẫu mã nhiều phong cách cho bạn lựa chọn!!!</div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="row">--%>
-<%--                <div>--%>
-<%--                    <div class="msg">Bạn muốn mua hàng trực tiếp tại cửa hàng hay mua hàng online đều sẽ có đội ngũ chuyên nghiệp trả lời mọi thắc mắc của bạn?</div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-        </div>
+            <form id="chatForm" class="chat-input" autocomplete="off">
+                <input id="chatText" type="text" placeholder="Nhập tin nhắn..."/>
+                <button class="btn" type="submit" title="Gửi">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
 
-        <form id="chatForm" class="chat-input" autocomplete="off">
-            <input id="chatText" type="text" placeholder="Nhập tin nhắn..."/>
-            <button class="btn" type="submit" title="Gửi">
-                <i class="fa-solid fa-paper-plane"></i>
-            </button>
-        </form>
-
-    </section>
+        </section>
+    </div>
 </main>
 
-<!-- FOOTER -->
-<footer class="site-footer">
-    <div class="footer-inner">
-
-        <!-- Chi nhánh -->
-        <div class="footer-branches">
-            <h4>Các chi nhánh</h4>
-            <p>Chi nhánh Hà Nội: 123 Phố Huế, Hoàn Kiếm</p>
-            <p>Chi nhánh TP.HCM: 456 Nguyễn Huệ, Quận 1</p>
-            <p>Chi nhánh Đà Nẵng: 789 Bạch Đằng, Hải Châu</p>
-        </div>
-
-        <!-- Liên hệ -->
-        <div class="footer-contact">
-            <h4>Liên hệ</h4>
-            <p><i class="fas fa-envelope"></i> Email: support@example.com</p>
-            <p><i class="fas fa-phone"></i> Điện thoại: 0123 456 789</p>
-        </div>
-
-        <!-- Theo dõi -->
-        <div class="footer-social">
-            <h4>Theo dõi</h4>
-            <p class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-zalo"></i></a>
-            </p>
-        </div>
-
-    </div>
-</footer>
 <script>
     const chatForm = document.getElementById("chatForm");
     const chatText = document.getElementById("chatText");
 
+    function loadChatBody() {
+        fetch("ContactMessages")
+            .then(res => res.ok ? res.text() : "")
+            .then(html => {
+                const chatBody = document.getElementById("chatBody");
+                chatBody.scrollTop = chatBody.scrollHeight;
+                document.getElementById("chatBody").innerHTML = html;
+
+            });
+    }
+
     chatForm.addEventListener("submit", function (e) {
         e.preventDefault();
+        const msg = (chatText.value || "").trim();
+        if (!msg) return;
 
         fetch("SendMessage", {
             method: "POST",
             headers: {"Content-Type": "application/x-www-form-urlencoded"},
-            body: "receiverId=${adminId}&content=" + encodeURIComponent(chatText.value)
+            body: "content=" + encodeURIComponent(msg)
         }).then(() => {
             chatText.value = "";
-            loadChat();
+            loadChatBody();
         });
     });
 
-    function loadChat() {
-        fetch("Contact")
-            .then(res => res.text())
-            .then(html => {
-                document.open();
-                document.write(html);
-                document.close();
-            });
-    }
-
-    // auto refresh mỗi 3s
-    setInterval(loadChat, 3000);
+    loadChatBody();
+    setInterval(loadChatBody, 3000);
 </script>
+
 
 </body>
 </html>

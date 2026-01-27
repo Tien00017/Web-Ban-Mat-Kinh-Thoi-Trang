@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -40,83 +41,42 @@
 
         <aside class="review-pane" aria-labelledby="reviewTitle">
             <div class="pane-head">
-                <h2 id="reviewTitle">Đánh giá sản phẩm</h2>
-
-                <!-- Chỉ còn input bình thường, không có JS -->
-                <input id="searchBox" class="search" placeholder="Tìm theo tên/điện thoại/sản phẩm..."/>
+                <h2 id="reviewTitle">Danh sách tin nhắn</h2>
+                <input id="searchBox" class="search" placeholder="Tìm theo tên/điện thoại"/>
             </div>
 
             <div id="reviewList" class="review-list">
+                <c:forEach var="u" items="${users}">
+                    <a class="review-item ${u.id == currentUserId ? 'active' : ''}"
+                       href="${pageContext.request.contextPath}/AdminContact?userId=${u.id}"
+                       style="text-decoration:none; color:inherit;">
 
-                <!-- ITEM 1 -->
-                <article class="review-item active">
-                    <img class="r-avt" src="${pageContext.request.contextPath}/Images/Contact/avatar.jpg"
-                         alt="Lê Thị Anh Thư"/>
-                    <div>
-                        <div class="r-head">
-                            <div class="r-name">Lê Thị Anh Thư</div>
-                            <div class="stars">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
+                        <img class="r-avt" src="${pageContext.request.contextPath}/Images/Contact/avatar.jpg" alt="User"/>
+
+                        <div class="r-text">
+                            <div class="r-name">
+                                <c:choose>
+                                    <c:when test="${not empty u.displayName}">${u.displayName}</c:when>
+                                    <c:otherwise>${u.fullName}</c:otherwise>
+                                </c:choose>
+                            </div>
+
+                            <div class="r-sub">
+                                <c:choose>
+                                    <c:when test="${not empty u.phone}">${u.phone}</c:when>
+                                    <c:otherwise>(Chưa có SĐT)</c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
-                        <div class="r-prod"><strong>Kính Cận C07</strong></div>
-                        <div class="r-body">Mẫu mã rất chắc chắn, đeo lên xinh.</div>
-                        <div class="r-phone">0987 654 321</div>
-                        <div class="r-photos">
-                            <img src="${pageContext.request.contextPath}/Images/Contact/Review.jpg">
-                            <img src="${pageContext.request.contextPath}/Images/Contact/Review2.jpg">
-                        </div>
-                    </div>
-                </article>
+                    </a>
+                </c:forEach>
 
-                <!-- ITEM 2 -->
-                <article class="review-item">
-                    <img class="r-avt" src="${pageContext.request.contextPath}/Images/Contact/avatar.jpg"
-                         alt="Lee Min Ho"/>
-                    <div>
-                        <div class="r-head">
-                            <div class="r-name">Lee Min Ho</div>
-                            <div class="stars">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="r-prod"><strong>Kính Lão L04</strong></div>
-                        <div class="r-body">Kính hơi nặng đầu, nhưng chất lượng ok.</div>
-                        <div class="r-phone">0912 345 678</div>
-                        <div class="r-photos">
-                            <img src="${pageContext.request.contextPath}/Images/Contact/Review2.jpg">
-                            <img src="${pageContext.request.contextPath}/Images/Contact/Review.jpg">
-                        </div>
-                    </div>
-                </article>
 
-                <!-- ITEM 3 -->
-                <article class="review-item">
-                    <img class="r-avt" src="${pageContext.request.contextPath}/Contact/avatar.jpg" alt="Bùi Công Nam"/>
-                    <div>
-                        <div class="r-head">
-                            <div class="r-name">Bùi Công Nam</div>
-                            <div class="stars">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="r-prod"><strong>Kính Râm R27</strong></div>
-                        <div class="r-body">Không giống hình, quá thất vọng.</div>
-                        <div class="r-phone">0903 111 222</div>
-                        <div class="r-photos">
-                            <img src="${pageContext.request.contextPath}/Images/Contact/Review.jpg">
-                            <img src="${pageContext.request.contextPath}/Images/Contact/Review2.jpg">
-                        </div>
-                    </div>
-                </article>
-
+                <c:if test="${empty users}">
+                    <div style="padding:12px; color:#6b7280;">Chưa có tin nhắn nào.</div>
+                </c:if>
             </div>
+
         </aside>
 
 
@@ -127,22 +87,29 @@
                      style="background-image:url('${pageContext.request.contextPath}/Images/Contact/avatar.jpg');"></div>
 
                 <div class="user-meta">
-                    <h2 id="chatTitle">Lê Thị Anh Thư</h2>
-                    <div id="chatSub" class="muted">Kính Cận C07 · 0987 654 321 · 5★</div>
+                    <h2 id="chatTitle">
+                        <c:choose>
+                            <c:when test="${currentUser != null}">
+                                ${currentUser.displayName}
+                            </c:when>
+                            <c:otherwise>Chọn một hội thoại</c:otherwise>
+                        </c:choose>
+                    </h2>
                 </div>
             </header>
 
             <div id="chatBody" class="chat-body">
-                <div class="row">
-                    <div>
-                        <div class="msg">Shop ơi còn sản phẩm nào tương tự mà màu bạc không?</div>
+                <c:forEach var="m" items="${messages}">
+                    <div class="row ${m.senderId == sessionScope.user.id ? 'me-row' : ''}">
+                        <div class="msg ${m.senderId == sessionScope.user.id ? 'me' : ''}">
+                                ${m.content}
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <div class="msg">Ok mình thấy mẫu C09 đẹp đó để mình đặt 1 cái</div>
-                    </div>
-                </div>
+                </c:forEach>
+
+                <c:if test="${empty messages}">
+                    <div style="padding:12px; color:#6b7280;">Chưa có tin nhắn.</div>
+                </c:if>
             </div>
 
             <form id="chatForm" class="chat-input" autocomplete="off">
@@ -159,31 +126,50 @@
     const chatForm = document.getElementById("chatForm");
     const chatText = document.getElementById("chatText");
 
+    function getCurrentUserId() {
+        return ("${currentUserId}" || "").trim();
+    }
+
+    function loadChatBody() {
+        const uid = getCurrentUserId();
+        if (!uid || uid === "0") {
+            document.getElementById("chatBody").innerHTML = "";
+            return;
+        }
+
+        fetch("AdminMessages?userId=" + encodeURIComponent(uid))
+            .then(res => res.ok ? res.text() : "")
+            .then(html => {
+                document.getElementById("chatBody").innerHTML = html;
+            });
+    }
+
     chatForm.addEventListener("submit", function (e) {
         e.preventDefault();
+        const uid = getCurrentUserId();
+        if (!uid || uid === "0") {
+            alert("Vui lòng chọn một người dùng để trả lời.");
+            return;
+        }
+
+        const msg = (chatText.value || "").trim();
+        if (!msg) return;
 
         fetch("AdminSendMessage", {
             method: "POST",
             headers: {"Content-Type": "application/x-www-form-urlencoded"},
-            body: "userId=${currentUserId}&content=" + encodeURIComponent(chatText.value)
+            body: "userId=" + encodeURIComponent(uid) + "&content=" + encodeURIComponent(msg)
         }).then(() => {
             chatText.value = "";
-            loadChat();
+            loadChatBody();
         });
     });
 
-    function loadChat() {
-        fetch("AdminContact?userId=${currentUserId}")
-            .then(res => res.text())
-            .then(html => {
-                document.open();
-                document.write(html);
-                document.close();
-            });
-    }
-
-    setInterval(loadChat, 3000);
+    loadChatBody();
+    setInterval(loadChatBody, 3000);
 </script>
+
+
 
 </body>
 </html>

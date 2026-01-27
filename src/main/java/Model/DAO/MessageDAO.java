@@ -81,19 +81,27 @@ public class MessageDAO {
         List<Integer> list = new ArrayList<>();
 
         String sql = """
-            SELECT DISTINCT sender_id
-            FROM messages
-            WHERE receiver_id = ?
-        """;
+        SELECT DISTINCT
+            CASE
+                WHEN sender_id = ? THEN receiver_id
+                ELSE sender_id
+            END AS user_id
+        FROM messages
+        WHERE sender_id = ? OR receiver_id = ?
+        ORDER BY user_id
+    """;
 
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, adminId);
-            ResultSet rs = ps.executeQuery();
+            ps.setInt(2, adminId);
+            ps.setInt(3, adminId);
 
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(rs.getInt("sender_id"));
+                int uid = rs.getInt("user_id");
+                if (uid != adminId) list.add(uid);
             }
 
         } catch (Exception e) {
@@ -102,6 +110,9 @@ public class MessageDAO {
 
         return list;
     }
+
+
+
 
     /* =========================
        4. ADMIN: LẤY HỘI THOẠI THEO USER
