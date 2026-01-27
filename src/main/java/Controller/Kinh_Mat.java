@@ -6,6 +6,7 @@ import Model.Object.Product;
 import Model.Object.ProductImage;
 import Model.Service.ProductImgService;
 import Model.Service.ProductService;
+import Model.Service.PromotionProductService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -20,6 +21,7 @@ public class Kinh_Mat extends HttpServlet {
 
     private ProductService productService = new ProductService();
     private ProductImgService productImgService = new ProductImgService();
+    private PromotionProductService promotionProductService = new PromotionProductService();
 
     @Override
     public void init() {
@@ -71,11 +73,18 @@ public class Kinh_Mat extends HttpServlet {
         Map<Integer, ProductImage> imageMap =
                 productImgService.getMainImages(productIds);
 
+        Map<Integer, Double> salePriceMap =
+                promotionProductService.getSalePriceMap(displayProducts);
+
+        Map<Integer, Double> discountMap =
+                promotionProductService.getDiscountMap(productIds);
         // ===== 6. ĐẨY RA JSP =====
         request.setAttribute("products", displayProducts);
         request.setAttribute("imageMap", imageMap);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
+        request.setAttribute("salePriceMap", salePriceMap);
+        request.setAttribute("discountMap", discountMap);
 
         request.getRequestDispatcher("/WEB-INF/Views/Kinh_Mat.jsp")
                 .forward(request, response);

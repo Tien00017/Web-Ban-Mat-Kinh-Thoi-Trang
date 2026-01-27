@@ -14,7 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kính Mát - Mắt Kinh Nông Lâm</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfKinh_Mat.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -198,14 +199,42 @@
                     </c:choose>
 
                     <h4>${p.productName}</h4>
-                    <p class="price">
-                        <p class="price">
-                            <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/> VNĐ
-                        </p>
-                    </p>
+
+                    <div class="price-box">
+                        <c:choose>
+
+                            <%-- CÓ GIẢM GIÁ --%>
+                            <c:when test="${salePriceMap[p.id] != null}">
+                                <p class="price-old">
+                                    <del>
+                                        <fmt:formatNumber value="${p.price}"
+                                                          type="number"
+                                                          groupingUsed="true"/> VNĐ
+                                    </del>
+                                </p>
+                                <p class="price-sale">
+                                    <fmt:formatNumber value="${salePriceMap[p.id]}"
+                                                      type="number"
+                                                      groupingUsed="true"/> VNĐ
+                                </p>
+                            </c:when>
+
+                            <%-- KHÔNG GIẢM GIÁ --%>
+                            <c:otherwise>
+                                <p class="price">
+                                    <fmt:formatNumber value="${p.price}"
+                                                      type="number"
+                                                      groupingUsed="true"/> VNĐ
+                                </p>
+                            </c:otherwise>
+
+                        </c:choose>
+                    </div>
 
                     <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
-                       class="try-btn">Xem sản phẩm</a>
+                       class="try-btn">
+                        Xem sản phẩm
+                    </a>
                 </div>
             </c:forEach>
 

@@ -77,6 +77,8 @@ public class ProductDetail extends HttpServlet {
             canReview = hasPurchased && !hasReviewed;
         }
 
+        Integer salePrice = productService.getSalePrice(productId);
+
         // ===== 7. SET ATTRIBUTE =====
         request.setAttribute("product", product);
         request.setAttribute("images", images);
@@ -85,6 +87,7 @@ public class ProductDetail extends HttpServlet {
         request.setAttribute("relatedProducts", relatedProducts);
         request.setAttribute("relatedImageMap", relatedImageMap);
         request.setAttribute("canReview", canReview);
+        request.setAttribute("salePrice", salePrice);
 
         request.getRequestDispatcher("/WEB-INF/Views/ProductDetail.jsp")
                 .forward(request, response);

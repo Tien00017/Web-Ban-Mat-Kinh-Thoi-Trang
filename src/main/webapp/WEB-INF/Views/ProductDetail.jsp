@@ -124,11 +124,34 @@
 
         <h1 class="product-name">${product.productName}</h1>
 
-        <p class="product-price">
-            Giá: <strong>
-            <fmt:formatNumber value="${product.price}" type="number" groupingUsed="true"/> VNĐ
-        </strong>
-        </p>
+        <div class="product-price">
+            <c:choose>
+
+                <%-- CÓ GIẢM GIÁ --%>
+                <c:when test="${salePrice != null}">
+                    <p class="price-old">
+                        <del>
+                            <fmt:formatNumber value="${product.price}"
+                                              groupingUsed="true"/> VNĐ
+                        </del>
+                    </p>
+
+                    <p class="price-sale">
+                        <fmt:formatNumber value="${salePrice}"
+                                          groupingUsed="true"/> VNĐ
+                    </p>
+                </c:when>
+
+                <%-- KHÔNG GIẢM GIÁ --%>
+                <c:otherwise>
+                    <p class="price-normal">
+                        <fmt:formatNumber value="${product.price}"
+                                          groupingUsed="true"/> VNĐ
+                    </p>
+                </c:otherwise>
+
+            </c:choose>
+        </div>
 
         <div class="rating-box">
             <span class="stars">
@@ -177,7 +200,20 @@
                     <div class="spec-item"><strong>Thương hiệu:</strong> ${product.brand}</div>
                     <div class="spec-item"><strong>Xuất xứ:</strong> ${product.origin}</div>
                     <div class="spec-item"><strong>Giá:</strong>
-                        <fmt:formatNumber value="${product.price}" type="number" groupingUsed="true"/> VNĐ
+                        <c:choose>
+                            <c:when test="${salePrice != null}">
+                                <del>
+                                    <fmt:formatNumber value="${product.price}" groupingUsed="true"/> VNĐ
+                                </del>
+                                <br>
+                                <span class="price-sale">
+                <fmt:formatNumber value="${salePrice}" groupingUsed="true"/> VNĐ
+            </span>
+                            </c:when>
+                            <c:otherwise>
+                                <fmt:formatNumber value="${product.price}" groupingUsed="true"/> VNĐ
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 

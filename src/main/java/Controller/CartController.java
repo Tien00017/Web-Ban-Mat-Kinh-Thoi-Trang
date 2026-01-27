@@ -163,6 +163,13 @@ public class CartController extends HttpServlet {
 
         List<ProductImage> images = productImgService.getProductImages(product.getId());
 
+
+        Integer salePrice = productService.getSalePrice(productId);
+
+        double finalPrice = (salePrice != null)
+                ? salePrice
+                : product.getPrice();
+
         String mainImage = "Images/no-image.png";
 
         if (images != null && !images.isEmpty()) {
@@ -172,7 +179,7 @@ public class CartController extends HttpServlet {
         CartItem item = new CartItem(
                 product.getId(),
                 product.getProductName(),
-                product.getPrice(),
+                finalPrice,
                 1,
                 mainImage
         );
