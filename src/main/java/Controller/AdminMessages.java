@@ -1,12 +1,10 @@
 package Controller;
 
-import Model.DAO.MessageDAO;
 import Model.Object.Message;
 import Model.Object.User;
+import Model.Service.MessageService;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,13 +12,12 @@ import java.util.List;
 @WebServlet("/AdminMessages")
 public class AdminMessages extends HttpServlet {
 
-    private final MessageDAO messageDAO = new MessageDAO();
+    private final MessageService messageService = new MessageService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User admin = (User) request.getSession().getAttribute("user");
 
-        // admin role = 0
         if (admin == null || admin.getRole() != 0) {
             response.setStatus(401);
             return;
@@ -41,29 +38,11 @@ public class AdminMessages extends HttpServlet {
             return;
         }
 
-        List<Message> messages = messageDAO.getConversation(userId, admin.getId());
+        List<Message> messages = messageService.getConversation(userId, admin.getId());
+        // optional: mở chat body => đọc luôn
+        messageService.markRead(userId, admin.getId());
 
         response.setContentType("text/html; charset=UTF-8");
-        StringBuilder sb = new StringBuilder();
-
-        for (Message m : messages) {
-            boolean me = (m.getSenderId() == admin.getId());
-
-            sb.append("<div class='row ").append(me ? "me-row" : "").append("'>")
-                    .append("<div class='msg ").append(me ? "me" : "").append("'>")
-                    .append(escapeHtml(m.getContent()))
-                    .append("</div></div>");
-        }
-
-        response.getWriter().write(sb.toString());
-    }
-
-    private String escapeHtml(String s) {
-        if (s == null) return "";
-        return s.replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;")
-                .replace("'", "&#39;");
+        response.getWriter().write(messageService.buildMessagesHtml(messages, admin.getId()));
     }
 }

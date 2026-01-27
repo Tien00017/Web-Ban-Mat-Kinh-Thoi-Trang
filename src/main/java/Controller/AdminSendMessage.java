@@ -1,24 +1,21 @@
 package Controller;
 
-import Model.DAO.MessageDAO;
 import Model.Object.User;
+import Model.Service.MessageService;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
 @WebServlet(name = "AdminSendMessage", value = "/AdminSendMessage")
 public class AdminSendMessage extends HttpServlet {
 
-    private final MessageDAO dao = new MessageDAO();
+    private final MessageService messageService = new MessageService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User admin = (User) request.getSession().getAttribute("user");
 
-        // admin role = 0
         if (admin == null || admin.getRole() != 0) {
             response.setStatus(401);
             return;
@@ -27,7 +24,7 @@ public class AdminSendMessage extends HttpServlet {
         String userIdRaw = request.getParameter("userId");
         String content = request.getParameter("content");
 
-        if (userIdRaw == null || userIdRaw.trim().isEmpty() || content == null || content.trim().isEmpty()) {
+        if (userIdRaw == null || userIdRaw.trim().isEmpty()) {
             response.setStatus(400);
             return;
         }
@@ -40,7 +37,11 @@ public class AdminSendMessage extends HttpServlet {
             return;
         }
 
-        dao.sendMessage(admin.getId(), userId, content.trim());
-        response.setStatus(200);
+        try {
+            messageService.send(admin.getId(), userId, content);
+            response.setStatus(200);
+        } catch (IllegalArgumentException e) {
+            response.setStatus(400);
+        }
     }
 }

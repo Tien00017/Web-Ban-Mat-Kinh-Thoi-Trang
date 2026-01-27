@@ -1,15 +1,11 @@
 package Controller;
 
-import Model.DAO.ProductDAO;
-import Model.DAO.PromotionDAO;
 import Model.Object.Product;
 import Model.Object.Promotion;
+import Model.Service.PromotionService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -18,59 +14,48 @@ import java.util.List;
 @WebServlet("/admin/event/*")
 public class PromotionController extends HttpServlet {
 
-    private PromotionDAO promotionDAO = new PromotionDAO();
-    private ProductDAO productDAO = new ProductDAO();
+    private final PromotionService promotionService = new PromotionService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session.getAttribute("user") == null) {
-            session.setAttribute("user", "TEST_ADMIN");
-            session.setAttribute("role", "ADMIN"); // nếu project bạn kiểm tra role
-        }
 
         String action = req.getPathInfo();
 
         if (action == null || action.equals("/list")) {
             list(req, resp);
-        }
-        else if (action.equals("/add")) {
+        } else if (action.equals("/add")) {
             showAddForm(req, resp);
-        }
-        else if (action.equals("/edit")) {
+        } else if (action.equals("/edit")) {
             showEditForm(req, resp);
-        }
-        else if (action.equals("/delete")) {
+        } else if (action.equals("/delete")) {
             delete(req, resp);
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/admin/event/list");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session.getAttribute("user") == null) {
-            session.setAttribute("user", "TEST_ADMIN");
-            session.setAttribute("role", "ADMIN"); // nếu project bạn kiểm tra role
-        }
+            throws IOException {
 
+        req.setCharacterEncoding("UTF-8");
         String action = req.getPathInfo();
         if (action == null) action = "";
+
         if (action.equals("/create")) {
             create(req, resp);
-        }
-        else if (action.equals("/update")) {
+        } else if (action.equals("/update")) {
             update(req, resp);
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/admin/event/list");
         }
     }
-
-    // ================== METHODS ==================
 
     private void list(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<Promotion> list = promotionDAO.findAll();
+        List<Promotion> list = promotionService.getAllPromotions();
         req.setAttribute("events", list);
 
         req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminListEvent.jsp")
@@ -80,7 +65,7 @@ public class PromotionController extends HttpServlet {
     private void showAddForm(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<Product> products = productDAO.findAll();
+        List<Product> products = promotionService.getAllProducts();
         req.setAttribute("products", products);
 
         req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminAddEvent.jsp")
@@ -92,9 +77,9 @@ public class PromotionController extends HttpServlet {
 
         int id = Integer.parseInt(req.getParameter("id"));
 
-        Promotion event = promotionDAO.findById(id);
-        List<Product> products = productDAO.findAll();
-        List<Integer> selectedProductIds = promotionDAO.getProductIdsByPromotionId(id);
+        Promotion event = promotionService.getPromotionById(id);
+        List<Product> products = promotionService.getAllProducts();
+        List<Integer> selectedProductIds = promotionService.getSelectedProductIds(id);
 
         req.setAttribute("event", event);
         req.setAttribute("products", products);
@@ -104,6 +89,16 @@ public class PromotionController extends HttpServlet {
                 .forward(req, resp);
     }
 
+    private int[] parseProductIds(HttpServletRequest req) {
+        String[] pidStrs = req.getParameterValues("productIds");
+        if (pidStrs == null || pidStrs.length == 0) return null;
+
+        int[] pids = new int[pidStrs.length];
+        for (int i = 0; i < pidStrs.length; i++) {
+            pids[i] = Integer.parseInt(pidStrs[i]);
+        }
+        return pids;
+    }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -115,27 +110,16 @@ public class PromotionController extends HttpServlet {
         p.setDiscountType(req.getParameter("discountType"));
 
         String dv = req.getParameter("discountValue");
-        if (dv == null || dv.trim().isEmpty()) dv = "0";   // tránh NumberFormatException
+        if (dv == null || dv.trim().isEmpty()) dv = "0";
         p.setDiscountValue(Double.parseDouble(dv));
 
         p.setStatus("ACTIVE");
 
-        // 1) insert promotions -> lấy id mới
-        int promotionId = promotionDAO.insert(p);
-
-        // 2) lấy mảng checkbox
-        String[] pidStrs = req.getParameterValues("productIds");
-        int[] pids = null;
-        if (pidStrs != null) {
-            pids = new int[pidStrs.length];
-            for (int i = 0; i < pidStrs.length; i++) pids[i] = Integer.parseInt(pidStrs[i]);
-        }
-
-        promotionDAO.insertWithProducts(p, pids);
+        int[] productIds = parseProductIds(req);
+        promotionService.createPromotionWithProducts(p, productIds);
 
         resp.sendRedirect(req.getContextPath() + "/admin/event/list");
     }
-
 
     private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -155,23 +139,15 @@ public class PromotionController extends HttpServlet {
 
         p.setStatus(req.getParameter("status"));
 
-        // 1) update promotions
-        promotionDAO.update(p);
-
-        String[] pidStrs = req.getParameterValues("productIds");
-        int[] pids = null;
-        if (pidStrs != null) {
-            pids = new int[pidStrs.length];
-            for (int i = 0; i < pidStrs.length; i++) pids[i] = Integer.parseInt(pidStrs[i]);
-        }
-        promotionDAO.updateWithProducts(p, pids);
+        int[] productIds = parseProductIds(req);
+        promotionService.updatePromotionWithProducts(p, productIds);
 
         resp.sendRedirect(req.getContextPath() + "/admin/event/list");
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        promotionDAO.delete(id);
+        promotionService.deletePromotion(id);
         resp.sendRedirect(req.getContextPath() + "/admin/event/list");
     }
 }

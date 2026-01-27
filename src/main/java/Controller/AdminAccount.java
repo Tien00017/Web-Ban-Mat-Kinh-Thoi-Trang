@@ -1,7 +1,7 @@
 package Controller;
 
-import Model.DAO.UserDAO;
 import Model.Object.User;
+import Model.Service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,13 +14,13 @@ import java.util.List;
 @WebServlet("/AdminAccount")
 public class AdminAccount extends HttpServlet {
 
-    private final UserDAO userDAO = new UserDAO();
+    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<User> users = userDAO.findAll();
+        List<User> users = userService.getAllUsers();
         req.setAttribute("users", users);
 
         req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminAccount.jsp")
@@ -37,11 +37,15 @@ public class AdminAccount extends HttpServlet {
         if (action == null) action = "";
 
         if ("update".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            boolean status = "1".equals(req.getParameter("status")); // 1 mở, 0 khóa
-            int role = Integer.parseInt(req.getParameter("role"));    // 0 user, 1 admin
+            try {
+                int id = Integer.parseInt(req.getParameter("id"));
+                boolean status = "1".equals(req.getParameter("status"));
+                int role = Integer.parseInt(req.getParameter("role"));
 
-            userDAO.updateStatusRole(id, status, role);
+                User current = (User) req.getSession().getAttribute("user"); // admin role=0
+                userService.adminUpdateStatusRole(id, status, role, current);
+            } catch (Exception ignored) {}
+
         }
 
         resp.sendRedirect(req.getContextPath() + "/AdminAccount");

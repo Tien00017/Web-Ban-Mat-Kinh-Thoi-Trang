@@ -1,24 +1,22 @@
 package Controller;
 
-import Model.DAO.UserDAO;
 import Model.Object.User;
+import Model.Service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
 @WebServlet(name = "UpdateProfile", value = "/UpdateProfile")
 public class UpdateProfile extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
+    private final UserService userService = new UserService();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             response.sendRedirect("Login");
@@ -30,20 +28,23 @@ public class UpdateProfile extends HttpServlet {
         user.setPhone(request.getParameter("phone"));
         user.setAddress(request.getParameter("address"));
 
-        // gender
-        user.setGender(Integer.parseInt(request.getParameter("gender")));
+        String genderRaw = request.getParameter("gender");
+        if (genderRaw != null && !genderRaw.trim().isEmpty()) {
+            user.setGender(Integer.parseInt(genderRaw.trim()));
+        }
 
-        // birthDate
         String birth = request.getParameter("birthDate");
         if (birth != null && !birth.isEmpty()) {
             user.setBirthDate(java.sql.Date.valueOf(birth));
+        } else {
+            user.setBirthDate(null);
         }
 
-        UserDAO dao = new UserDAO();
-        dao.updateProfile(user);
+        // ✅ gọi service
+        userService.updateProfile(user);
 
-        // refresh session
-        request.getSession().setAttribute("user", dao.getById(user.getId()));
+        // refresh session bằng user mới nhất
+        request.getSession().setAttribute("user", userService.getUserById(user.getId()));
         response.sendRedirect("Profile");
     }
 }

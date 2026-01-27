@@ -1,24 +1,19 @@
 package Controller;
 
-import Model.DAO.UserDAO;
 import Model.Object.User;
-import jakarta.servlet.ServletException;
+import Model.Service.UserService;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
 @WebServlet(name = "ChangePassword", value = "/ChangePassword")
 public class ChangePassword extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
+    private final UserService userService = new UserService();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             response.sendRedirect("Login");
@@ -29,18 +24,21 @@ public class ChangePassword extends HttpServlet {
         String newPass = request.getParameter("newPassword");
         String confirm = request.getParameter("confirmPassword");
 
-        if (!newPass.equals(confirm)) {
-            response.sendRedirect("Profile?error=confirm");
-            return;
-        }
+        try {
+            boolean ok = userService.changePassword(user.getId(), oldPass, newPass, confirm);
 
-        UserDAO dao = new UserDAO();
-        boolean ok = dao.changePassword(user.getId(), oldPass, newPass);
+            if (!ok) {
+                response.sendRedirect("Profile?error=oldpass");
+                return;
+            }
 
-        if (!ok) {
-            response.sendRedirect("Profile?error=oldpass");
-        } else {
+            // refresh session user (optional)
+            request.getSession().setAttribute("user", userService.getUserById(user.getId()));
             response.sendRedirect("Profile?success=password");
+
+        } catch (IllegalArgumentException e) {
+            // confirm / weak
+            response.sendRedirect("Profile?error=" + e.getMessage());
         }
     }
 }

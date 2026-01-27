@@ -1,7 +1,7 @@
 package Controller;
 
-import Model.DAO.OrderDAO;
 import Model.Object.OrderAdminView;
+import Model.Service.OrderService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,13 +14,13 @@ import java.util.List;
 @WebServlet("/AdminOrders")
 public class AdminOrders extends HttpServlet {
 
-    private final OrderDAO orderDAO = new OrderDAO();
+    private final OrderService orderService = new OrderService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<OrderAdminView> orders = orderDAO.findAllAdminView();
+        List<OrderAdminView> orders = orderService.getAllAdminOrders();
         req.setAttribute("orders", orders);
 
         req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminOrders.jsp")
@@ -33,28 +33,19 @@ public class AdminOrders extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
 
-        String action = req.getParameter("action"); // complete/shipping/cancel
+        String action = req.getParameter("action");
         String idRaw = req.getParameter("id");
 
-        if (action == null || idRaw == null) {
+        if (action == null || idRaw == null || idRaw.trim().isEmpty()) {
             resp.sendRedirect(req.getContextPath() + "/AdminOrders");
             return;
         }
 
-        int orderId = Integer.parseInt(idRaw);
+        try {
+            int orderId = Integer.parseInt(idRaw.trim());
+            orderService.updateOrderStatusByAction(orderId, action);
+        } catch (Exception ignored) {}
 
-        String newStatus;
-        switch (action) {
-            case "complete" -> newStatus = "Hoàn tất";
-            case "shipping" -> newStatus = "Đang vận chuyển";
-            case "cancel" -> newStatus = "Đã hủy";
-            default -> {
-                resp.sendRedirect(req.getContextPath() + "/AdminOrders");
-                return;
-            }
-        }
-
-        orderDAO.updateStatus(orderId, newStatus);
         resp.sendRedirect(req.getContextPath() + "/AdminOrders");
     }
 }

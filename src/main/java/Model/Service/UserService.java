@@ -4,6 +4,8 @@ import Model.DAO.UserDAO;
 import Model.Object.User;
 import Model.Utils.HashPass;
 
+import java.util.List;
+
 public class UserService {
 
     private final UserDAO userDAO = new UserDAO();
@@ -84,4 +86,51 @@ public class UserService {
 
         return user;
     }
+
+    public List<User> getAllUsers() {
+        return userDAO.findAll();
+    }
+
+    public void adminUpdateStatusRole(int targetUserId, boolean status, int role, User currentAdmin) {
+        // currentAdmin là user đang đăng nhập (role=0)
+
+        if (currentAdmin == null || currentAdmin.getRole() != 0) {
+            throw new RuntimeException("Không có quyền admin");
+        }
+
+        // Rule 1: không cho admin tự khóa chính mình (khuyến nghị)
+        if (currentAdmin.getId() == targetUserId && !status) {
+            throw new RuntimeException("Bạn không thể tự khóa tài khoản admin của mình");
+        }
+
+        boolean ok = userDAO.updateStatusRole(targetUserId, status, role);
+        if (!ok) {
+            throw new RuntimeException("Cập nhật tài khoản thất bại");
+
+        }
+
+    }
+    public User getUserById(int id) {
+        return userDAO.getById(id);
+    }
+
+    public void updateProfile(User u) {
+        // Có thể validate ở đây (phone, fullName không rỗng, …)
+        userDAO.updateProfile(u);
+    }
+    public boolean changePassword(int userId, String oldRaw, String newRaw, String confirmRaw) {
+        if (newRaw == null || confirmRaw == null || !newRaw.equals(confirmRaw)) {
+            throw new IllegalArgumentException("confirm");
+        }
+
+        if (newRaw.trim().length() < 6) {
+            throw new IllegalArgumentException("weak"); // optional
+        }
+
+        String oldHash = HashPass.md5(oldRaw);
+        String newHash = HashPass.md5(newRaw);
+
+        return userDAO.changePassword(userId, oldHash, newHash);
+    }
+
 }
