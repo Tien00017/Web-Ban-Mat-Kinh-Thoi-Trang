@@ -10,8 +10,6 @@ import java.io.IOException;
 public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BannerService bannerService = new BannerService();
-        request.setAttribute("banners", bannerService.getMainBanners());
         request.getRequestDispatcher("/WEB-INF/Views/HomePage.jsp").forward(request, response);
     
     }
