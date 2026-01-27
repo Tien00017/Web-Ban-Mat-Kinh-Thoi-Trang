@@ -10,22 +10,22 @@ import java.util.List;
 
 public class BannerDAO extends BaseDAO {
 
-    // Lấy banner theo promotion (banner chính đứng đầu)
-    public List<Banner> getByPromotionId(int promotionId) {
+    // Lấy banner chính của các sự kiện ACTIVE
+    public List<Banner> getMainBanners() {
         List<Banner> list = new ArrayList<>();
 
         String sql = """
-            SELECT *
-            FROM banners
-            WHERE promotions_id = ?
-            ORDER BY is_main DESC, created_at DESC
+            SELECT b.*
+            FROM banners b
+            JOIN promotions p ON b.promotions_id = p.id
+            WHERE b.is_main = true
+              AND p.status = 'ACTIVE'
+            ORDER BY b.created_at DESC
         """;
 
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setInt(1, promotionId);
-            ResultSet rs = ps.executeQuery();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Banner b = new Banner();
@@ -36,11 +36,9 @@ public class BannerDAO extends BaseDAO {
                 b.setCreatedAt(rs.getTimestamp("created_at"));
                 list.add(b);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return list;
     }
 }
