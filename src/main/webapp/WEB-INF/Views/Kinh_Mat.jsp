@@ -14,7 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kính Mát - Mắt Kinh Nông Lâm</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfKinh_Mat.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -37,16 +38,26 @@
         </div>
 
         <div class="header-right">
-            <div class="search-wrap">
-                <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
-                <button class="search-btn" aria-label="Tìm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <form class="search-wrap"
+                  action="${pageContext.request.contextPath}/Search"
+                  method="get">
+
+                <input type="search"
+                       name="keyword"
+                       placeholder="Tìm kiếm sản phẩm, mã..."
+                       aria-label="Tìm kiếm"
+                       required>
+
+                <button class="search-btn" type="submit" aria-label="Tìm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         fill="none" stroke="black" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
                     </svg>
                 </button>
-            </div>
+
+            </form>
 
             <div class="header-icons">
                 <% if (user == null) { %>
@@ -188,14 +199,42 @@
                     </c:choose>
 
                     <h4>${p.productName}</h4>
-                    <p class="price">
-                        <p class="price">
-                            <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/> VNĐ
-                        </p>
-                    </p>
+
+                    <div class="price-box">
+                        <c:choose>
+
+                            <%-- CÓ GIẢM GIÁ --%>
+                            <c:when test="${salePriceMap[p.id] != null}">
+                                <p class="price-old">
+                                    <del>
+                                        <fmt:formatNumber value="${p.price}"
+                                                          type="number"
+                                                          groupingUsed="true"/> VNĐ
+                                    </del>
+                                </p>
+                                <p class="price-sale">
+                                    <fmt:formatNumber value="${salePriceMap[p.id]}"
+                                                      type="number"
+                                                      groupingUsed="true"/> VNĐ
+                                </p>
+                            </c:when>
+
+                            <%-- KHÔNG GIẢM GIÁ --%>
+                            <c:otherwise>
+                                <p class="price">
+                                    <fmt:formatNumber value="${p.price}"
+                                                      type="number"
+                                                      groupingUsed="true"/> VNĐ
+                                </p>
+                            </c:otherwise>
+
+                        </c:choose>
+                    </div>
 
                     <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
-                       class="try-btn">Xem sản phẩm</a>
+                       class="try-btn">
+                        Xem sản phẩm
+                    </a>
                 </div>
             </c:forEach>
 

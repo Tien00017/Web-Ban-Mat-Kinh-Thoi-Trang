@@ -53,5 +53,12 @@ public class ProductService {
         Product p = productDAO.getProductById(productId);
         return p.getStock();
     }
+    public List<Product> getBestSellingProducts(int limit) {
+        return productDAO.getBestSellingProducts(limit);
+    }
+
+    public Integer getSalePrice(int productId) {
+        return productDAO.getSalePrice(productId);
+    }
 }
 

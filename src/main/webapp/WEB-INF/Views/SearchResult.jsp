@@ -133,9 +133,6 @@
                         </c:if>
 
                         <h4>${p.productName}</h4>
-                        <p class="price">
-                            <fmt:formatNumber value="${p.price}" type="number"/> VNĐ
-                        </p>
                     </a>
                 </div>
             </c:forEach>

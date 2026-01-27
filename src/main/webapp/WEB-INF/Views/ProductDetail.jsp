@@ -39,16 +39,26 @@
         </div>
 
         <div class="header-right">
-            <div class="search-wrap">
-                <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
-                <button class="search-btn" aria-label="Tìm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <form class="search-wrap"
+                  action="${pageContext.request.contextPath}/Search"
+                  method="get">
+
+                <input type="search"
+                       name="keyword"
+                       placeholder="Tìm kiếm sản phẩm, mã..."
+                       aria-label="Tìm kiếm"
+                       required>
+
+                <button class="search-btn" type="submit" aria-label="Tìm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         fill="none" stroke="black" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
                     </svg>
                 </button>
-            </div>
+
+            </form>
 
             <div class="header-icons">
                 <% if (user == null) { %>
@@ -114,11 +124,34 @@
 
         <h1 class="product-name">${product.productName}</h1>
 
-        <p class="product-price">
-            Giá: <strong>
-            <fmt:formatNumber value="${product.price}" type="number" groupingUsed="true"/> VNĐ
-        </strong>
-        </p>
+        <div class="product-price">
+            <c:choose>
+
+                <%-- CÓ GIẢM GIÁ --%>
+                <c:when test="${salePrice != null}">
+                    <p class="price-old">
+                        <del>
+                            <fmt:formatNumber value="${product.price}"
+                                              groupingUsed="true"/> VNĐ
+                        </del>
+                    </p>
+
+                    <p class="price-sale">
+                        <fmt:formatNumber value="${salePrice}"
+                                          groupingUsed="true"/> VNĐ
+                    </p>
+                </c:when>
+
+                <%-- KHÔNG GIẢM GIÁ --%>
+                <c:otherwise>
+                    <p class="price-normal">
+                        <fmt:formatNumber value="${product.price}"
+                                          groupingUsed="true"/> VNĐ
+                    </p>
+                </c:otherwise>
+
+            </c:choose>
+        </div>
 
         <div class="rating-box">
             <span class="stars">
@@ -167,7 +200,20 @@
                     <div class="spec-item"><strong>Thương hiệu:</strong> ${product.brand}</div>
                     <div class="spec-item"><strong>Xuất xứ:</strong> ${product.origin}</div>
                     <div class="spec-item"><strong>Giá:</strong>
-                        <fmt:formatNumber value="${product.price}" type="number" groupingUsed="true"/> VNĐ
+                        <c:choose>
+                            <c:when test="${salePrice != null}">
+                                <del>
+                                    <fmt:formatNumber value="${product.price}" groupingUsed="true"/> VNĐ
+                                </del>
+                                <br>
+                                <span class="price-sale">
+                <fmt:formatNumber value="${salePrice}" groupingUsed="true"/> VNĐ
+            </span>
+                            </c:when>
+                            <c:otherwise>
+                                <fmt:formatNumber value="${product.price}" groupingUsed="true"/> VNĐ
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 

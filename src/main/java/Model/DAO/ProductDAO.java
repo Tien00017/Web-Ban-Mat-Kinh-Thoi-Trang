@@ -346,4 +346,78 @@ public class ProductDAO extends BaseDAO {
         }
         return list;
     }
+    public List<Product> getBestSellingProducts(int limit) {
+        List<Product> list = new ArrayList<>();
+
+        String sql = """
+        SELECT *
+        FROM products
+        WHERE deleted = false
+          AND stock > 0
+        ORDER BY sold_quantity DESC
+        LIMIT ?
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, limit);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(mapProduct(rs));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
+
+    public Integer getSalePrice(int productId) {
+        String sql = """
+        SELECT 
+            p.price,
+            pr.discount_type,
+            pr.discount_value
+        FROM products p
+        JOIN promotion_product pp ON p.id = pp.product_id
+        JOIN promotions pr ON pp.promotion_id = pr.id
+        WHERE p.id = ?
+          AND p.deleted = false
+          AND pr.status = 'ACTIVE'
+        LIMIT 1
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, productId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                long price = rs.getLong("price");
+                String type = rs.getString("discount_type");
+                double value = rs.getDouble("discount_value");
+
+                long salePrice;
+
+                if ("PERCENT".equalsIgnoreCase(type)) {
+                    salePrice = Math.round(price - price * value / 100);
+                } else if ("AMOUNT".equalsIgnoreCase(type)) {
+                    salePrice = Math.round(price - value);
+                } else {
+                    return null;
+                }
+
+                return (int) Math.max(salePrice, 0); // không cho âm
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null; // không có promotion
+    }
+
+}
+
