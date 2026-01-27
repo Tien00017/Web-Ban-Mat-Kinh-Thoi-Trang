@@ -108,29 +108,52 @@
     <section class="news-section">
         <h2>Tin tức & Sự kiện</h2>
 
-        <div class="news-slider">
-            <button class="slide-btn prev">&#10094;</button>
+<div class="news-track">
 
-            <div class="news-track">
-                <article class="news-card">
-                    <a href="News&Event.html">
-                        <img src="${pageContext.request.contextPath}/Images/News&Event/Banner1.jpg">
-                    </a>
-                </article>
+    <!-- BANNER 1 → FLASH SALE -->
+    <article class="news-card">
+        <a href="${pageContext.request.contextPath}/NewsEvent#event-flash">
+            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner1.jpg">
+        </a>
+    </article>
 
-                <article class="news-card">
-                    <a href="News&Event.html">
-                        <img src="${pageContext.request.contextPath}/Images/News&Event/Banner2.jpg">
+    <!-- BANNER 2 → FLASH SALE -->
+    <article class="news-card">
+        <a href="${pageContext.request.contextPath}/NewsEvent#event-flash">
+            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner2.jpg">
+        </a>
+    </article>
 
-                    </a>
-                </article>
+    <!-- BANNER 3 → ƯU ĐÃI TẾT -->
+    <article class="news-card">
+        <a href="${pageContext.request.contextPath}/NewsEvent#event-tet">
+            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner3.jpg">
+        </a>
+    </article>
 
-                <article class="news-card">
-                    <a href="News&Event.html">
-                        <img src="${pageContext.request.contextPath}/Images/News&Event/Banner3.jpg">
-                    </a>
-                </article>
-            </div>
+    <!-- BANNER 4 → ƯU ĐÃI TẾT -->
+    <article class="news-card">
+        <a href="${pageContext.request.contextPath}/NewsEvent#event-tet">
+            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner4.jpg">
+        </a>
+    </article>
+
+    <!-- BANNER 5 → SUMMER SALE -->
+    <article class="news-card">
+        <a href="${pageContext.request.contextPath}/NewsEvent#event-summer">
+            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner5.jpg">
+        </a>
+    </article>
+
+    <!-- BANNER 6 → SUMMER SALE -->
+    <article class="news-card">
+        <a href="${pageContext.request.contextPath}/NewsEvent#event-summer">
+            <img src="${pageContext.request.contextPath}/Images/News&Event/Banner6.jpg">
+        </a>
+    </article>
+
+</div>
+
 
             <button class="slide-btn next">&#10095;</button>
 
