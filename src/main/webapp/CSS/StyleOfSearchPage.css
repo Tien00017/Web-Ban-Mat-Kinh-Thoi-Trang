@@ -1,29 +1,115 @@
-/* ================= SEARCH PAGE ================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
 
+body {
+    background: #f5f6f8;
+    color: #333;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+}
+
+.logo-img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.main-nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.main-nav a:hover {
+    color: #1e88e5;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-wrap {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.search-wrap input {
+    border: none;
+    padding: 8px 12px;
+    outline: none;
+}
+
+.search-wrap button {
+    background: #1e88e5;
+    border: none;
+    color: white;
+    padding: 0 14px;
+    cursor: pointer;
+}
+
+.btn-outline {
+    padding: 6px 12px;
+    border: 1px solid #1e88e5;
+    color: #1e88e5;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    padding: 6px 12px;
+    background: #1e88e5;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+/* ===== MAIN ===== */
 .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 30px 15px;
+    margin: 30px auto;
+    padding: 0 20px;
 }
 
-/* ===== TIÊU ĐỀ KẾT QUẢ ===== */
-.news-section h2 {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 25px;
-    border-left: 5px solid #1e88e5;
-    padding-left: 12px;
-}
-
-/* ===== SECTION ===== */
-.featured {
-    margin-bottom: 50px;
-}
-
-.featured > h2 {
-    font-size: 22px;
+.search-title {
     margin-bottom: 20px;
-    color: #222;
+}
+
+.search-title span {
+    color: #1e88e5;
+}
+
+.empty-text {
+    margin-top: 20px;
+    color: #999;
 }
 
 /* ===== PRODUCT GRID ===== */
@@ -36,96 +122,33 @@
 .product-card {
     background: #fff;
     border-radius: 10px;
-    overflow: hidden;
-    transition: 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 15px;
+    text-align: center;
+    transition: 0.2s;
 }
 
-.product-card a {
-    text-decoration: none;
-    color: inherit;
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
 
 .product-card img {
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .product-card h4 {
+    margin-top: 10px;
     font-size: 16px;
-    padding: 10px;
-    height: 45px;
-    overflow: hidden;
+    color: #333;
 }
 
-.product-card .price {
-    padding: 0 10px 12px;
-    color: #e53935;
-    font-weight: 600;
-}
-
-.product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-
-/* ===== NEWS / EVENT ===== */
-.news-track {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-}
-
-.news-card {
+/* ===== FOOTER ===== */
+.site-footer {
+    text-align: center;
+    padding: 20px;
     background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.news-card img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-}
-
-.news-card h4 {
-    font-size: 16px;
-    line-height: 1.4;
-}
-
-.news-card a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.news-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-
-/* ===== EMPTY MESSAGE ===== */
-.featured p,
-.news-section p {
-    font-style: italic;
-    color: #777;
-    margin: 10px 0 20px;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .news-section h2 {
-        font-size: 20px;
-    }
-
-    .featured > h2 {
-        font-size: 18px;
-    }
-
-    .product-card img,
-    .news-card img {
-        height: 150px;
-    }
+    border-top: 1px solid #ddd;
+    margin-top: 40px;
 }
