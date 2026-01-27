@@ -16,18 +16,19 @@
     <!-- SIDEBAR -->
     <aside class="admin-sidebar">
         <div class="brand">
-            <img src="../src/main/webapp/Images/Logo.jpg" class="logo-img" alt="Logo">
+            <img src="${pageContext.request.contextPath}/Images/Logo.jpg" class="logo-img" alt="Logo">
             <h2>Mắt kính Nông Lâm</h2>
         </div>
 
         <nav class="admin-nav">
-            <a href="Admin.html" class="active">Dashboard</a>
-            <a href="AdminCategory.html">Quản lí danh mục</a>
-            <a href="AdminProduct.html">Quản lí sản phẩm</a>
-            <a href="AdminAddProduct.html">Thêm sản phẩm</a>
-            <a href="AdminOrders.html">Quản lí đơn hàng</a>
-            <a href="AdminAccount.html">Quản lí tài khoản</a>
-            <a href="AdminContact.html">Liên hệ</a>
+            <a href="${pageContext.request.contextPath}/Admin" class="active">Dashboard</a>
+            <a href="${pageContext.request.contextPath}/AdminCategory">Quản lí danh mục</a>
+            <a href="${pageContext.request.contextPath}/AdminProduct">Quản lí sản phẩm</a>
+            <a href="${pageContext.request.contextPath}/AdminAddProduct">Thêm sản phẩm</a>
+            <a href="${pageContext.request.contextPath}/AdminOrders">Quản lí đơn hàng</a>
+            <a href="${pageContext.request.contextPath}/AdminAccount">Quản lí tài khoản</a>
+            <a href="${pageContext.request.contextPath}/AdminListEvent" >Quản lí sự kiện</a>
+            <a href="${pageContext.request.contextPath}/AdminContact">Liên hệ</a>
         </nav>
 
         <div class="side-footer muted">
@@ -45,7 +46,7 @@
                     <div class="admin-text">
                         <div class="name">Admin 1</div>
                     </div>
-                    <img src="../src/main/webapp/Images/Profile/ball.png" class="avatar">
+                    <img src="${pageContext.request.contextPath}/Images/Profile/ball.png" class="avatar">
                 </div>
             </div>
         </div>
@@ -151,7 +152,7 @@
                 <tbody>
                 <tr>
                     <td class="prod-info">
-                        <img class="admin-thumb" src="../src/main/webapp/Images/KinhCan/KinhCan3.png">
+                        <img class="admin-thumb" src="${pageContext.request.contextPath}/Images/KinhCan/KinhCan3.png">
                         <div>
                             <div class="fw">Kính Cận C07</div>
                             <div class="muted small-text">Mã: C07</div>
@@ -168,7 +169,7 @@
 
                 <tr>
                     <td class="prod-info">
-                        <img class="admin-thumb" src="../src/main/webapp/Images/KinhMat/KinhMat1.jpg">
+                        <img class="admin-thumb" src="${pageContext.request.contextPath}/Images/KinhMat/KinhMat1.jpg">
                         <div>
                             <div class="fw">Kính Mát R15</div>
                             <div class="muted small-text">Mã: R15</div>
@@ -185,7 +186,7 @@
 
                 <tr>
                     <td class="prod-info">
-                        <img class=" admin-thumb" src="../src/main/webapp/Images/KinhMat/KinhMat2.jpg">
+                        <img class=" admin-thumb" src="${pageContext.request.contextPath}/Images/KinhMat/KinhMat2.jpg">
                         <div>
                             <div class="fw">Kính Mát R27</div>
                             <div class="muted small-text">Mã: R27</div>

@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import Model.Object.Order;
+import Model.Object.OrderAdminView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

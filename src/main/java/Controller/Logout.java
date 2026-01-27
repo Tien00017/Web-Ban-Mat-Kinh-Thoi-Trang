@@ -6,12 +6,13 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "Admin", value = "/Admin")
-public class Admin extends HttpServlet {
+@WebServlet(name = "Logout", value = "/Logout")
+public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/Views/Admin/Admin.jsp").forward(request, response);
 
+        request.getSession().invalidate();
+        response.sendRedirect("Home");
     }
 
     @Override

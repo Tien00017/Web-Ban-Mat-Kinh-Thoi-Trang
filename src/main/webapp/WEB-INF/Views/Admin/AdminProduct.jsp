@@ -1,9 +1,10 @@
-    <!doctype html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!doctype html>
     <html lang="vi">
     <head>
         <meta charset="utf-8">
         <title>Admin - Quản lý sản phẩm</title>
-        <link rel="stylesheet" href="../src/main/webapp/CSS/StyleOfAdminProduct.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/StyleOfAdminProduct.css">
     </head>
 
     <body>
@@ -11,18 +12,19 @@
         <!-- SIDEBAR -->
         <aside class="admin-sidebar">
             <div class="brand">
-                <img src="../src/main/webapp/Images/Logo.jpg" class="logo-img" alt="Logo">
+                <img src="${pageContext.request.contextPath}/Images/Logo.jpg" class="logo-img" alt="Logo">
                 <h2>Mắt kính Nông Lâm</h2>
             </div>
 
             <nav class="admin-nav">
-                <a href="Admin.html">Dashboard</a>
-                <a href="AdminCategory.html">Quản lí danh mục</a>
-                <a href="AdminProduct.html" class="active">Quản lí sản phẩm</a>
-                <a href="AdminAddProduct.html">Thêm sản phẩm</a>
-                <a href="AdminOrders.html">Quản lí đơn hàng</a>
-                <a href="AdminAccount.html">Quản lí tài khoản</a>
-                <a href="AdminContact.html">Liên hệ</a>
+                <a href="${pageContext.request.contextPath}/Admin" >Dashboard</a>
+                <a href="${pageContext.request.contextPath}/AdminCategory">Quản lí danh mục</a>
+                <a href="${pageContext.request.contextPath}/AdminProduct" class="active">Quản lí sản phẩm</a>
+                <a href="${pageContext.request.contextPath}/AdminAddProduct">Thêm sản phẩm</a>
+                <a href="${pageContext.request.contextPath}/AdminOrders">Quản lí đơn hàng</a>
+                <a href="${pageContext.request.contextPath}/AdminAccount" >Quản lí tài khoản</a>
+                <a href="${pageContext.request.contextPath}/AdminAccount" >Quản lí sự kiện</a>
+                <a href="${pageContext.request.contextPath}/AdminContact">Liên hệ</a>
             </nav>
 
             <div class="side-footer muted">
@@ -54,7 +56,7 @@
                         <tr>
                             <td>
                                 <div class="prod-info">
-                                    <img src="../src/main/webapp/Images/KinhCan/KinhCan1.jpg" class="thumb" alt="Kính Cận C07">
+                                    <img src="${pageContext.request.contextPath}/Images/KinhCan/KinhCan1.jpg" class="thumb" alt="Kính Cận C07">
                                     <div>
                                         <div class="fw">Kính Cận C07</div>
                                         <div class="muted">Mã: C07</div>
@@ -68,7 +70,6 @@
                             <td><span class="stock-high">Nhiều</span></td>
                             <td class="text-right">
                                 <button class="btn ghost">Sửa</button>
-                                <button class="btn ghost">Xóa</button>
 
                             </td>
                         </tr>
@@ -76,7 +77,7 @@
                         <tr>
                             <td>
                                 <div class="prod-info">
-                                    <img src="../src/main/webapp/Images/KinhMat/KinhMat2.jpg" class="thumb" alt="Kính Mát R27">
+                                    <img src="${pageContext.request.contextPath}/Images/KinhMat/KinhMat2.jpg" class="thumb" alt="Kính Mát R27">
                                     <div>
                                         <div class="fw">Kính Mát R27</div>
                                         <div class="muted">Mã: R27</div>
@@ -97,7 +98,7 @@
                         <tr>
                             <td>
                                 <div class="prod-info">
-                                    <img src="../src/main/webapp/Images/KinhApTrong/KinhApTrong3.jpg" class="thumb" alt="Kính Áp Tròng AT02">
+                                    <img src="${pageContext.request.contextPath}/Images/KinhApTrong/KinhApTrong3.jpg" class="thumb" alt="Kính Áp Tròng AT02">
                                     <div>
                                         <div class="fw">Kính Áp Tròng AT02</div>
                                         <div class="muted">Mã: AT02</div>
