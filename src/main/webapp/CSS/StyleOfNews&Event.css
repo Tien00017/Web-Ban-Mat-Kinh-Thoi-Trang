@@ -1,141 +1,131 @@
-/* =========================================
-   FLASH BANNER
-========================================= */
-.flash-banner {
-    width: 100%;
-    height: 420px; /* tùy chỉnh */
-    background: white;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-}
-.flash-banner::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35); /* làm tối ảnh */
-}
-.flash-banner-inner {
-    position: relative; /* để nằm trên overlay */
-    color: white;
-    z-index: 2;
-    max-width: 80%;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Inter, sans-serif;
 }
 
-.flash-banner-inner h1 {
-    font-size: 2.8rem;
-    margin-bottom: 16px;
+body {
+    background: #f4f6fb;
+    color: #222;
 }
-.flash-banner-inner p {
-    font-size: 1.2rem;
-    margin-bottom: 24px;
-}
-.flash-countdown {
-    font-size: 1.5rem;
-    margin-bottom: 24px;
-    display: inline-block;
-    background: rgba(255,255,255,0.2);
-    padding: 12px 24px;
-    border-radius: 8px;
-}
-.flash-btn {
+
+/* HEADER */
+.site-header {
     background: #fff;
-    color: #463AE8;
-    padding: 14px 28px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-}
-.flash-btn:hover {
-    background: #f0f0f5;
+    padding: 15px 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
 
-/* =========================================
-   FLASH ITEMS GRID
-========================================= */
-.flash-items {
-    text-align: center;
-    padding: 0 20px 40px;
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-.flash-items h2 {
-    font-size: 24px;
-    margin-bottom: 24px;
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
 }
-.flash-grid {
+
+.logo img {
+    height: 40px;
+}
+
+.main-nav a {
+    margin: 0 12px;
+    text-decoration: none;
+    color: #333;
+}
+
+.auth .btn {
+    background: #1e88e5;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+/* SECTION */
+section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+/* BANNER */
+.banner-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
     gap: 20px;
 }
-.flash-card {
-    background: #fff;
-    border-radius: var(--radius);
-    box-shadow: var(--card-shadow);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-.flash-card:hover {
-    transform: translateY(-5px);
-}
-.flash-card img {
+
+.banner-grid img {
     width: 100%;
-    height: 200px;
+    border-radius: 12px;
+}
+
+/* PROMOTION */
+.promotion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    gap: 20px;
+}
+
+.promotion-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.discount {
+    color: #e53935;
+    font-weight: bold;
+}
+
+/* FLASH SALE */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 20px;
+}
+
+.product-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    height: 160px;
     object-fit: cover;
 }
-.flash-card h4 {
-    margin: 12px 0 8px;
-    font-size: 16px;
-}
-.price-old {
+
+.old-price {
     text-decoration: line-through;
-    color: #999;
-    font-size: 14px;
+    color: #777;
 }
-.price-sale {
-    font-weight: 700;
-    color: #463AE8;
+
+.sale-price {
+    color: #d32f2f;
     font-size: 18px;
-    margin: 4px 0;
-}
-.buy-now {
-    display: inline-block;
-    background: var(--accent);
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 6px;
     font-weight: bold;
-    margin-top: 8px;
-}
-.load-more-wrap {
-    margin-top: 32px;
-}
-.load-more-wrap .btn-outline {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid #463AE8;
-    color: #463AE8;
-    text-decoration: none;
-    font-weight: 600;
 }
 
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-    .flash-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-@media (max-width: 640px) {
-    .flash-grid {
-        grid-template-columns: 1fr;
-    }
-    .flash-banner-inner h1 {
-        font-size: 2rem;
-    }
+/* FOOTER */
+.site-footer {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    margin-top: 40px;
 }
