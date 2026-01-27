@@ -1,0 +1,131 @@
+/* ================= SEARCH PAGE ================= */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 15px;
+}
+
+/* ===== TIÊU ĐỀ KẾT QUẢ ===== */
+.news-section h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    border-left: 5px solid #1e88e5;
+    padding-left: 12px;
+}
+
+/* ===== SECTION ===== */
+.featured {
+    margin-bottom: 50px;
+}
+
+.featured > h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+/* ===== PRODUCT GRID ===== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.product-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.product-card h4 {
+    font-size: 16px;
+    padding: 10px;
+    height: 45px;
+    overflow: hidden;
+}
+
+.product-card .price {
+    padding: 0 10px 12px;
+    color: #e53935;
+    font-weight: 600;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== NEWS / EVENT ===== */
+.news-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.news-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.news-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.news-card h4 {
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.news-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.news-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== EMPTY MESSAGE ===== */
+.featured p,
+.news-section p {
+    font-style: italic;
+    color: #777;
+    margin: 10px 0 20px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .news-section h2 {
+        font-size: 20px;
+    }
+
+    .featured > h2 {
+        font-size: 18px;
+    }
+
+    .product-card img,
+    .news-card img {
+        height: 150px;
+    }
+}
