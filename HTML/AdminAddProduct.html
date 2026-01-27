@@ -2,89 +2,184 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <title>Chỉnh sửa sản phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm sản phẩm</title>
-    <link rel="stylesheet" href="../src/main/webapp/CSS/StyleOfAdminAddProduct.css">
+    <link rel="stylesheet" href="../src/main/webapp/StyleOfAdminAddProduct.css">
 </head>
 
 <body>
 <div class="app">
+
     <!-- SIDEBAR -->
     <aside class="admin-sidebar">
         <div class="brand">
-            <img src="../src/main/webapp/Images/Logo.jpg" class="logo-img" alt="Logo">
+            <img src="Logo.jpg" class="logo-img" alt="Logo">
             <h2>Mắt kính Nông Lâm</h2>
         </div>
-
         <nav class="admin-nav">
             <a href="Admin.html">Dashboard</a>
             <a href="AdminCategory.html">Quản lí danh mục</a>
             <a href="AdminProduct.html">Quản lí sản phẩm</a>
-            <a href="AdminAddProduct.html" class="active">Thêm sản phẩm</a>
+            <a href="AdminAddProduct.html" class="active">Chỉnh sửa sản phẩm</a>
             <a href="AdminOrders.html">Quản lí đơn hàng</a>
             <a href="AdminAccount.html">Quản lí tài khoản</a>
             <a href="AdminContact.html">Liên hệ</a>
         </nav>
-
-        <div class="side-footer muted">
-            Admin • Bạn đang đăng nhập với quyền Quản trị
-        </div>
+        <div class="side-footer">Admin • Quyền Quản trị</div>
     </aside>
 
+    <!-- CONTENT -->
     <div class="container">
-        <h1 class="page-title">Thêm sản phẩm mới</h1>
+        <h1 class="page-title">Chỉnh sửa sản phẩm</h1>
 
         <form class="add-form">
 
-            <!-- Ảnh sản phẩm -->
-            <div class="form-group full">
-                <label>Hình ảnh sản phẩm</label>
-                <input type="file" multiple>
-                <p class="note">* Có thể chọn nhiều ảnh</p>
+            <input type="hidden" value="1">
+
+            <!-- Thông tin chung -->
+            <div class="form-group">
+                <label>Mã sản phẩm</label>
+                <input type="text" value="C07">
             </div>
 
-            <!-- Tên + giá -->
             <div class="form-group">
                 <label>Tên sản phẩm</label>
-                <input type="text" placeholder="Nhập tên sản phẩm">
+                <input type="text" value="Kính Cận C07">
             </div>
 
             <div class="form-group">
-                <label>Giá</label>
-                <input type="number" placeholder="Nhập giá (VNĐ)">
-            </div>
+                <label>Danh mục</label>
+                <select id="productType" onchange="showAttributes()">
 
-            <div class="form-group">
-                <label>Số lượng</label>
-                <input type="number" placeholder="Nhập số lượng">
-            </div>
+                    <option value="kinhcan" selected
+                        data-attrs='[
+                            {"label":"Độ cận","type":"number","step":"0.25"},
+                            {"label":"Độ loạn","type":"number","step":"0.25"},
+                            {"label":"Chống ánh sáng xanh","type":"select","options":["Có","Không"]}
+                        ]'>
+                        Kính cận
+                    </option>
 
+                    <option value="kinhmat"
+                        data-attrs='[
+                            {"label":"Chống UV","type":"select","options":["Có","Không"]},
+                            {"label":"Phân cực","type":"select","options":["Có","Không"]},
+                            {"label":"Màu tròng","type":"color"}
+                        ]'>
+                        Kính mát
+                    </option>
 
-            <div class="form-group">
-                <label>Loại</label>
-                <select class="productType" id="productType" onchange="showAttributes()">
-                    <option value="">Chọn danh mục cho sản phẩm</option>
-                    <option value="kinhcan">Kính cận</option>
-                    <option value="kinhmat">Kính mát</option>
-                    <option value="kinhaptrong">Kính áp tròng</option>
-                    <option value="gongkinh">Gọng kính</option>
+<option value="gongkinh"
+    data-attrs='[
+        {
+            "label":"Chất liệu",
+            "type":"select",
+            "options":["Nhựa","Kim loại","Titanium","Nhựa dẻo TR90","Hợp kim"]
+        },
+        {
+            "label":"Size",
+            "type":"text"
+        },
+        {
+            "label":"Màu gọng",
+            "type":"color"
+        }
+    ]'>
+    Gọng kính
+</option>
+<option value="kinhaptrong"
+    data-attrs='[
+        {
+            "label":"Độ cận",
+            "type":"number",
+            "step":"0.25"
+        },
+        {
+            "label":"Độ loạn",
+            "type":"number",
+            "step":"0.25"
+        },
+        {
+            "label":"Đường kính (DIA mm)",
+            "type":"number",
+            "step":"0.1"
+        },
+        {
+            "label":"Độ cong (BC)",
+            "type":"number",
+            "step":"0.1"
+        },
+        {
+            "label":"Thời gian sử dụng",
+            "type":"select",
+            "options":["1 ngày","1 tháng","3 tháng","6 tháng"]
+        },
+        {
+            "label":"Màu tròng",
+            "type":"color"
+        }
+    ]'>
+    Kính áp tròng
+</option>
+
                 </select>
             </div>
 
-            <div class="form-group full">
-                <label>Mô tả sản phẩm</label>
-                <textarea rows="5" placeholder="Nhập mô tả chi tiết..."></textarea>
-            </div>
+            <!-- THUỘC TÍNH RIÊNG -->
+            <div id="attributes" class="full"></div>
 
-            <!--thay đổi theo loại sản phẩm-->
-            <div id="attributes" class="add-form"></div>
-
-
-            <button class="submit-btn" type="submit">Lưu sản phẩm</button>
-
+            <button class="submit-btn">Cập nhật sản phẩm</button>
         </form>
     </div>
 </div>
-<script src="../src/main/webapp/JavaScript/AdminAddProduct.js"></script>
+
+<script>
+function showAttributes() {
+    const select = document.getElementById("productType");
+    const option = select.options[select.selectedIndex];
+    const box = document.getElementById("attributes");
+
+    box.innerHTML = "";
+    if (!option.dataset.attrs) return;
+
+    const attrs = JSON.parse(option.dataset.attrs);
+
+    attrs.forEach(attr => {
+        let html = `<div class="form-group">
+                        <label>${attr.label}</label>`;
+
+        // SELECT
+        if (attr.type === "select") {
+            html += `<select>`;
+            attr.options.forEach(o => {
+                html += `<option>${o}</option>`;
+            });
+            html += `</select>`;
+        }
+
+        // COLOR PICKER
+        else if (attr.type === "color") {
+            html += `
+                <div style="display:flex;align-items:center;gap:10px">
+                    <input type="color" value="#000000"
+                        onchange="this.nextElementSibling.value=this.value">
+                    <input type="text" value="#000000" readonly style="width:90px">
+                </div>
+            `;
+        }
+
+        // INPUT
+        else {
+            html += `<input type="${attr.type}" ${attr.step ? `step="${attr.step}"` : ""}>`;
+        }
+
+        html += `</div>`;
+        box.innerHTML += html;
+    });
+}
+
+showAttributes();
+</script>
+
 </body>
 </html>
