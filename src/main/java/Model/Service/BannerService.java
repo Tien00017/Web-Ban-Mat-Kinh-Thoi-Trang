@@ -1,3 +1,4 @@
+
 package Model.Service;
 
 import Model.DAO.BannerDAO;
@@ -9,8 +10,14 @@ public class BannerService {
 
     private final BannerDAO bannerDAO = new BannerDAO();
 
-    // Lấy banner chính của các sự kiện ACTIVE
-    public List<Banner> getMainBanners() {
-        return bannerDAO.getMainBanners();
+    public Banner getMainBanner(int promotionId) {
+        return bannerDAO.getMainBanner(promotionId);
+    }
+
+    public List<Banner> getAllBanner(int promotionId) {
+        return bannerDAO.getAllBanner(promotionId);
+    }
+    public List<Banner> getBannerByPromotionId(int promotionId) {
+        return bannerDAO.getBannersByPromotionId(promotionId);
     }
 }

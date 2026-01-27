@@ -6,11 +6,12 @@ import java.util.List;
 
 public class PromotionProductService {
 
-    private final PromotionProductDAO promotionProductDAO =
-            new PromotionProductDAO();
+    private final PromotionProductDAO promotionProductDAO = new PromotionProductDAO();
 
-    // Lấy danh sách product_id thuộc 1 sự kiện
-    public List<Integer> getProductIdsByPromotion(int promotionId) {
-        return promotionProductDAO.getProductIdsByPromotion(promotionId);
+    /**
+     * Lấy danh sách product_id thuộc promotion
+     */
+    public List<Integer> getProductIdsByPromotionId(int promotionId) {
+        return promotionProductDAO.getProductIdsByPromotionId(promotionId);
     }
 }
