@@ -27,6 +27,72 @@ html, body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+/* ===== FINAL: khóa main, body không scroll, chỉ scroll nội bộ ===== */
+body {
+    overflow: hidden; /* tắt scroll toàn trang */
+}
+
+/* giữ nguyên header, không đụng vào .site-header */
+
+/* main cố định trong viewport, chừa chỗ cho header */
+.page-main {
+    position: fixed;
+    left: 0;
+    right: 0;
+
+    /* header của bạn cao (logo 100px + category bar) -> để 210px cho chắc */
+    top: 260px;
+
+    bottom: 12px;
+    overflow: hidden;
+}
+
+/* layout ăn hết main */
+.page-main .layout {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 16px;
+
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* 2 pane luôn co giãn trong khung */
+.review-pane,
+.chat-pane {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* review-pane */
+.review-pane {
+    display: flex;
+    flex-direction: column;
+}
+
+/* chat-pane */
+.chat-pane {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+/* CHỈ chat-body scroll */
+.chat-body {
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 16px;
+}
+
+/* input luôn hiện */
+.chat-input {
+    flex: 0 0 auto;
+}
+
 
 /* =========================================
    CONTAINER
@@ -223,13 +289,13 @@ html, body {
     background: #4b33ff;
     color: #fff;
 }
-
 .layout {
     display: grid;
     gap: 16px;
-    padding: 0 20px 20px;
-    grid-template-columns: 420px 1fr; /* left column fixed 420px, right flexible */
-    height: calc(100vh - 80px); /* fixed area under header */
+    padding: 16px 20px 20px;    /* thêm padding top cho đẹp */
+    grid-template-columns: 420px 1fr;
+    height: 100%;               /* ăn hết main */
+    min-height: 0;              /* quan trọng */
     overflow: hidden;
 }
 
@@ -393,6 +459,8 @@ html, body {
     flex-direction: column;
     gap: 10px;
     background: #fafbff;
+    min-height: 0;
+    padding-bottom: 18px;
 }
 
 .empty {
@@ -423,16 +491,6 @@ html, body {
     align-items: flex-end;
 }
 
-.me {
-    margin-left: auto;
-    text-align: right;
-}
-
-.me .msg {
-    background: #4b33ff;
-    color: #fff;
-    border-color: #4b33ff;
-}
 
 .chat-input {
     display: flex;
@@ -468,58 +526,6 @@ html, body {
 .review-list::-webkit-scrollbar-thumb, .chat-body::-webkit-scrollbar-thumb {
     background: #e6e8f2;
     border-radius: 999px;
-}
-
-/* =========================================
-   FOOTER
-========================================= */
-.site-footer {
-    border-top: none;
-    color: #fff;
-    margin-top: 40px;
-    background-color: #222;
-    padding: 40px 20px;
-    font-family: Arial, sans-serif;
-}
-
-.footer-inner {
-    padding: 0 24px;
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.footer-inner div {
-    flex: 1 1 200px;
-}
-
-.site-footer h4 {
-    margin-bottom: 15px;
-    font-size: 18px;
-    color: #463AE8;
-}
-
-.site-footer p {
-    color: #ccc;
-
-    margin: 8px 0;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-/* Link mạng xã hội */
-.social-icons a {
-    color: #fff;
-    margin-right: 15px;
-    font-size: 20px;
-    transition: color 0.3s;
-}
-
-.social-icons a:hover {
-    color: #463AE8;
 }
 
 
@@ -793,4 +799,102 @@ html, body {
 }
 .map{
     width: 415px;
+}
+.chat-body .row {
+    display: flex;
+    margin: 10px 0;
+    justify-content: flex-start;
+}
+
+.chat-body .row.me-row {
+    justify-content: flex-end;
+}
+
+.chat-body .msg {
+    max-width: 62%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #111321;
+    border: 1px solid #e6e8f2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    line-height: 1.4;
+    white-space: pre-wrap;
+    /*word-break: break-word;*/
+}
+
+.chat-body .msg.me {
+    background: #463AE8;
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(70,58,232,0.18);
+}
+/* ===== Chat align + color (override) ===== */
+.chat-body { min-height: 0; padding-bottom: 18px; }
+
+.chat-body .row { display: flex; justify-content: flex-start; margin: 10px 0; }
+.chat-body .row.me-row { justify-content: flex-end; }
+
+.chat-body .msg {
+    max-width: 62%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: #fff;
+    color: #111321;
+    border: 1px solid #e6e8f2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    white-space: pre-wrap;
+    /*word-break: break-word;*/
+}
+
+.chat-body .msg.me {
+    background: #463AE8;
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(70,58,232,0.18);
+}
+/* ===== CHAT FIX (override) ===== */
+
+/* mỗi dòng tin nhắn */
+.chat-body .row{
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px 0;
+}
+
+/* tin của mình -> đẩy sang phải */
+.chat-body .row.me-row{
+    justify-content: flex-end;
+}
+
+/* bubble chung */
+.chat-body .msg{
+    display: inline-block;
+    max-width: min(520px, 72%);
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #111321;
+    border: 1px solid #e6e8f2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+
+    /* FIX lỗi "alo bạ n": xuống dòng theo từ, không bẻ từng ký tự */
+    white-space: pre-wrap;
+    overflow-wrap: break-word;   /* bẻ khi từ quá dài */
+    /*word-break: normal;          !* KHÔNG bẻ từng ký tự *!*/
+    hyphens: auto;
+    line-height: 1.45;
+}
+
+/* bubble của mình */
+.chat-body .msg.me{
+    background: #463AE8;
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(70,58,232,0.18);
+}
+
+/* đảm bảo container chat-body không làm hẹp bubble bất thường */
+.chat-body{
+    min-width: 0;
 }

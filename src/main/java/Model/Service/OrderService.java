@@ -2,6 +2,7 @@ package Model.Service;
 
 import Model.DAO.OrderDAO;
 import Model.Object.Order;
+import Model.Object.OrderAdminView;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -44,7 +45,27 @@ public class OrderService {
         }
         return List.of();
     }
+    public List<OrderAdminView> getAllAdminOrders() {
+        return orderDAO.findAllAdminView();
+    }
 
+    public void updateOrderStatusByAction(int orderId, String action) {
+        String newStatus = switch (action) {
+            case "complete" -> "Hoàn tất";
+            case "shipping" -> "Đang vận chuyển";
+            case "cancel" -> "Đã hủy";
+            default -> null;
+        };
+
+        if (newStatus == null) {
+            throw new IllegalArgumentException("invalid_action");
+        }
+
+        boolean ok = orderDAO.updateStatus(orderId, newStatus);
+        if (!ok) {
+            throw new RuntimeException("update_fail");
+        }
+    }
 
 
 }
