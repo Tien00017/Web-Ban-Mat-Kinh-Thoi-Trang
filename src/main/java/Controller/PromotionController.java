@@ -11,7 +11,9 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.nio.file.*;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024,
@@ -63,11 +65,20 @@ public class PromotionController extends HttpServlet {
             throws ServletException, IOException {
 
         List<Promotion> list = promotionService.getAllPromotions();
+
+        Map<Integer, String> mainBannerMap = new HashMap<>();
+        for (Promotion p : list) {
+            String banner = promotionService.getMainBannerUrl(p.getId());
+            mainBannerMap.put(p.getId(), banner);
+        }
+
         req.setAttribute("events", list);
+        req.setAttribute("mainBannerMap", mainBannerMap);
 
         req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminListEvent.jsp")
                 .forward(req, resp);
     }
+
 
     private void showAddForm(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
