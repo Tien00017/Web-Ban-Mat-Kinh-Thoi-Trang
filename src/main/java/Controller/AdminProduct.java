@@ -13,7 +13,7 @@ import Model.DAO.ProductDAO;
 import Model.Object.Product;
 
 
-@WebServlet("/admin/product")
+@WebServlet("/AdminProduct")
 public class AdminProduct extends HttpServlet {
 
     @Override
@@ -40,6 +40,6 @@ public class AdminProduct extends HttpServlet {
 
         List<Product> list = dao.getAllProductsAdmin();
         req.setAttribute("products", list);
-        req.getRequestDispatcher("/AdminProduct.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminProduct.jsp").forward(req, resp);
     }
 }

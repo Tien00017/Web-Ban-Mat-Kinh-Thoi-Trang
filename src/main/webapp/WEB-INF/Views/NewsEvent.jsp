@@ -166,36 +166,62 @@
     <section class="flash-items" id="flash-items">
         <h2>Sản phẩm áp dụng ưu đãi</h2>
 
-        <div class="product-grid flash-grid">
-
-            <c:forEach items="${products}" var="p">
+        <div class="product-grid">
+            <c:forEach var="p" items="${products}">
                 <div class="product-card">
 
-                    <img src="${mainImages[p.id].imageUrl}"
-                         alt="${p.productName}">
+                    <c:set var="img" value="${products[p.id]}"/>
+
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${img != null}">--%>
+                            <img src="${mainImages[p.id].imageUrl}" alt="${p.productName}">
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <img src="${pageContext.request.contextPath}/Images/no-image.png"--%>
+<%--                                 alt="No image">--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
 
                     <h4>${p.productName}</h4>
 
-                    <p class="price-old">
-                        <fmt:formatNumber value="${p.price}" type="number"/> VNĐ
-                    </p>
+                    <!-- ===== PRICE ===== -->
+                    <div class="price-box">
+                        <c:choose>
 
-                    <p class="price-sale">
-                        <fmt:formatNumber value="${salePriceMap[p.id]}" type="number"/> VNĐ
-                    </p>
+                            <%-- CÓ GIẢM GIÁ --%>
+                            <c:when test="${salePriceMap[p.id] != null}">
+                                <p class="price-old">
+                                    <del>
+                                        <fmt:formatNumber value="${p.price}"
+                                                          type="number"
+                                                          groupingUsed="true"/> VNĐ
+                                    </del>
+                                </p>
+                                <p class="price-sale">
+                                    <fmt:formatNumber value="${salePriceMap[p.id]}"
+                                                      type="number"
+                                                      groupingUsed="true"/> VNĐ
+                                </p>
+                            </c:when>
+
+                            <%-- KHÔNG GIẢM GIÁ --%>
+                            <c:otherwise>
+                                <p class="price">
+                                    <fmt:formatNumber value="${p.price}"
+                                                      type="number"
+                                                      groupingUsed="true"/> VNĐ
+                                </p>
+                            </c:otherwise>
+
+                        </c:choose>
+                    </div>
 
                     <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
-                       class="buy-now">
-                        Mua ngay
+                       class="try-btn">
+                        Xem sản phẩm
                     </a>
                 </div>
             </c:forEach>
-
-            <!-- KHÔNG CÓ SẢN PHẨM -->
-            <c:if test="${empty products}">
-                <p>Hiện chưa có sản phẩm áp dụng cho sự kiện này.</p>
-            </c:if>
-
         </div>
     </section>
 
@@ -233,6 +259,6 @@
     </div>
 </footer>
 
-<%--<script src="${pageContext.request.contextPath}/JavaScript/FlashSale.js"></script>--%>
+<script src="${pageContext.request.contextPath}/JavaScript/HomePage.js"></script>
 </body>
 </html>

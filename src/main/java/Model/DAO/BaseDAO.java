@@ -3,6 +3,7 @@ package Model.DAO;
 import Model.Object.*;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public abstract class BaseDAO {
     protected User mapUser(ResultSet rs) throws Exception {
@@ -74,5 +75,18 @@ public abstract class BaseDAO {
         r.setComment(rs.getString("comment"));
         r.setCreatedAt(rs.getTimestamp("created_at"));
         return r;
+    }
+
+    protected Promotion mapResultSet(ResultSet rs) throws SQLException {
+        Promotion p = new Promotion();
+        p.setId(rs.getInt("id"));
+        p.setTitle(rs.getString("title"));
+        p.setContent(rs.getString("content"));
+        p.setStartDate(rs.getDate("start_date"));
+        p.setEndDate(rs.getDate("end_date"));
+        p.setDiscountType(rs.getString("discount_type"));
+        p.setDiscountValue(rs.getDouble("discount_value"));
+        p.setStatus(rs.getString("status"));
+        return p;
     }
 }

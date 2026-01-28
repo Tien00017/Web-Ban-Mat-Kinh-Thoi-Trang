@@ -102,5 +102,62 @@ public class OrderDAO {
         }
         return false;
     }
+    //AdminOrder
+    public List<OrderAdminView> findAllAdminView() {
+        List<OrderAdminView> list = new ArrayList<>();
 
+        String sql = """
+        SELECT
+            o.id,
+            o.name AS customer_name,
+            o.phone,
+            o.created_at,
+            o.status,
+            o.total_amount,
+            COALESCE(SUM(oi.quantity), 0) AS total_qty,
+            GROUP_CONCAT(CONCAT(p.product_name, ' x', oi.quantity) SEPARATOR ', ') AS products_summary
+        FROM orders o
+        LEFT JOIN order_items oi ON oi.order_id = o.id
+        LEFT JOIN products p ON p.id = oi.product_id
+        GROUP BY o.id, o.name, o.phone, o.created_at, o.status, o.total_amount
+        ORDER BY o.id DESC
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                OrderAdminView v = new OrderAdminView();
+                v.setId(rs.getInt("id"));
+                v.setCustomerName(rs.getString("customer_name"));
+                v.setPhone(rs.getString("phone"));
+                v.setCreatedAt(rs.getTimestamp("created_at"));
+                v.setStatus(rs.getString("status"));
+                v.setTotalAmount(rs.getDouble("total_amount"));
+                v.setTotalQuantity(rs.getInt("total_qty"));
+                v.setProductsSummary(rs.getString("products_summary"));
+                list.add(v);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    public boolean updateStatus(int orderId, String status) {
+        String sql = "UPDATE orders SET status = ? WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, status);
+            ps.setInt(2, orderId);
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

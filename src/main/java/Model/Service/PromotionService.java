@@ -41,4 +41,12 @@ public class PromotionService {
     public void deletePromotion(int id) {
         promotionDAO.delete(id);
     }
+
+    public Promotion findById(int promotionId) {
+        return promotionDAO.getById(promotionId);
+    }
+    public List<Promotion> getAllActive() {
+        return promotionDAO.getAllActive();
+    }
+
 }

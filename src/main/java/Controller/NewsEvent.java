@@ -41,7 +41,7 @@ public class NewsEvent extends HttpServlet {
         }
 
         /* ===== 2. PROMOTION ===== */
-        Promotion promotion = promotionService.getById(promotionId);
+        Promotion promotion = promotionService.findById(promotionId);
         if (promotion == null) {
             response.sendRedirect(request.getContextPath() + "/Home");
             return;

@@ -46,6 +46,6 @@ public class AdminOrders extends HttpServlet {
             orderService.updateOrderStatusByAction(orderId, action);
         } catch (Exception ignored) {}
 
-        resp.sendRedirect(req.getContextPath() + "/AdminOrders");
+        resp.sendRedirect(req.getContextPath() + "/WEB-INF/Views/Admin/AdminOrders.jsp");
     }
 }
