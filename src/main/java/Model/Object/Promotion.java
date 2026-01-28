@@ -14,33 +14,82 @@ public class Promotion {
     private String discountType;
     private double discountValue;
 
-    // VD: ACTIVE / INACTIVE
     private String status;
+    private String mainBannerUrl;
 
-    public Promotion() {}
+    public Promotion() {
+    }
 
     // ===== Getter / Setter =====
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
+    public String getTitle() {
+        return title;
+    }
 
-    public Date getStartDate() { return startDate; }
-    public void setStartDate(Date startDate) { this.startDate = startDate; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public Date getEndDate() { return endDate; }
-    public void setEndDate(Date endDate) { this.endDate = endDate; }
+    public String getContent() {
+        return content;
+    }
 
-    public String getDiscountType() { return discountType; }
-    public void setDiscountType(String discountType) { this.discountType = discountType; }
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-    public double getDiscountValue() { return discountValue; }
-    public void setDiscountValue(double discountValue) { this.discountValue = discountValue; }
+    public Date getStartDate() {
+        return startDate;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getDiscountType() {
+        return discountType;
+    }
+
+    public void setDiscountType(String discountType) {
+        this.discountType = discountType;
+    }
+
+    public double getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountValue(double discountValue) {
+        this.discountValue = discountValue;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMainBannerUrl() {
+        return mainBannerUrl;
+    }
+
+    public void setMainBannerUrl(String mainBannerUrl) {
+        this.mainBannerUrl = mainBannerUrl;
+    }
 }

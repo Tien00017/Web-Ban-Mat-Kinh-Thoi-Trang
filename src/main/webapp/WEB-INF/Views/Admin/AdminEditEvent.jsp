@@ -19,12 +19,12 @@
         </div>
 
         <nav class="admin-nav">
-            <a href="${pageContext.request.contextPath}/Admin" >Dashboard</a>
+            <a href="${pageContext.request.contextPath}/Admin">Dashboard</a>
             <a href="${pageContext.request.contextPath}/AdminCategory">Quản lí danh mục</a>
             <a href="${pageContext.request.contextPath}/AdminProduct">Quản lí sản phẩm</a>
             <a href="${pageContext.request.contextPath}/AdminAddProduct">Thêm sản phẩm</a>
             <a href="${pageContext.request.contextPath}/AdminOrders">Quản lí đơn hàng</a>
-            <a href="${pageContext.request.contextPath}/AdminAccount" >Quản lí tài khoản</a>
+            <a href="${pageContext.request.contextPath}/AdminAccount">Quản lí tài khoản</a>
             <a href="${pageContext.request.contextPath}/admin/event/list" class="active">Quản lí sự kiện</a>
             <a href="${pageContext.request.contextPath}/AdminContact">Liên hệ</a>
         </nav>
@@ -42,7 +42,8 @@
 
             <!-- LEFT: FORM -->
             <div class="event-left">
-                <form action="${pageContext.request.contextPath}/admin/event/update" method="post" class="event-form">
+                <form action="${pageContext.request.contextPath}/admin/event/update" method="post"
+                      enctype="multipart/form-data" class="event-form">
                     <input type="hidden" name="id" value="${event.id}">
 
                     <label>Tên sự kiện</label>
@@ -73,7 +74,29 @@
                         <option value="INACTIVE" ${event.status=='INACTIVE'?'selected':''}>Tạm dừng</option>
                         <option value="EXPIRED" ${event.status=='EXPIRED'?'selected':''}>Hết hạn</option>
                     </select>
+                    <label>Banner chính (URL)</label>
+                    <label>Banner chính (URL)</label>
+                    <input type="url" name="mainBannerUrl" id="mainBannerUrl" placeholder="https://...">
 
+                    <label>Hoặc upload banner chính</label>
+                    <input type="file" name="mainBannerFile" id="mainBannerFile" accept="image/*">
+
+                    <img id="mainBannerPreview"
+                         style="display:none; max-width:100%; border-radius:12px; margin-top:10px; border:1px solid #e6e8f2;"
+                         alt="Preview">
+
+
+                    <label>Banner phụ (URL)</label>
+                    <div id="extraBanners">
+                        <c:forEach var="u" items="${extraBannerUrls}">
+                            <div style="display:flex; gap:10px; margin-top:10px;">
+                                <input type="url" name="bannerUrls" value="${u}" style="flex:1;">
+                                <button type="button" class="btn ghost" onclick="this.parentElement.remove()">X</button>
+                            </div>
+                        </c:forEach>
+                    </div>
+
+                    <button type="button" class="btn ghost" id="addBannerBtn">+ Thêm banner phụ</button>
                     <button type="submit" class="btn">Cập nhật</button>
                 </form>
             </div>
@@ -142,6 +165,33 @@
             search.addEventListener('input', filter);
             updateCount();
         })();
+        const mainInput = document.getElementById("mainBannerUrl");
+        const preview = document.getElementById("mainBannerPreview");
+        mainInput.addEventListener("input", () => {
+            const url = mainInput.value.trim();
+            if (!url) {
+                preview.style.display = "none";
+                preview.src = "";
+                return;
+            }
+            preview.src = url;
+            preview.style.display = "block";
+        });
+
+        const extraWrap = document.getElementById("extraBanners");
+        document.getElementById("addBannerBtn").addEventListener("click", () => {
+            const div = document.createElement("div");
+            div.style.display = "flex";
+            div.style.gap = "10px";
+            div.style.marginTop = "10px";
+
+            div.innerHTML = `
+      <input type="url" name="bannerUrls" placeholder="https://..." style="flex:1;">
+      <button type="button" class="btn ghost">X</button>
+    `;
+            div.querySelector("button").addEventListener("click", () => div.remove());
+            extraWrap.appendChild(div);
+        });
     </script>
 
 </div>

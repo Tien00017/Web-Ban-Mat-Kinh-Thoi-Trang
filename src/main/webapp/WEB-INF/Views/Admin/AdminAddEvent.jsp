@@ -1,11 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: phamn
-  Date: 1/22/2026
-  Time: 5:28 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta charset="UTF-8">
@@ -22,12 +16,12 @@
         </div>
 
         <nav class="admin-nav">
-            <a href="${pageContext.request.contextPath}/Admin" >Dashboard</a>
+            <a href="${pageContext.request.contextPath}/Admin">Dashboard</a>
             <a href="${pageContext.request.contextPath}/AdminCategory">Quản lí danh mục</a>
             <a href="${pageContext.request.contextPath}/AdminProduct">Quản lí sản phẩm</a>
             <a href="${pageContext.request.contextPath}/AdminAddProduct">Thêm sản phẩm</a>
             <a href="${pageContext.request.contextPath}/AdminOrders">Quản lí đơn hàng</a>
-            <a href="${pageContext.request.contextPath}/AdminAccount" >Quản lí tài khoản</a>
+            <a href="${pageContext.request.contextPath}/AdminAccount">Quản lí tài khoản</a>
             <a href="${pageContext.request.contextPath}/admin/event/list" class="active">Quản lí sự kiện</a>
             <a href="${pageContext.request.contextPath}/AdminContact">Liên hệ</a>
         </nav>
@@ -47,6 +41,7 @@
                 <form id="eventCreateForm"
                       action="${pageContext.request.contextPath}/admin/event/create"
                       method="post"
+                      enctype="multipart/form-data"
                       class="event-form">
 
                     <label>Tên sự kiện</label>
@@ -68,9 +63,18 @@
                         <option value="AMOUNT">Giảm tiền</option>
                     </select>
 
-                    <label>Giá trị giảm</label>
-                    <input type="number" name="discountValue" step="0.01" placeholder="Ví dụ: 10 hoặc 50000">
+                    <label>Banner chính (URL)</label>
+                    <input type="url" name="mainBannerUrl" id="mainBannerUrl" placeholder="https://...">
 
+                    <label>Hoặc upload banner chính</label>
+                    <input type="file" name="mainBannerFile" id="mainBannerFile" accept="image/*">
+
+                    <img id="mainBannerPreview" style="display:none; max-width:100%; border-radius:12px; margin-top:10px; border:1px solid #e6e8f2;" alt="Preview">
+
+
+                    <label>Banner phụ (URL)</label>
+                    <div id="extraBanners"></div>
+                    <button type="button" class="btn ghost" id="addBannerBtn">+ Thêm banner phụ</button>
                     <button type="submit" class="btn">Tạo sự kiện</button>
                 </form>
             </div>
@@ -113,6 +117,7 @@
 
 <script>
     (function () {
+        // ===== Product search =====
         const search = document.getElementById('productSearch');
         const list = document.getElementById('productList');
         const items = Array.from(list.querySelectorAll('.product-item'));
@@ -139,8 +144,60 @@
 
         search.addEventListener('input', filter);
         updateCount();
+
+        // ===== Banner preview (URL + File) =====
+        const urlInput = document.getElementById("mainBannerUrl");
+        const fileInput = document.getElementById("mainBannerFile");
+        const previewImg = document.getElementById("mainBannerPreview");
+
+        function showPreview(src) {
+            if (!src) {
+                previewImg.style.display = "none";
+                previewImg.src = "";
+                return;
+            }
+            previewImg.src = src;
+            previewImg.style.display = "block";
+        }
+
+        urlInput.addEventListener("input", () => {
+            const url = (urlInput.value || "").trim();
+            // nếu đang chọn file thì cứ ưu tiên URL hay file tùy bạn
+            showPreview(url);
+        });
+
+        fileInput.addEventListener("change", () => {
+            const f = fileInput.files && fileInput.files[0];
+            if (!f) return;
+            const objUrl = URL.createObjectURL(f);
+            showPreview(objUrl);
+            // (tuỳ chọn) nếu chọn file thì xoá URL để ưu tiên file rõ ràng:
+            // urlInput.value = "";
+        });
+
+        // ===== Extra banners =====
+        const extraWrap = document.getElementById("extraBanners");
+        const addBtn = document.getElementById("addBannerBtn");
+        const formId = "eventCreateForm";
+
+        addBtn.addEventListener("click", () => {
+            const div = document.createElement("div");
+            div.style.display = "flex";
+            div.style.gap = "10px";
+            div.style.marginTop = "10px";
+
+            div.innerHTML = `
+        <input type="url" name="bannerUrls" placeholder="https://..." style="flex:1;" form="${formId}">
+        <button type="button" class="btn ghost">X</button>
+      `;
+
+            div.querySelector("button").addEventListener("click", () => div.remove());
+            extraWrap.appendChild(div);
+        });
+
     })();
 </script>
+
 
 </body>
 </html>

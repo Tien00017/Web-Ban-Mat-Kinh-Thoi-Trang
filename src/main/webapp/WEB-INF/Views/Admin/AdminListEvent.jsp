@@ -46,6 +46,7 @@
         <table border="1" width="100%" cellpadding="8">
             <tr>
                 <th>ID</th>
+                <th>Banner</th>
                 <th>Tiêu đề</th>
                 <th>Thời gian</th>
                 <th>Giảm giá</th>
@@ -56,6 +57,16 @@
             <c:forEach items="${events}" var="e">
                 <tr>
                     <td>${e.id}</td>
+                    <td>
+                        <c:if test="${not empty e.mainBannerUrl}">
+                            <c:set var="src"
+                                   value="${(e.mainBannerUrl.startsWith('http') || e.mainBannerUrl.startsWith('data:'))
+                                            ? e.mainBannerUrl
+                                            : pageContext.request.contextPath.concat('/').concat(e.mainBannerUrl)}"/>
+                            <img src="${src}" alt="banner"
+                                 style="width:90px;height:48px;object-fit:cover;border-radius:10px;border:1px solid #e6e8f2;">
+                        </c:if>
+                    </td>
                     <td>${e.title}</td>
                     <td>
                             ${e.startDate} → ${e.endDate}
@@ -73,11 +84,11 @@
                     <c:set var="statusLabel"
                            value="${e.status == 'ACTIVE' ? 'Hoạt động' :
                                     e.status == 'INACTIVE' ? 'Tạm dừng' :
-                                    e.status == 'EXPIRED' ? 'Hết hạn' : 'Không rõ'}" />
+                                    e.status == 'EXPIRED' ? 'Hết hạn' : 'Không rõ'}"/>
 
                     <td>
                         <span class="status ${e.status}">
-                            ${statusLabel}
+                                ${statusLabel}
                         </span>
                     </td>
 
