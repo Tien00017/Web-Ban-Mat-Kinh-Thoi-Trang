@@ -51,4 +51,16 @@ public class CartService {
         }
         return total;
     }
+
+    public void updateQuantity(Cart cart, int productId, int quantity) {
+        if (quantity < 1) {
+            quantity = 1;
+        }
+
+        CartItem item = cart.getCartItems().get(productId);
+
+        if (item != null) {
+            item.setQuantity(quantity);
+        }
+    }
 }

@@ -77,6 +77,31 @@ public class OrderDAO {
 
         return list;
     }
+
+    public boolean hasPurchased(int userId, int productId) {
+        String sql = """
+        SELECT COUNT(*) 
+        FROM orders o
+        JOIN order_items oi ON o.id = oi.order_id
+        WHERE o.user_id = ?
+          AND oi.product_id = ?
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, productId);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     //AdminOrder
     public List<OrderAdminView> findAllAdminView() {
         List<OrderAdminView> list = new ArrayList<>();

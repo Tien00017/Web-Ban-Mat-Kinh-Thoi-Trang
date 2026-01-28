@@ -7,24 +7,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Mắt kính Nông Lâm - Trang chủ</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Kết quả tìm kiếm</title>
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/StyleOfHomePage.css">
+          href="${pageContext.request.contextPath}/CSS/StyleOfSearchPage.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
 </head>
 <body>
-<!-- HEADER -->
+
+<!-- ================= HEADER ================= -->
 <header class="site-header">
     <div class="header-inner">
         <div class="header-left">
@@ -104,105 +104,39 @@
     </nav>
 </header>
 
-<!-- MAIN -->
+<!-- ================= MAIN ================= -->
 <main class="container">
 
-    <!-- NEWS / BẢNG TIN -->
-    <section class="news-section">
-        <h2>Tin tức & Sự kiện</h2>
+    <h2 class="search-title">
+        Kết quả tìm kiếm cho:
+        <span>"<c:out value='${keyword}'/>"</span>
+    </h2>
 
-        <div class="news-slider">
-            <button class="slide-btn prev">&#10094;</button>
+    <c:if test="${empty products}">
+        <p class="empty-text">❌ Không tìm thấy sản phẩm phù hợp</p>
+    </c:if>
 
-            <div class="news-track">
-                <c:forEach var="promo" items="${promotions}">
-                    <c:forEach var="banner" items="${bannerMap[promo.id]}">
-                        <article class="news-card">
-                            <a href="${pageContext.request.contextPath}/NewsEvent?id=${promo.id}">
-                                <img src="${pageContext.request.contextPath}${banner.imageUrl}"
-                                     alt="${promo.title}">
-                            </a>
-                        </article>
-                    </c:forEach>
-                </c:forEach>
+    <div class="product-grid">
+        <c:forEach items="${products}" var="p">
+            <div class="product-card">
+                <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}">
+                    <c:choose>
+                        <c:when test="${productImages[p.id] != null}">
+                            <img src="${productImages[p.id].imageUrl}">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${pageContext.request.contextPath}/Images/no-image.png">
+                        </c:otherwise>
+                    </c:choose>
+                    <h4>${p.productName}</h4>
+                </a>
             </div>
-
-            <button class="slide-btn next">&#10095;</button>
-
-            <!-- DẤU CHẤM -->
-            <div class="slider-dots"></div>
-        </div>
-    </section>
-
-
-    <!-- FEATURED PRODUCTS BY CATEGORY -->
-    <section class="featured">
-        <h2>Sản phẩm bán chạy</h2>
-
-        <div class="feature-category">
-            <div class="product-grid">
-                <c:forEach var="p" items="${bestSellingProducts}">
-                    <div class="product-card">
-
-                        <c:set var="img" value="${bestSellingImages[p.id]}"/>
-
-                        <c:choose>
-                            <c:when test="${img != null}">
-                                <img src="${img.imageUrl}" alt="${p.productName}">
-                            </c:when>
-                            <c:otherwise>
-                                <img src="${pageContext.request.contextPath}/Images/no-image.png"
-                                     alt="No image">
-                            </c:otherwise>
-                        </c:choose>
-
-                        <h4>${p.productName}</h4>
-
-                        <!-- ===== PRICE ===== -->
-                        <div class="price-box">
-                            <c:choose>
-
-                                <%-- CÓ GIẢM GIÁ --%>
-                                <c:when test="${salePriceMap[p.id] != null}">
-                                    <p class="price-old">
-                                        <del>
-                                            <fmt:formatNumber value="${p.price}"
-                                                              type="number"
-                                                              groupingUsed="true"/> VNĐ
-                                        </del>
-                                    </p>
-                                    <p class="price-sale">
-                                        <fmt:formatNumber value="${salePriceMap[p.id]}"
-                                                          type="number"
-                                                          groupingUsed="true"/> VNĐ
-                                    </p>
-                                </c:when>
-
-                                <%-- KHÔNG GIẢM GIÁ --%>
-                                <c:otherwise>
-                                    <p class="price">
-                                        <fmt:formatNumber value="${p.price}"
-                                                          type="number"
-                                                          groupingUsed="true"/> VNĐ
-                                    </p>
-                                </c:otherwise>
-
-                            </c:choose>
-                        </div>
-
-                        <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
-                           class="try-btn">
-                            Xem sản phẩm
-                        </a>
-                    </div>
-                </c:forEach>
-            </div>
-        </div>
-    </section>
+        </c:forEach>
+    </div>
 
 </main>
 
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
 <footer class="site-footer">
     <div class="footer-inner">
 
@@ -233,7 +167,6 @@
 
     </div>
 </footer>
-<button id="backToTop" aria-label="Lên đầu trang"><i class="fa-solid fa-up-long"></i></button>
-<script src="${pageContext.request.contextPath}/JavaScript/HomePage.js"></script>
+
 </body>
 </html>

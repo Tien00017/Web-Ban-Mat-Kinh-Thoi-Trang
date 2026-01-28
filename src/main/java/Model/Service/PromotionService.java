@@ -42,21 +42,28 @@ public class PromotionService {
         promotionDAO.delete(id);
     }
 
-    public void createPromotionWithProductsAndBanners(Promotion p, int[] productIds, String mainBannerUrl, String[] bannerUrls) {
+    public Promotion findById(int promotionId) {
+        return promotionDAO.getById(promotionId);
+    }
+    public List<Promotion> getAllActive() {
+        return promotionDAO.getAllActive();
+    }
+
+    public String getMainBannerUrl(int id) {
+        return  promotionDAO.getMainBannerUrl(id);
+    }
+
+    public List<String> getExtraBannerUrls(int id) {
+        return promotionDAO.getExtraBannerUrls(id);
+    }
+
+    public void createPromotionWithProductsAndBanners(Promotion p, int[] productIds, String mainBannerPath, String[] bannerUrls) {
         int promotionId = promotionDAO.insertWithProducts(p, productIds);
-        promotionDAO.replaceBanners(promotionId, mainBannerUrl, bannerUrls);
+        promotionDAO.replaceBanners(promotionId, mainBannerPath, bannerUrls);
     }
 
-    public void updatePromotionWithProductsAndBanners(Promotion p, int[] productIds, String mainBannerUrl, String[] bannerUrls) {
+    public void updatePromotionWithProductsAndBanners(Promotion p, int[] productIds, String mainBannerPath, String[] bannerUrls) {
         promotionDAO.updateWithProducts(p, productIds);
-        promotionDAO.replaceBanners(p.getId(), mainBannerUrl, bannerUrls);
-    }
-
-    public String getMainBannerUrl(int promotionId) {
-        return promotionDAO.getMainBannerUrl(promotionId);
-    }
-
-    public List<String> getExtraBannerUrls(int promotionId) {
-        return promotionDAO.getExtraBannerUrls(promotionId);
+        promotionDAO.replaceBanners(p.getId(), mainBannerPath, bannerUrls);
     }
 }

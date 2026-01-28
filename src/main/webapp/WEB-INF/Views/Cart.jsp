@@ -6,6 +6,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -39,16 +40,26 @@
         </div>
 
         <div class="header-right">
-            <div class="search-wrap">
-                <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
-                <button class="search-btn" aria-label="Tìm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <form class="search-wrap"
+                  action="${pageContext.request.contextPath}/Search"
+                  method="get">
+
+                <input type="search"
+                       name="keyword"
+                       placeholder="Tìm kiếm sản phẩm, mã..."
+                       aria-label="Tìm kiếm"
+                       required>
+
+                <button class="search-btn" type="submit" aria-label="Tìm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         fill="none" stroke="black" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
                     </svg>
                 </button>
-            </div>
+
+            </form>
 
             <div class="header-icons">
                 <% if (user == null) { %>
@@ -159,7 +170,21 @@
                                         <button class="qty-btn js-dec" type="submit">−</button>
                                     </form>
 
-                                    <input class="js-qty" type="number" value="${item.quantity}" readonly>
+                                    <form action="${pageContext.request.contextPath}/Cart" method="post">
+                                        <input type="hidden" name="action" value="update">
+                                        <input type="hidden" name="productId" value="${item.productId}">
+
+                                        <input
+                                                class="js-qty"
+                                                type="number"
+                                                name="quantity"
+                                                value="${item.quantity}"
+                                                min="1"
+                                                step="1"
+                                                onchange="this.form.submit()"
+                                        >
+                                    </form>
+
 
                                     <!-- TĂNG -->
                                     <form action="${pageContext.request.contextPath}/Cart" method="post">
@@ -193,7 +218,9 @@
                 </strong>
             </div>
 
-            <a href="${pageContext.request.contextPath}/Checkout"  class="checkout-btn">Thanh Toán</a>
+            <button type="button" class="checkout-btn js-checkout">
+                Thanh Toán
+            </button>
 
             <a href="${pageContext.request.contextPath}/Home" class="continue">Tiếp tục mua hàng</a>
         </aside>
@@ -231,6 +258,9 @@
 
     </div>
 </footer>
-<%--<script src="${pageContext.request.contextPath}/JavaScript/Cart.js" defer></script>--%>
+<script>
+    const CONTEXT_PATH = "${pageContext.request.contextPath}";
+</script>
+<script src="${pageContext.request.contextPath}/JavaScript/Cart.js" defer></script>
 </body>
 </html>
