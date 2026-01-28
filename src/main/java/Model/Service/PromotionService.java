@@ -49,4 +49,21 @@ public class PromotionService {
         return promotionDAO.getAllActive();
     }
 
+    public String getMainBannerUrl(int id) {
+        return  promotionDAO.getMainBannerUrl(id);
+    }
+
+    public List<String> getExtraBannerUrls(int id) {
+        return promotionDAO.getExtraBannerUrls(id);
+    }
+
+    public void createPromotionWithProductsAndBanners(Promotion p, int[] productIds, String mainBannerPath, String[] bannerUrls) {
+        int promotionId = promotionDAO.insertWithProducts(p, productIds);
+        promotionDAO.replaceBanners(promotionId, mainBannerPath, bannerUrls);
+    }
+
+    public void updatePromotionWithProductsAndBanners(Promotion p, int[] productIds, String mainBannerPath, String[] bannerUrls) {
+        promotionDAO.updateWithProducts(p, productIds);
+        promotionDAO.replaceBanners(p.getId(), mainBannerPath, bannerUrls);
+    }
 }
