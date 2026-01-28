@@ -41,6 +41,7 @@ public class PromotionService {
     public void deletePromotion(int id) {
         promotionDAO.delete(id);
     }
+
     public void createPromotionWithProductsAndBanners(Promotion p, int[] productIds, String mainBannerUrl, String[] bannerUrls) {
         int promotionId = promotionDAO.insertWithProducts(p, productIds);
         promotionDAO.replaceBanners(promotionId, mainBannerUrl, bannerUrls);
