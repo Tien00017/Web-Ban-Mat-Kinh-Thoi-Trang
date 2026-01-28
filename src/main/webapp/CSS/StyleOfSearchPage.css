@@ -1,25 +1,46 @@
+/* =========================================
+   GLOBAL VARIABLES 
+========================================= */
+:root {
+    --accent: #463AE8;
+    --bg: #f5f6f8;
+    --text: #111;
+    --muted: #6b6b6b;
+    --radius: 12px;
+    --card-shadow: 0 6px 18px rgba(70,58,232,0.08);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+/* =========================================
+   RESET
+========================================= */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
 }
 
 body {
-    background: #f5f6f8;
-    color: #333;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.45;
 }
 
-/* ===== HEADER ===== */
+/* =========================================
+   HEADER (ĐỒNG BỘ HOME)
+========================================= */
 .site-header {
     background: #fff;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .header-inner {
     max-width: 1200px;
     margin: auto;
-    padding: 12px 20px;
+    padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,127 +49,154 @@ body {
 .logo {
     display: flex;
     align-items: center;
+    gap: 10px;
     text-decoration: none;
-    color: #000;
+    color: var(--text);
     font-weight: 700;
+    font-size: 18px;
 }
 
 .logo-img {
-    height: 40px;
-    margin-right: 10px;
+    height: 42px;
 }
 
 .main-nav a {
-    margin-left: 20px;
+    margin-left: 18px;
     text-decoration: none;
-    color: #333;
+    color: var(--text);
     font-weight: 500;
 }
 
 .main-nav a:hover {
-    color: #1e88e5;
+    color: var(--accent);
+    text-decoration: underline;
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 14px;
 }
 
+/* Search box giống home */
 .search-wrap {
     display: flex;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    overflow: hidden;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px solid #e6e6e6;
+    background: #fff;
 }
 
 .search-wrap input {
     border: none;
-    padding: 8px 12px;
     outline: none;
+    padding: 8px 10px;
+    min-width: 200px;
+    font-size: 14px;
 }
 
 .search-wrap button {
-    background: #1e88e5;
+    background: var(--accent);
     border: none;
-    color: white;
-    padding: 0 14px;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
+/* Buttons */
 .btn-outline {
-    padding: 6px 12px;
-    border: 1px solid #1e88e5;
-    color: #1e88e5;
-    border-radius: 6px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
     text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
 }
 
 .btn-primary {
-    padding: 6px 12px;
-    background: #1e88e5;
-    color: white;
-    border-radius: 6px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
     text-decoration: none;
+    font-weight: 700;
 }
 
-/* ===== MAIN ===== */
+/* =========================================
+   MAIN
+========================================= */
 .container {
     max-width: 1200px;
-    margin: 30px auto;
+    margin: 32px auto;
     padding: 0 20px;
 }
 
 .search-title {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    font-size: 22px;
 }
 
 .search-title span {
-    color: #1e88e5;
+    color: var(--accent);
 }
 
 .empty-text {
     margin-top: 20px;
-    color: #999;
+    color: var(--muted);
 }
 
-/* ===== PRODUCT GRID ===== */
+/* =========================================
+   PRODUCT GRID (GIỐNG HOME)
+========================================= */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    gap: 18px;
 }
 
 .product-card {
     background: #fff;
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: var(--radius);
+    padding: 14px;
     text-align: center;
-    transition: 0.2s;
+    transition: 0.25s;
+    box-shadow: var(--card-shadow);
 }
 
 .product-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+}
+
+.product-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 .product-card img {
     width: 100%;
     height: 180px;
     object-fit: contain;
+    border-radius: var(--radius);
 }
 
 .product-card h4 {
     margin-top: 10px;
-    font-size: 16px;
-    color: #333;
+    font-size: 15px;
+    font-weight: 600;
 }
 
-/* ===== FOOTER ===== */
+/* =========================================
+   FOOTER (GIỐNG HOME)
+========================================= */
 .site-footer {
-    text-align: center;
-    padding: 20px;
-    background: #fff;
-    border-top: 1px solid #ddd;
     margin-top: 40px;
+    background: #222;
+    color: #ccc;
+    text-align: center;
+    padding: 24px;
 }
