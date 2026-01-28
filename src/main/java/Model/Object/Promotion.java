@@ -12,6 +12,7 @@ public class Promotion {
     private String discountType;
     private double discountValue;
     private String status;
+    private String mainBannerUrl;
 
     public Promotion() {
     }

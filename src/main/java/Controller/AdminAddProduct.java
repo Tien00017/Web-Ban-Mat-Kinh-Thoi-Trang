@@ -16,7 +16,7 @@ import Model.DAO.ProductImgDAO;
 import Model.Object.Product;
 import Model.Object.ProductImage;
 
-@WebServlet("/admin/product/add")
+@WebServlet( "/AdminAddProduct")
 @MultipartConfig
 public class AdminAddProduct extends HttpServlet {
 
@@ -70,6 +70,6 @@ public class AdminAddProduct extends HttpServlet {
         }
 
         /* ===== 4. Redirect ===== */
-        resp.sendRedirect(req.getContextPath() + "/admin/product");
+        resp.sendRedirect(req.getContextPath() + "/WEB-INF/Views/Admin/AdminAddProduct.jsp");
     }
 }

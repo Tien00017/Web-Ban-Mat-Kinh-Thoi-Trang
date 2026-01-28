@@ -1,6 +1,8 @@
 package Model.Service;
 
+import Model.DAO.ProductDAO;
 import Model.DAO.PromotionDAO;
+import Model.Object.Product;
 import Model.Object.Promotion;
 
 import java.util.List;
@@ -8,15 +10,43 @@ import java.util.List;
 public class PromotionService {
 
     private final PromotionDAO promotionDAO = new PromotionDAO();
+    private final ProductDAO productDAO = new ProductDAO();
 
-    // Trang chủ: load khuyến mãi mới / đang active
-    public List<Promotion> getLatestPromotions() {
-        return promotionDAO.getLatestPromotions(5);
+    public List<Promotion> getAllPromotions() {
+        return promotionDAO.findAll();
     }
 
-    // Search theo tiêu đề / nội dung
-//    public List<Promotion> search(String keyword) {
-//        return promotionDAO.searchByKeyword(keyword);
-//    }
-    //Thanh tìm kiếm trên headere mà sao lại viết trong promotion viết lại nha
+    public Promotion getPromotionById(int id) {
+        return promotionDAO.findById(id);
+    }
+
+    public List<Product> getAllProducts() {
+        return productDAO.findAll();
+    }
+
+    public List<Integer> getSelectedProductIds(int promotionId) {
+        return promotionDAO.getProductIdsByPromotionId(promotionId);
+    }
+
+    public void createPromotionWithProducts(Promotion p, int[] productIds) {
+        // bạn đã có transaction trong DAO: insertWithProducts
+        promotionDAO.insertWithProducts(p, productIds);
+    }
+
+    public void updatePromotionWithProducts(Promotion p, int[] productIds) {
+        // bạn đã có transaction trong DAO: updateWithProducts
+        promotionDAO.updateWithProducts(p, productIds);
+    }
+
+    public void deletePromotion(int id) {
+        promotionDAO.delete(id);
+    }
+
+    public Promotion findById(int promotionId) {
+        return promotionDAO.getById(promotionId);
+    }
+    public List<Promotion> getAllActive() {
+        return promotionDAO.getAllActive();
+    }
+
 }

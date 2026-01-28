@@ -30,21 +30,31 @@
             <nav class="main-nav" aria-label="Chính">
                 <a href="${pageContext.request.contextPath}/Home" class="active">Trang chủ</a>
                 <a href="${pageContext.request.contextPath}/About">Giới thiệu</a>
-                <a href="Contact.html">Liên hệ</a>
+                <a href="${pageContext.request.contextPath}/Contact">Liên hệ</a>
             </nav>
         </div>
 
         <div class="header-right">
-            <div class="search-wrap">
-                <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
-                <button class="search-btn" aria-label="Tìm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <form class="search-wrap"
+                  action="${pageContext.request.contextPath}/Search"
+                  method="get">
+
+                <input type="search"
+                       name="keyword"
+                       placeholder="Tìm kiếm sản phẩm, mã..."
+                       aria-label="Tìm kiếm"
+                       required>
+
+                <button class="search-btn" type="submit" aria-label="Tìm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         fill="none" stroke="black" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
                     </svg>
                 </button>
-            </div>
+
+            </form>
 
             <div class="header-icons">
                 <% if (user == null) { %>
@@ -94,17 +104,17 @@
     <section class="card profile" aria-labelledby="profile-title">
         <h2 id="profile-title" class="sr-only">Tóm tắt hồ sơ</h2>
 
-        <div class="avatar-wrap">
-            <img id="avatarImg" src="${pageContext.request.contextPath}/Images/Profile/ball.png" class="avatar"
-                 alt="Ảnh đại diện người dùng"/>
+        <img id="avatarImg"
+             src="${pageContext.request.contextPath}/${sessionScope.user.avatar != null ? sessionScope.user.avatar : 'Images/Profile/ball.png'}"
+             class="avatar" />
             <input type="file" id="avatarUpload" accept="image/*" style="display:none"/>
             <label for="avatarUpload" class="btn small">Đổi ảnh</label>
         </div>
 
         <div class="profile-info">
-            <p class="name">Tên hiển thị</p>
-            <p class="email">email@example.com</p>
-            <p class="phone">(+84) 0123 456 789</p>
+            <p class="name">${sessionScope.user.displayName}</p>
+            <p class="email">${sessionScope.user.email}</p>
+            <p class="phone">${sessionScope.user.phone}</p>
         </div>
         <div class="history-actions">
             <a href="${pageContext.request.contextPath}/OrderHistory" class="btn primary">Xem lịch sử đơn hàng</a>
@@ -115,81 +125,85 @@
     <!-- Form chỉnh sửa thông tin -->
     <section class="card" aria-labelledby="edit-title">
         <h2 id="edit-title">Chỉnh sửa thông tin</h2>
-        <form novalidate>
+        <form action="${pageContext.request.contextPath}/UpdateProfile"
+              method="post">
+
             <div class="form-grid">
 
                 <div class="field">
-                    <label for="fullName">Họ và tên <span class="req">*</span></label>
-                    <input id="fullName" type="text" placeholder="Họ và tên" required/>
-                    <small class="error"> </small>
+                    <label>Họ và tên *</label>
+                    <input type="text" name="fullName"
+                           value="${sessionScope.user.fullName}" required/>
                 </div>
 
                 <div class="field">
-                    <label for="email">Email <span class="req">*</span></label>
-                    <input id="email" type="email" placeholder="email@example.com" required/>
-                    <small class="error"></small>
+                    <label>Email *</label>
+                    <input type="email"
+                           value="${sessionScope.user.email}"
+                           readonly/>
                 </div>
 
                 <div class="field">
-                    <label for="phone">Số điện thoại</label>
-                    <input id="phone" type="tel" placeholder="0123 456 789"/>
-                    <small class="error"></small>
+                    <label>Số điện thoại</label>
+                    <input type="tel" name="phone"
+                           value="${sessionScope.user.phone}"/>
                 </div>
 
                 <div class="field">
-                    <label for="birthday">Ngày sinh</label>
-                    <input id="birthday" type="date" placeholder="2000-01-01"/>
+                    <label>Ngày sinh</label>
+                    <input type="date" name="birthDate"
+                           value="${sessionScope.user.birthDate}"/>
                 </div>
 
                 <div class="field">
-                    <label for="gender">Giới tính</label>
-                    <select id="gender">
-                        <option value="" selected>-- Chọn --</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                        <option value="other">Khác</option>
+                    <label>Giới tính</label>
+                    <select name="gender">
+                        <option value="0" ${sessionScope.user.gender == 0 ? 'selected' : ''}>-- Chọn --</option>
+                        <option value="1" ${sessionScope.user.gender == 1 ? 'selected' : ''}>Nam</option>
+                        <option value="2" ${sessionScope.user.gender == 2 ? 'selected' : ''}>Nữ</option>
+                        <option value="3" ${sessionScope.user.gender == 3 ? 'selected' : ''}>Khác</option>
                     </select>
                 </div>
 
                 <div class="field span-2">
-                    <label for="address">Địa chỉ</label>
-                    <textarea id="address" rows="3" placeholder="123 Đường ABC, Quận 1, TP.HCM"></textarea>
+                    <label>Địa chỉ</label>
+                    <textarea name="address">${sessionScope.user.address}</textarea>
                 </div>
             </div>
 
             <div class="form-actions">
-                <button type="button" class="btn primary disabled">Lưu thay đổi</button>
+                <button type="submit" class="btn primary">Lưu thay đổi</button>
             </div>
         </form>
+
     </section>
 
 
     <!-- Khu vực bảo mật -->
     <section class="card" aria-labelledby="security-title">
         <h2 id="security-title">Bảo mật</h2>
-        <form action="${pageContext.request.contextPath}/Profile" method="post">
-            <input type="hidden" name="action" value="changePassword"/>
+        <form action="${pageContext.request.contextPath}/ChangePassword" method="post">
 
             <div class="field">
-                <label for="currentPassword">Mật khẩu hiện tại</label>
-                <input id="currentPassword" type="password"/>
+                <label>Mật khẩu hiện tại</label>
+                <input type="password" name="currentPassword" required/>
             </div>
 
             <div class="field">
-                <label for="newPassword">Mật khẩu mới</label>
-                <input id="newPassword" type="password"/>
+                <label>Mật khẩu mới</label>
+                <input type="password" name="newPassword" required/>
             </div>
 
             <div class="field">
-                <label for="confirmPassword">Nhập lại mật khẩu</label>
-                <input id="confirmPassword" type="password"/>
-                <small class="error"></small>
+                <label>Nhập lại mật khẩu</label>
+                <input type="password" name="confirmPassword" required/>
             </div>
 
             <div class="form-actions">
-                <button type="button" id="changePassBtn" class="btn">Đổi mật khẩu</button>
+                <button type="submit" class="btn">Đổi mật khẩu</button>
             </div>
         </form>
+
 
         <form action="${pageContext.request.contextPath}/Profile" method="post">
             <div class="form-actions">
@@ -203,7 +217,7 @@
     </section>
 </main>
 
-<script src="../src/main/webapp/JavaScript/Profile.js"></script>
+<script src="${pageContext.request.contextPath}/JavaScript/Profile.js"></script>
 <!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-inner">

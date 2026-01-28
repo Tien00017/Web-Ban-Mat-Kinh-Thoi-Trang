@@ -4,6 +4,9 @@
 <%
     User user = (User) session.getAttribute("user");
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -32,22 +35,32 @@
             </a>
             <nav class="main-nav" aria-label="Chính">
                 <a href="${pageContext.request.contextPath}/Home" class="active">Trang chủ</a>
-                <a href="${pageContext.request.contextPath}/About"  > Giới thiệu </a>
+                <a href="${pageContext.request.contextPath}/About"> Giới thiệu </a>
                 <a href="Contact.html">Liên hệ</a>
             </nav>
         </div>
 
         <div class="header-right">
-            <div class="search-wrap">
-                <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
-                <button class="search-btn" aria-label="Tìm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <form class="search-wrap"
+                  action="${pageContext.request.contextPath}/Search"
+                  method="get">
+
+                <input type="search"
+                       name="keyword"
+                       placeholder="Tìm kiếm sản phẩm, mã..."
+                       aria-label="Tìm kiếm"
+                       required>
+
+                <button class="search-btn" type="submit" aria-label="Tìm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         fill="none" stroke="black" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
                     </svg>
                 </button>
-            </div>
+
+            </form>
 
             <div class="header-icons">
                 <% if (user == null) { %>
@@ -102,24 +115,16 @@
             <button class="slide-btn prev">&#10094;</button>
 
             <div class="news-track">
-                <article class="news-card">
-                    <a href="News&Event.html">
-                        <img src="${pageContext.request.contextPath}/Images/News&Event/Banner1.jpg">
-                    </a>
-                </article>
-
-                <article class="news-card">
-                    <a href="News&Event.html">
-                        <img src="${pageContext.request.contextPath}/Images/News&Event/Banner2.jpg">
-
-                    </a>
-                </article>
-
-                <article class="news-card">
-                    <a href="News&Event.html">
-                        <img src="${pageContext.request.contextPath}/Images/News&Event/Banner3.jpg">
-                    </a>
-                </article>
+                <c:forEach var="promo" items="${promotions}">
+                    <c:forEach var="banner" items="${bannerMap[promo.id]}">
+                        <article class="news-card">
+                            <a href="${pageContext.request.contextPath}/NewsEvent?id=${promo.id}">
+                                <img src="${pageContext.request.contextPath}${banner.imageUrl}"
+                                     alt="${promo.title}">
+                            </a>
+                        </article>
+                    </c:forEach>
+                </c:forEach>
             </div>
 
             <button class="slide-btn next">&#10095;</button>
@@ -132,118 +137,67 @@
 
     <!-- FEATURED PRODUCTS BY CATEGORY -->
     <section class="featured">
-        <h2>Sản phẩm nổi bật</h2>
+        <h2>Sản phẩm bán chạy</h2>
 
         <div class="feature-category">
-            <h3>Kính mát</h3>
             <div class="product-grid">
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhMat1.jpg">
-                        <h4>Kính mát A</h4>
-                        <p class="price">499,000 VNĐ</p>
-                    </a>
-                </div>
+                <c:forEach var="p" items="${bestSellingProducts}">
+                    <div class="product-card">
 
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhMat2.jpg">
-                        <h4>Kính mát B</h4>
-                        <p class="price">699,000 VNĐ</p>
-                    </a>
-                </div>
+                        <c:set var="img" value="${bestSellingImages[p.id]}"/>
 
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhMat3.jpg">
-                        <h4>Kính mát C</h4>
-                        <p class="price">899,000 VNĐ</p>
-                    </a>
-                </div>
+                        <c:choose>
+                            <c:when test="${img != null}">
+                                <img src="${img.imageUrl}" alt="${p.productName}">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/Images/no-image.png"
+                                     alt="No image">
+                            </c:otherwise>
+                        </c:choose>
+
+                        <h4>${p.productName}</h4>
+
+                        <!-- ===== PRICE ===== -->
+                        <div class="price-box">
+                            <c:choose>
+
+                                <%-- CÓ GIẢM GIÁ --%>
+                                <c:when test="${salePriceMap[p.id] != null}">
+                                    <p class="price-old">
+                                        <del>
+                                            <fmt:formatNumber value="${p.price}"
+                                                              type="number"
+                                                              groupingUsed="true"/> VNĐ
+                                        </del>
+                                    </p>
+                                    <p class="price-sale">
+                                        <fmt:formatNumber value="${salePriceMap[p.id]}"
+                                                          type="number"
+                                                          groupingUsed="true"/> VNĐ
+                                    </p>
+                                </c:when>
+
+                                <%-- KHÔNG GIẢM GIÁ --%>
+                                <c:otherwise>
+                                    <p class="price">
+                                        <fmt:formatNumber value="${p.price}"
+                                                          type="number"
+                                                          groupingUsed="true"/> VNĐ
+                                    </p>
+                                </c:otherwise>
+
+                            </c:choose>
+                        </div>
+
+                        <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
+                           class="try-btn">
+                            Xem sản phẩm
+                        </a>
+                    </div>
+                </c:forEach>
             </div>
         </div>
-
-        <div class="feature-category">
-            <h3>Kính cận</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhCan1.jpg">
-                        <h4>Kính cận A</h4>
-                        <p class="price">299,000 VNĐ</p>
-                    </a>
-                </div>
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhCan2.png">
-                        <h4>Kính cận B</h4>
-                        <p class="price">399,000 VNĐ</p>
-                    </a>
-                </div>
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhCan3.png">
-                        <h4>Kính cận C</h4>
-                        <p class="price">549,000 VNĐ</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="feature-category">
-            <h3>Kính áp tròng</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhApTrong1.jpg">
-                        <h4>Áp tròng A</h4>
-                        <p class="price">199,000 VNĐ</p>
-                    </a>
-                </div>
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhApTrong2.jpg">
-                        <h4>Áp tròng B</h4>
-                        <p class="price">249,000 VNĐ</p>
-                    </a>
-                </div>
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/KinhApTrong3.jpg">
-                        <h4>Áp tròng C</h4>
-                        <p class="price">299,000 VNĐ</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="feature-category">
-            <h3>Gọng kính</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/GongKinh1.png">
-                        <h4>Gọng A</h4>
-                        <p class="price">159,000 VNĐ</p>
-                    </a>
-                </div>
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/GongKinh2.jpg">
-                        <h4>Gọng B</h4>
-                        <p class="price">219,000 VNĐ</p>
-                    </a>
-                </div>
-                <div class="product-card">
-                    <a href="ProductDetail.html" class="product-card">
-                        <img src="${pageContext.request.contextPath}/Images/HomePage/GongKinh3.png">
-                        <h4>Gọng C</h4>
-                        <p class="price">279,000 VNĐ</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-
     </section>
 
 </main>
