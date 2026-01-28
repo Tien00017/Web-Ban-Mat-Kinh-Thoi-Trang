@@ -83,7 +83,7 @@ public class AdminProductDAO extends BaseDAO {
             ps.setInt(1, p.getCategoryId());
             ps.setString(2, p.getProductName());
             ps.setString(3, p.getBrand());
-            ps.setLong(4, p.getPrice());
+            ps.setDouble(4, p.getPrice());
             ps.setInt(5, p.getStock());
             ps.setString(6, p.getOrigin());
             ps.setString(7, p.getGeneralDescription());
@@ -99,7 +99,6 @@ public class AdminProductDAO extends BaseDAO {
             e.printStackTrace();
         }
     }
-}
 
     /* =========================
        XÓA SẢN PHẨM (XÓA MỀM)

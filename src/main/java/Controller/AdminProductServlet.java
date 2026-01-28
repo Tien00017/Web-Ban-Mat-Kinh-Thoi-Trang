@@ -1,4 +1,4 @@
-package Controller.Admin;
+package Controller;
 
 import Model.Object.Product;
 import Model.Service.AdminProductService;
@@ -38,6 +38,6 @@ public class AdminProductServlet extends HttpServlet {
         // HIỂN THỊ DANH SÁCH
         List<Product> list = productService.getAllProducts();
         req.setAttribute("products", list);
-        req.getRequestDispatcher("/AdminProduct.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminProduct.jsp").forward(req, resp);
     }
 }

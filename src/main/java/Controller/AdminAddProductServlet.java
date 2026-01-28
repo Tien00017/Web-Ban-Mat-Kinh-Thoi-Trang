@@ -1,4 +1,4 @@
-package Controller.Admin;
+package Controller;
 
 import Model.Object.Product;
 import Model.Service.AdminAddProductService;
@@ -47,7 +47,7 @@ public class AdminAddProductServlet extends HttpServlet {
             req.setAttribute("mode", "add");
         }
 
-        req.getRequestDispatcher("/AdminAddProduct.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminProduct.jsp").forward(req, resp);
     }
 
     /* =========================
