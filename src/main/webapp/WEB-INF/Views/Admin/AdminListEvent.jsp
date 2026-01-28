@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -58,13 +59,17 @@
                 <tr>
                     <td>${e.id}</td>
                     <td>
-                        <c:if test="${not empty e.mainBannerUrl}">
+                        <c:set var="banner" value="${mainBannerMap[e.id]}" />
+
+                        <c:if test="${not empty banner}">
                             <c:set var="src"
-                                   value="${(e.mainBannerUrl.startsWith('http') || e.mainBannerUrl.startsWith('data:'))
-                                            ? e.mainBannerUrl
-                                            : pageContext.request.contextPath.concat('/').concat(e.mainBannerUrl)}"/>
+                                   value="${(banner.startsWith('http') || banner.startsWith('data:'))
+                        ? banner
+                        : pageContext.request.contextPath.concat('/').concat(banner)}"/>
+
                             <img src="${src}" alt="banner"
-                                 style="width:90px;height:48px;object-fit:cover;border-radius:10px;border:1px solid #e6e8f2;">
+                                 style="width:90px;height:48px;object-fit:cover;
+                    border-radius:10px;border:1px solid #e6e8f2;">
                         </c:if>
                     </td>
                     <td>${e.title}</td>

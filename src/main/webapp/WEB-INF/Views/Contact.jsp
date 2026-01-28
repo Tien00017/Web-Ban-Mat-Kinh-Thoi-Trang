@@ -30,26 +30,16 @@
         </div>
 
         <div class="header-right">
-            <form class="search-wrap"
-                  action="${pageContext.request.contextPath}/Search"
-                  method="get">
-
-                <input type="search"
-                       name="keyword"
-                       placeholder="Tìm kiếm sản phẩm, mã..."
-                       aria-label="Tìm kiếm"
-                       required>
-
-                <button class="search-btn" type="submit" aria-label="Tìm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                         fill="none" stroke="black" stroke-width="2"
-                         stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <div class="search-wrap">
+                <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
+                <button class="search-btn" aria-label="Tìm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                         <circle cx="8" cy="8" r="6"/>
                         <line x1="18" y1="18" x2="13.65" y2="13.65"/>
                     </svg>
                 </button>
-
-            </form>
+            </div>
 
             <div class="header-icons">
                 <a href="${pageContext.request.contextPath}/Cart" aria-label="Giỏ hàng">

@@ -34,7 +34,7 @@
             <nav class="main-nav" aria-label="Chính">
                 <a href="${pageContext.request.contextPath}/Home" class="active">Trang chủ</a>
                 <a href="${pageContext.request.contextPath}/About">Giới thiệu</a>
-                <a href="${pageContext.request.contextPath}/Contact">Liên hệ</a>
+                <a href=${pageContext.request.contextPath}/Contact">Liên hệ</a>
             </nav>
         </div>
 

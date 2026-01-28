@@ -32,7 +32,7 @@
             <nav class="main-nav" aria-label="Chính">
                 <a href="${pageContext.request.contextPath}/Home" >Trang chủ</a>
                 <a href="${pageContext.request.contextPath}/About" class="active" > Giới thiệu </a>
-                <a href="Contact.html">Liên hệ</a>
+                <a href="${pageContext.request.contextPath}/Contact">Liên hệ</a>
             </nav>
         </div>
 
