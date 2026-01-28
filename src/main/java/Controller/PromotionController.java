@@ -4,13 +4,20 @@ import Model.Object.Product;
 import Model.Object.Promotion;
 import Model.Service.PromotionService;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
+import java.nio.file.*;
 import java.sql.Date;
 import java.util.List;
 
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 5 * 1024 * 1024,
+        maxRequestSize = 10 * 1024 * 1024
+)
 @WebServlet("/admin/event/*")
 public class PromotionController extends HttpServlet {
 
@@ -37,7 +44,7 @@ public class PromotionController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
+            throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
         String action = req.getPathInfo();
@@ -85,6 +92,11 @@ public class PromotionController extends HttpServlet {
         req.setAttribute("products", products);
         req.setAttribute("selectedProductIds", selectedProductIds);
 
+        String mainBannerUrl = promotionService.getMainBannerUrl(id);
+        List<String> extraBannerUrls = promotionService.getExtraBannerUrls(id);
+        req.setAttribute("mainBannerUrl", mainBannerUrl);
+        req.setAttribute("extraBannerUrls", extraBannerUrls);
+
         req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminEditEvent.jsp")
                 .forward(req, resp);
     }
@@ -100,33 +112,62 @@ public class PromotionController extends HttpServlet {
         return pids;
     }
 
-    private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void create(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
 
-        Promotion p = new Promotion();
-        p.setTitle(req.getParameter("title"));
-        p.setContent(req.getParameter("content"));
-        p.setStartDate(Date.valueOf(req.getParameter("startDate")));
-        p.setEndDate(Date.valueOf(req.getParameter("endDate")));
-        p.setDiscountType(req.getParameter("discountType"));
-
-        String dv = req.getParameter("discountValue");
-        if (dv == null || dv.trim().isEmpty()) dv = "0";
-        p.setDiscountValue(Double.parseDouble(dv));
-
-        p.setStatus("ACTIVE");
+        Promotion p = buildPromotionFromRequest(req, false);
 
         int[] productIds = parseProductIds(req);
-        promotionService.createPromotionWithProducts(p, productIds);
+
+        // banner: ưu tiên file, nếu không có file thì dùng URL nhập
+        String mainBannerUrl = req.getParameter("mainBannerUrl");
+        Part mainBannerFile = req.getPart("mainBannerFile");
+
+        String mainBannerPath = saveBannerFile(mainBannerFile, req);
+        if (mainBannerPath == null || mainBannerPath.isBlank()) {
+            mainBannerPath = (mainBannerUrl == null) ? "" : mainBannerUrl.trim();
+        }
+
+        String[] bannerUrls = req.getParameterValues("bannerUrls");
+
+        // ✅ chỉ gọi 1 lần, không insert 2 lần
+        promotionService.createPromotionWithProductsAndBanners(p, productIds, mainBannerPath, bannerUrls);
+        System.out.println("bannerUrls=" + (bannerUrls == null ? "null" : bannerUrls.length));
+        resp.sendRedirect(req.getContextPath() + "/admin/event/list");
+    }
+
+    private void update(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
+
+        Promotion p = buildPromotionFromRequest(req, true);
+
+        int[] productIds = parseProductIds(req);
+
+        String mainBannerUrl = req.getParameter("mainBannerUrl");
+        Part mainBannerFile = req.getPart("mainBannerFile");
+
+        String mainBannerPath = saveBannerFile(mainBannerFile, req);
+        if (mainBannerPath == null || mainBannerPath.isBlank()) {
+            mainBannerPath = (mainBannerUrl == null) ? "" : mainBannerUrl.trim();
+        }
+
+        String[] bannerUrls = req.getParameterValues("bannerUrls");
+
+        promotionService.updatePromotionWithProductsAndBanners(p, productIds, mainBannerPath, bannerUrls);
 
         resp.sendRedirect(req.getContextPath() + "/admin/event/list");
     }
 
-    private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        int promotionId = Integer.parseInt(req.getParameter("id"));
-
+    private Promotion buildPromotionFromRequest(HttpServletRequest req, boolean isUpdate) {
         Promotion p = new Promotion();
-        p.setId(promotionId);
+
+        if (isUpdate) {
+            p.setId(Integer.parseInt(req.getParameter("id")));
+            p.setStatus(req.getParameter("status"));
+        } else {
+            p.setStatus("ACTIVE");
+        }
+
         p.setTitle(req.getParameter("title"));
         p.setContent(req.getParameter("content"));
         p.setStartDate(Date.valueOf(req.getParameter("startDate")));
@@ -137,17 +178,40 @@ public class PromotionController extends HttpServlet {
         if (dv == null || dv.trim().isEmpty()) dv = "0";
         p.setDiscountValue(Double.parseDouble(dv));
 
-        p.setStatus(req.getParameter("status"));
-
-        int[] productIds = parseProductIds(req);
-        promotionService.updatePromotionWithProducts(p, productIds);
-
-        resp.sendRedirect(req.getContextPath() + "/admin/event/list");
+        return p;
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         promotionService.deletePromotion(id);
         resp.sendRedirect(req.getContextPath() + "/admin/event/list");
+    }
+
+    private String saveBannerFile(Part filePart, HttpServletRequest req) throws IOException {
+        if (filePart == null || filePart.getSize() == 0) return null;
+
+        String contentType = filePart.getContentType();
+        if (contentType == null || !contentType.startsWith("image/")) return null;
+
+        String submitted = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+        String ext = "";
+        int dot = submitted.lastIndexOf('.');
+        if (dot >= 0) ext = submitted.substring(dot).toLowerCase();
+        if (!(ext.equals(".png") || ext.equals(".jpg") || ext.equals(".jpeg") || ext.equals(".webp"))) {
+            ext = ".jpg";
+        }
+
+        String fileName = "banner_" + System.currentTimeMillis() + ext;
+
+        String uploadDir = req.getServletContext().getRealPath("/Uploads/Banners");
+        Files.createDirectories(Paths.get(uploadDir));
+
+        Path savePath = Paths.get(uploadDir, fileName);
+        try (var in = filePart.getInputStream()) {
+            Files.copy(in, savePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        return "Uploads/Banners/" + fileName;
     }
 }

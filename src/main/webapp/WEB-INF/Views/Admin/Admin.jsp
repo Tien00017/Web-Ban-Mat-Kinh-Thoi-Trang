@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+=
 
 <!doctype html>
 <html lang="vi">
@@ -8,6 +10,7 @@
     <title>Admin Dashboard — Mắt kính Nông Lâm</title>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/CSS/StyleOfAdmin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -27,7 +30,7 @@
             <a href="${pageContext.request.contextPath}/AdminAddProduct">Thêm sản phẩm</a>
             <a href="${pageContext.request.contextPath}/AdminOrders">Quản lí đơn hàng</a>
             <a href="${pageContext.request.contextPath}/AdminAccount">Quản lí tài khoản</a>
-            <a href="${pageContext.request.contextPath}/AdminListEvent" >Quản lí sự kiện</a>
+            <a href="${pageContext.request.contextPath}/admin/event/list">Quản lí sự kiện</a>
             <a href="${pageContext.request.contextPath}/AdminContact">Liên hệ</a>
         </nav>
 
@@ -36,44 +39,56 @@
         </div>
     </aside>
 
-
     <!-- MAIN -->
     <section class="admin-main">
-        <div class="topbar">
 
+        <div class="topbar">
             <div class="top-actions">
                 <div class="admin-info">
                     <div class="admin-text">
-                        <div class="name">Admin 1</div>
+                        <div class="name">Admin</div>
                     </div>
                     <img src="${pageContext.request.contextPath}/Images/Profile/ball.png" class="avatar">
                 </div>
             </div>
         </div>
 
-        <div class="page-title">
-            <h1>Dashboard</h1>
-            <div class="title-actions">
-                <button class="btn ghost">Export CSV</button>
-            </div>
-        </div>
-
+        <!-- STATS -->
         <div class="grid">
             <div class="card">
-                <div class="stat-big">125,400,000 VNĐ</div>
-                <div class="stat-muted">Doanh thu</div>
+                <div class="stat-big">${stats.revenue} VNĐ</div>
+                <div class="stat-muted">Doanh thu (Hoàn tất)</div>
             </div>
             <div class="card">
-                <div class="stat-big">1,248</div>
+                <div class="stat-big">${stats.totalOrders}</div>
                 <div class="stat-muted">Tổng số đơn</div>
             </div>
             <div class="card">
-                <div class="stat-big">277</div>
-                <div class="stat-muted">Khách hàng mới</div>
+                <div class="stat-big">${stats.newCustomers}</div>
+                <div class="stat-muted">Khách hàng mới (30 ngày)</div>
             </div>
         </div>
 
-        <div class="content">
+        <!-- CHARTS -->
+        <div class="charts-grid">
+
+            <!-- Revenue line -->
+            <div class="card chart-card">
+                <h3 style="margin-bottom:10px;">Doanh thu 7 ngày gần nhất</h3>
+                <canvas id="revChart"></canvas>
+            </div>
+
+            <!-- Order status pie/doughnut -->
+            <div class="card chart-card">
+                <h3 style="margin-bottom:10px;">Tỉ lệ trạng thái đơn</h3>
+                <canvas id="statusChart"></canvas>
+            </div>
+
+        </div>
+
+
+        <!-- RECENT ORDERS -->
+        <div class="content" style="margin-top:16px;">
             <div class="left">
                 <h3>Đơn hàng mới</h3>
 
@@ -87,54 +102,38 @@
                         <th>SỐ LƯỢNG</th>
                         <th>TRẠNG THÁI</th>
                         <th>TỔNG</th>
-                        <th></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td>OD1023</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>0978276791</td>
-                        <td>Kính Cận C07</td>
-                        <td>1</td>
-                        <td><span class="stock-low">Chờ xử lý</span></td>
-                        <td>1,250,000VNĐ</td>
-                        <td class="text-right">
-                        </td>
-                    </tr>
+                    <c:forEach var="o" items="${stats.recentOrders}">
+                        <tr>
+                            <td>OD${o.id}</td>
+                            <td>${o.name}</td>
+                            <td>${o.phone}</td>
+                            <td>${o.productsSummary}</td>
+                            <td>${o.totalQty}</td>
+                            <td>
+                                <span class="${o.status == 'Chờ xử lý' ? 'stock-low' : (o.status == 'Đã hủy' ? 'stock-out' : 'stock-high')}">
+                                        ${o.status}
+                                </span>
+                            </td>
+                            <td>${o.totalAmount} VNĐ</td>
+                        </tr>
+                    </c:forEach>
 
-                    <tr>
-                        <td>OD1047</td>
-                        <td>Trần Thị B</td>
-                        <td>0813939729</td>
-                        <td>Kính Mát R27</td>
-                        <td>1</td>
-                        <td><span class="stock-high">Hoàn tất</span></td>
-                        <td>990,000 VNĐ</td>
-                        <td class="text-right">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>OD1033</td>
-                        <td>Phạm C</td>
-                        <td>0385667219</td>
-                        <td>Kính Áp Tròng</td>
-                        <td>1</td>
-                        <td><span class="stock-out ">Đã hủy</span></td>
-                        <td>320,000 VNĐ</td>
-                        <td class="text-right">
-                        </td>
-                    </tr>
+                    <c:if test="${empty stats.recentOrders}">
+                        <tr>
+                            <td colspan="7" class="muted">Chưa có đơn hàng.</td>
+                        </tr>
+                    </c:if>
                     </tbody>
                 </table>
             </div>
-
-
         </div>
 
-        <div class="card">
+        <!-- RECENT PRODUCTS -->
+        <div class="card" style="margin-top:16px;">
             <h3>Danh sách sản phẩm mới</h3>
 
             <table>
@@ -150,62 +149,99 @@
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td class="prod-info">
-                        <img class="admin-thumb" src="${pageContext.request.contextPath}/Images/KinhCan/KinhCan3.png">
-                        <div>
-                            <div class="fw">Kính Cận C07</div>
-                            <div class="muted small-text">Mã: C07</div>
-                        </div>
-                    </td>
-                    <td>Kính Cận</td>
-                    <td>1,250,000 </td>
-                    <td>120</td>
-                    <td><span class="stock-high">Nhiều</span></td>
-                    <td class="text-right">
-                        <button class="btn ghost">Sửa</button>
-                    </td>
-                </tr>
+                <c:forEach var="p" items="${stats.recentProducts}">
+                    <tr>
+                        <td class="prod-info">
+                            <img class="admin-thumb"
+                                 src="${p.imageUrl}"
+                                 alt="${p.productName}">
+                            <div>
+                                <div class="fw">${p.productName}</div>
+                                <div class="muted small-text">ID: ${p.id}</div>
+                            </div>
+                        </td>
 
-                <tr>
-                    <td class="prod-info">
-                        <img class="admin-thumb" src="${pageContext.request.contextPath}/Images/KinhMat/KinhMat1.jpg">
-                        <div>
-                            <div class="fw">Kính Mát R15</div>
-                            <div class="muted small-text">Mã: R15</div>
-                        </div>
-                    </td>
-                    <td>Kính Mát</td>
-                    <td>990,000</td>
-                    <td>0</td>
-                    <td><span class="stock-out">Hết</span></td>
-                    <td class="text-right">
-                        <button class="btn ghost">Sửa</button>
-                    </td>
-                </tr>
+                        <td>${p.categoryId}</td>
+                        <td>${p.price}</td>
+                        <td>${p.stock}</td>
+                        <td>
+                            <span class="${p.stock == 0 ? 'stock-out' : (p.stock < 10 ? 'stock-low' : 'stock-high')}">
+                                    ${p.stock == 0 ? 'Hết' : (p.stock < 10 ? 'Ít' : 'Nhiều')}
+                            </span>
+                        </td>
+                        <td class="text-right">
+                            <a class="btn ghost" href="${pageContext.request.contextPath}/AdminProduct">Sửa</a>
+                        </td>
+                    </tr>
+                </c:forEach>
 
-                <tr>
-                    <td class="prod-info">
-                        <img class=" admin-thumb" src="${pageContext.request.contextPath}/Images/KinhMat/KinhMat2.jpg">
-                        <div>
-                            <div class="fw">Kính Mát R27</div>
-                            <div class="muted small-text">Mã: R27</div>
-                        </div>
-                    </td>
-                    <td>Kính Mát</td>
-                    <td>990,000</td>
-                    <td>10</td>
-                    <td><span class="stock-low">Ít</span></td>
-                    <td class="text-right">
-                        <button class="btn ghost">Sửa</button>
-                    </td>
-                </tr>
+                <c:if test="${empty stats.recentProducts}">
+                    <tr>
+                        <td colspan="6" class="muted">Chưa có sản phẩm.</td>
+                    </tr>
+                </c:if>
                 </tbody>
             </table>
         </div>
 
     </section>
-
 </div>
+<script>
+    const revLabels = [
+        <c:forEach var="l" items="${stats.revenueLabels}" varStatus="st">
+        "${l}"<c:if test="${!st.last}">, </c:if>
+        </c:forEach>
+    ];
+    const revValues = [
+        <c:forEach var="v" items="${stats.revenueValues}" varStatus="st">
+        ${v}<c:if test="${!st.last}">, </c:if>
+        </c:forEach>
+    ];
+
+    new Chart(document.getElementById('revChart'), {
+        type: 'line',
+        data: {
+            labels: revLabels,
+            datasets: [{
+                label: 'Doanh thu (VNĐ)',
+                data: revValues,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {legend: {display: true}},
+            scales: {y: {beginAtZero: true}}
+        }
+    });
+
+    // ===== Order status chart =====
+    const stLabels = [
+        <c:forEach var="l" items="${stats.orderStatusLabels}" varStatus="st">
+        "${l}"<c:if test="${!st.last}">, </c:if>
+        </c:forEach>
+    ];
+    const stValues = [
+        <c:forEach var="v" items="${stats.orderStatusValues}" varStatus="st">
+        ${v}<c:if test="${!st.last}">, </c:if>
+        </c:forEach>
+    ];
+
+    new Chart(document.getElementById('statusChart'), {
+        type: 'doughnut',
+        data: {
+            labels: stLabels,
+            datasets: [{
+                data: stValues
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {legend: {position: 'bottom'}}
+        }
+    });
+</script>
 </body>
 </html>

@@ -74,7 +74,16 @@ public class PromotionDAO extends BaseDAO {
     }
     public List<Promotion> findAll() {
         List<Promotion> list = new ArrayList<>();
-        String sql = "SELECT * FROM promotions ORDER BY id DESC";
+
+        String sql = """
+        SELECT p.*,
+               b.image_url AS main_banner_url
+        FROM promotions p
+        LEFT JOIN banners b
+               ON b.promotions_id = p.id
+              AND b.is_main = TRUE
+        ORDER BY p.id DESC
+    """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -106,9 +115,9 @@ public class PromotionDAO extends BaseDAO {
 
     public int insert(Promotion p) {
         String sql = """
-            INSERT INTO promotions (title, content, start_date, end_date, discount_type, discount_value, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """;
+                    INSERT INTO promotions (title, content, start_date, end_date, discount_type, discount_value, status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -134,11 +143,11 @@ public class PromotionDAO extends BaseDAO {
 
     public void update(Promotion p) {
         String sql = """
-            UPDATE promotions
-            SET title=?, content=?, start_date=?, end_date=?,
-                discount_type=?, discount_value=?, status=?
-            WHERE id=?
-        """;
+                    UPDATE promotions
+                    SET title=?, content=?, start_date=?, end_date=?,
+                        discount_type=?, discount_value=?, status=?
+                    WHERE id=?
+                """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -183,6 +192,7 @@ public class PromotionDAO extends BaseDAO {
             e.printStackTrace();
         }
     }
+
     public void deletePromotionProducts(int promotionId) {
         String sql = "DELETE FROM promotion_product WHERE promotion_id=?";
         try (Connection conn = DBConnection.getConnection();
@@ -195,11 +205,12 @@ public class PromotionDAO extends BaseDAO {
             e.printStackTrace();
         }
     }
+
     public int insertWithProducts(Promotion p, int[] productIds) {
         String insertPromotionSql = """
-        INSERT INTO promotions (title, content, start_date, end_date, discount_type, discount_value, status)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    """;
+                    INSERT INTO promotions (title, content, start_date, end_date, discount_type, discount_value, status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                """;
 
         String insertLinkSql = "INSERT INTO promotion_product (promotion_id, product_id) VALUES (?, ?)";
 
@@ -246,6 +257,7 @@ public class PromotionDAO extends BaseDAO {
             return -1;
         }
     }
+
     public List<Integer> getProductIdsByPromotionId(int promotionId) {
         List<Integer> ids = new ArrayList<>();
         String sql = "SELECT product_id FROM promotion_product WHERE promotion_id=?";
@@ -264,13 +276,14 @@ public class PromotionDAO extends BaseDAO {
 
         return ids;
     }
+
     public void updateWithProducts(Promotion p, int[] productIds) {
         String updatePromotionSql = """
-        UPDATE promotions
-        SET title=?, content=?, start_date=?, end_date=?,
-            discount_type=?, discount_value=?, status=?
-        WHERE id=?
-    """;
+                    UPDATE promotions
+                    SET title=?, content=?, start_date=?, end_date=?,
+                        discount_type=?, discount_value=?, status=?
+                    WHERE id=?
+                """;
 
         String deleteLinkSql = "DELETE FROM promotion_product WHERE promotion_id=?";
         String insertLinkSql = "INSERT INTO promotion_product (promotion_id, product_id) VALUES (?, ?)";
@@ -311,4 +324,76 @@ public class PromotionDAO extends BaseDAO {
             e.printStackTrace();
         }
     }
+
+    public void replaceBanners(int promotionId, String mainUrl, String[] extraUrls) {
+        String deleteSql = "DELETE FROM banners WHERE promotions_id = ?";
+        String insertSql = "INSERT INTO banners(promotions_id, image_url, is_main, created_at) VALUES (?, ?, ?, NOW())";
+
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps = conn.prepareStatement(deleteSql)) {
+                ps.setInt(1, promotionId);
+                ps.executeUpdate();
+            }
+
+            // main banner
+            if (mainUrl != null && !mainUrl.trim().isEmpty()) {
+                try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
+                    ps.setInt(1, promotionId);
+                    ps.setString(2, mainUrl.trim());
+                    ps.setBoolean(3, true);
+                    ps.executeUpdate();
+                }
+            }
+
+            // extra banners
+            if (extraUrls != null) {
+                try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
+                    for (String u : extraUrls) {
+                        if (u == null) continue;
+                        u = u.trim();
+                        if (u.isEmpty()) continue;
+                        ps.setInt(1, promotionId);
+                        ps.setString(2, u);
+                        ps.setBoolean(3, false);
+                        ps.addBatch();
+                    }
+                    ps.executeBatch();
+                }
+            }
+
+            conn.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getMainBannerUrl(int promotionId) {
+        String sql = "SELECT image_url FROM banners WHERE promotions_id=? AND is_main=true ORDER BY id DESC LIMIT 1";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, promotionId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getString(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public List<String> getExtraBannerUrls(int promotionId) {
+        List<String> list = new ArrayList<>();
+        String sql = "SELECT image_url FROM banners WHERE promotions_id=? AND (is_main=false OR is_main IS NULL) ORDER BY id DESC";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, promotionId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(rs.getString(1));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }
