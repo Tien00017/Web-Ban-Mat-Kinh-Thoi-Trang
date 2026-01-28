@@ -94,10 +94,10 @@
                             <td>
                                 <c:choose>
                                     <c:when test="${u.role == 1}">
-                                        <span class="tag pending">admin</span>
+                                        <span class="tag pending">user</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="tag success">user</span>
+                                        <span class="tag success">admin</span>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
@@ -114,8 +114,8 @@
                                     </select>
 
                                     <select name="role">
-                                        <option value="0" ${u.role == 0 ? 'selected' : ''}>user</option>
-                                        <option value="1" ${u.role == 1 ? 'selected' : ''}>admin</option>
+                                        <option value="0" ${u.role == 0 ? 'selected' : ''}>admin</option>
+                                        <option value="1" ${u.role == 1 ? 'selected' : ''}>user</option>
                                     </select>
 
                                     <button class="btn ghost" type="submit">Lưu</button>

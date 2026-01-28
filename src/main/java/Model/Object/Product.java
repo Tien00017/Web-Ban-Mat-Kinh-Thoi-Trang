@@ -16,6 +16,8 @@ public class Product {
     private int soldQuantity;
     private boolean deleted;
     private Timestamp createdAt;
+    private String categoryName;
+    private String mainImageUrl;
 
     public Product() {
     }
@@ -138,6 +140,22 @@ public class Product {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getMainImageUrl() {
+        return mainImageUrl;
+    }
+
+    public void setMainImageUrl(String mainImageUrl) {
+        this.mainImageUrl = mainImageUrl;
     }
 
     @Override

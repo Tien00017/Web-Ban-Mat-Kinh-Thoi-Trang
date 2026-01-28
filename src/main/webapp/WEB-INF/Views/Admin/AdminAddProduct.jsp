@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -36,55 +37,79 @@
     <div class="container">
         <h1 class="page-title">Thêm sản phẩm mới</h1>
 
-        <form class="add-form">
+        <form class="add-form"
+              action="${pageContext.request.contextPath}/AdminAddProduct"
+              method="post"
+              enctype="multipart/form-data">
 
-            <!-- Ảnh sản phẩm -->
+            <!-- Ảnh URL (tùy chọn) -->
             <div class="form-group full">
-                <label>Hình ảnh sản phẩm</label>
-                <input type="file" multiple>
-                <p class="note">* Có thể chọn nhiều ảnh</p>
+                <label>Ảnh chính (URL) - tùy chọn</label>
+                <input type="url" name="mainImageUrl" placeholder="https://...">
+                <p class="note">Nếu bạn upload ảnh file thì sẽ ưu tiên ảnh file.</p>
             </div>
 
-            <!-- Tên + giá -->
+            <!-- Upload ảnh file (tùy chọn, có thể nhiều ảnh) -->
+            <div class="form-group full">
+                <label>Upload ảnh sản phẩm (có thể chọn nhiều)</label>
+                <input type="file" name="images" multiple accept="image/*">
+                <p class="note">Ảnh đầu tiên sẽ được đặt làm ảnh chính.</p>
+            </div>
+
             <div class="form-group">
                 <label>Tên sản phẩm</label>
-                <input type="text" placeholder="Nhập tên sản phẩm">
+                <input type="text" name="productName" required>
             </div>
 
             <div class="form-group">
                 <label>Giá</label>
-                <input type="number" placeholder="Nhập giá (VNĐ)">
+                <input type="number" name="price" min="0" required>
             </div>
 
             <div class="form-group">
                 <label>Số lượng</label>
-                <input type="number" placeholder="Nhập số lượng">
+                <input type="number" name="stock" min="0" required>
             </div>
 
+            <div class="form-group">
+                <label>Thương hiệu</label>
+                <input type="text" name="brand">
+            </div>
 
             <div class="form-group">
-                <label>Loại</label>
-                <select class="productType" id="productType" onchange="showAttributes()">
-                    <option value="">Chọn danh mục cho sản phẩm</option>
-                    <option value="kinhcan">Kính cận</option>
-                    <option value="kinhmat">Kính mát</option>
-                    <option value="kinhaptrong">Kính áp tròng</option>
-                    <option value="gongkinh">Gọng kính</option>
+                <label>Xuất xứ</label>
+                <input type="text" name="origin">
+            </div>
+
+            <div class="form-group">
+                <label>Danh mục</label>
+                <select name="categoryId" required>
+                    <option value="">Chọn danh mục</option>
+                    <c:forEach var="c" items="${categories}">
+                        <option value="${c.id}">${c.categoryName}</option>
+                    </c:forEach>
                 </select>
             </div>
 
             <div class="form-group full">
-                <label>Mô tả sản phẩm</label>
-                <textarea rows="5" placeholder="Nhập mô tả chi tiết..."></textarea>
+                <label>Mô tả chi tiết</label>
+                <textarea name="generalDescription" rows="4"></textarea>
             </div>
 
-            <!--thay đổi theo loại sản phẩm-->
-            <div id="attributes" class="add-form"></div>
+            <div class="form-group full">
+                <label>Thông tin vận chuyển</label>
+                <textarea name="shippingInfo" rows="2"></textarea>
+            </div>
 
+            <div class="form-group full">
+                <label>Bảo hành</label>
+                <textarea name="guaranteeDetails" rows="2"></textarea>
+            </div>
 
             <button class="submit-btn" type="submit">Lưu sản phẩm</button>
-
         </form>
+
+
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/JavaScript/AdminAddProduct.js"></script>

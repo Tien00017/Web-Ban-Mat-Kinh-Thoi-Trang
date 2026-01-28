@@ -17,9 +17,12 @@ public class ProductImgDAO extends BaseDAO {
         Map<Integer, ProductImage> map = new HashMap<>();
         if (productIds.isEmpty()) return map;
 
-        String sql = "SELECT * FROM product_images WHERE is_main = true AND product_id IN ("
-                + productIds.stream().map(id -> "?").collect(Collectors.joining(","))
-                + ")";
+        String sql = "SELECT * FROM product_images " +
+                "WHERE is_main = true " +
+                "AND image_url NOT LIKE 'data:image/svg+xml%' " +
+                "AND product_id IN (" +
+                productIds.stream().map(id -> "?").collect(Collectors.joining(",")) +
+                ")";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -89,6 +92,18 @@ public class ProductImgDAO extends BaseDAO {
             e.printStackTrace();
         }
     }
+
+    public void unsetMainImages(int productId) {
+        String sql = "UPDATE product_images SET is_main = false WHERE product_id = ?";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, productId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
 
