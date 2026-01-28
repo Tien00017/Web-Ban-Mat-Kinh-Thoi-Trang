@@ -40,4 +40,14 @@ public class AdminProductServlet extends HttpServlet {
         req.setAttribute("products", list);
         req.getRequestDispatcher("/WEB-INF/Views/Admin/AdminProduct.jsp").forward(req, resp);
     }
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
+
+        String action = req.getParameter("action");
+        if ("delete".equals(action)) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            productService.deleteProduct(id);
+        }
+        resp.sendRedirect(req.getContextPath() + "/AdminProduct");
+    }
 }
