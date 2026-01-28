@@ -7,7 +7,11 @@ import java.util.List;
 
 public class ProductService {
 
-    private final ProductDAO productDAO = new ProductDAO();
+    private static final ProductDAO productDAO = new ProductDAO();
+
+    public static void updateQuantityAfterOrder(int productId, int quantity) {
+        productDAO.decreaseStockAndIncreaseSold(productId,quantity );
+    }
 
     public Product getProductDetail(int productId) {
         Product p = productDAO.getProductById(productId);
@@ -39,6 +43,22 @@ public class ProductService {
         int from = Math.max(0, (page - 1) * pageSize);
         int to = Math.min(from + pageSize, products.size());
         return products.subList(from, to);
+    }
+    public List<Product> search(String keyword) {
+    return productDAO.search(keyword);
+}
+
+
+    public int getStockQuantity(int productId) {
+        Product p = productDAO.getProductById(productId);
+        return p.getStock();
+    }
+    public List<Product> getBestSellingProducts(int limit) {
+        return productDAO.getBestSellingProducts(limit);
+    }
+
+    public Integer getSalePrice(int productId) {
+        return productDAO.getSalePrice(productId);
     }
 }
 

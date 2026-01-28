@@ -25,15 +25,30 @@
         </div>
 
         <div class="header-right">
-            <div class="search-wrap">
-                <input type="search" placeholder="Tìm kiếm sản phẩm, mã..." aria-label="Tìm kiếm">
-                <button class="search-btn" aria-label="Tìm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
-                        <circle cx="8" cy="8" r="6"/>
-                        <line x1="18" y1="18" x2="13.65" y2="13.65"/>
-                    </svg>
-                </button>
-            </div>
+           <form class="search-wrap"
+      action="/Search"
+      method="get">
+
+    <input type="search"
+           name="keyword"
+           placeholder="Tìm kiếm sản phẩm, mã..."
+           aria-label="Tìm kiếm"
+           required>
+
+    <button class="search-btn" type="submit" aria-label="Tìm">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="18" height="18"
+             fill="none" stroke="black"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             class="icon">
+            <circle cx="8" cy="8" r="6"/>
+            <line x1="18" y1="18" x2="13.65" y2="13.65"/>
+        </svg>
+    </button>
+
+</form>
 
             <div class="header-icons">
                 <a href="Cart.html" aria-label="Giỏ hàng">
@@ -81,24 +96,24 @@
             <button class="slide-btn prev">&#10094;</button>
 
             <div class="news-track">
-                <article class="news-card">
-                    <a href="News&Event.html">
-                        <img src="../src/main/webapp/Images/News&Event/Banner1.jpg" alt="">
-                    </a>
-                </article>
+    <article class="news-card">
+        <a href="News&Event.html#flash-sale">
+            <img src="../src/main/webapp/Images/News&Event/Banner1.jpg" alt="Flash Sale">
+        </a>
+    </article>
 
-                <article class="news-card">
-                    <a href="News&Event.html">
-                        <img src="../src/main/webapp/Images/News&Event/Banner2.jpg" alt="">
-                    </a>
-                </article>
+    <article class="news-card">
+        <a href="News&Event.html#tet-sale">
+            <img src="../src/main/webapp/Images/News&Event/Banner2.jpg" alt="Sự kiện Tết">
+        </a>
+    </article>
 
-                <article class="news-card">
-                    <a href="News&Event.html">
-                        <img src="../src/main/webapp/Images/News&Event/Banner3.jpg" alt="">
-                    </a>
-                </article>
-            </div>
+    <article class="news-card">
+        <a href="News&Event.html#summer-sale">
+            <img src="../src/main/webapp/Images/News&Event/Banner3.jpg" alt="Sale Mùa Hè">
+        </a>
+    </article>
+</div>
 
             <button class="slide-btn next">&#10095;</button>
 

@@ -7,20 +7,28 @@ public class Promotion {
     private int id;
     private String title;
     private String content;
-
     private Date startDate;
     private Date endDate;
-
     private String discountType;
     private double discountValue;
-
     private String status;
     private String mainBannerUrl;
 
     public Promotion() {
     }
 
-    // ===== Getter / Setter =====
+    public Promotion(int id, String title, String content, Date startDate,
+                     Date endDate, String discountType, double discountValue, String status) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.discountType = discountType;
+        this.discountValue = discountValue;
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }
@@ -85,11 +93,16 @@ public class Promotion {
         this.status = status;
     }
 
-    public String getMainBannerUrl() {
-        return mainBannerUrl;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Promotion that = (Promotion) o;
+        return id == that.id;
     }
 
-    public void setMainBannerUrl(String mainBannerUrl) {
-        this.mainBannerUrl = mainBannerUrl;
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
     }
 }

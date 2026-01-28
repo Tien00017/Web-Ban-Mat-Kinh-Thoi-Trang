@@ -42,21 +42,11 @@ public class PromotionService {
         promotionDAO.delete(id);
     }
 
-    public void createPromotionWithProductsAndBanners(Promotion p, int[] productIds, String mainBannerUrl, String[] bannerUrls) {
-        int promotionId = promotionDAO.insertWithProducts(p, productIds);
-        promotionDAO.replaceBanners(promotionId, mainBannerUrl, bannerUrls);
+    public Promotion findById(int promotionId) {
+        return promotionDAO.getById(promotionId);
+    }
+    public List<Promotion> getAllActive() {
+        return promotionDAO.getAllActive();
     }
 
-    public void updatePromotionWithProductsAndBanners(Promotion p, int[] productIds, String mainBannerUrl, String[] bannerUrls) {
-        promotionDAO.updateWithProducts(p, productIds);
-        promotionDAO.replaceBanners(p.getId(), mainBannerUrl, bannerUrls);
-    }
-
-    public String getMainBannerUrl(int promotionId) {
-        return promotionDAO.getMainBannerUrl(promotionId);
-    }
-
-    public List<String> getExtraBannerUrls(int promotionId) {
-        return promotionDAO.getExtraBannerUrls(promotionId);
-    }
 }
