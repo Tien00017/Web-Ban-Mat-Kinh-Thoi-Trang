@@ -26,4 +26,9 @@ public class ReviewService {
 
         reviewDAO.addReview(rev);
     }
+
+    public boolean hasReviewed(int userId, int productId) {
+        return reviewDAO.hasReviewed(userId, productId);
+    }
+
 }

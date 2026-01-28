@@ -1,141 +1,81 @@
-/* =========================================
-   FLASH BANNER
-========================================= */
+/* ================= FLASH BANNER (PURPLE THEME) ================= */
 .flash-banner {
-    width: 100%;
-    height: 420px; /* tùy chỉnh */
-    background-image: url('../Images/News&Event/Banner1.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    padding: 40px 20px;
+    border-radius: 20px;
+    margin: 30px auto;
+    max-width: 1200px;
+    color: #fff;
+    box-shadow: 0 18px 45px rgba(79,70,229,0.45);
     position: relative;
+    overflow: hidden;
 }
+
 .flash-banner::before {
     content: "";
     position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35); /* làm tối ảnh */
+    width: 320px;
+    height: 320px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    top: -120px;
+    right: -120px;
 }
+
 .flash-banner-inner {
-    position: relative; /* để nằm trên overlay */
-    color: white;
-    z-index: 2;
-    max-width: 80%;
-}
-
-.flash-banner-inner h1 {
-    font-size: 2.8rem;
-    margin-bottom: 16px;
-}
-.flash-banner-inner p {
-    font-size: 1.2rem;
-    margin-bottom: 24px;
-}
-.flash-countdown {
-    font-size: 1.5rem;
-    margin-bottom: 24px;
-    display: inline-block;
-    background: rgba(255,255,255,0.2);
-    padding: 12px 24px;
-    border-radius: 8px;
-}
-.flash-btn {
-    background: #fff;
-    color: #463AE8;
-    padding: 14px 28px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-}
-.flash-btn:hover {
-    background: #f0f0f5;
-}
-
-/* =========================================
-   FLASH ITEMS GRID
-========================================= */
-.flash-items {
-    text-align: center;
-    padding: 0 20px 40px;
-}
-.flash-items h2 {
-    font-size: 24px;
-    margin-bottom: 24px;
-}
-.flash-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-.flash-card {
-    background: #fff;
-    border-radius: var(--radius);
-    box-shadow: var(--card-shadow);
     position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+    z-index: 1;
+    text-align: center;
 }
-.flash-card:hover {
-    transform: translateY(-5px);
+.promo-title {
+    font-size: 36px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.25);
 }
-.flash-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-.flash-card h4 {
-    margin: 12px 0 8px;
+
+.promo-description {
     font-size: 16px;
+    opacity: 0.95;
+    max-width: 720px;
+    margin: 0 auto 25px;
+    line-height: 1.6;
 }
-.price-old {
-    text-decoration: line-through;
-    color: #999;
-    font-size: 14px;
-}
-.price-sale {
-    font-weight: 700;
-    color: #463AE8;
+.promo-discount {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.15);
+    padding: 12px 24px;
+    border-radius: 50px;
     font-size: 18px;
-    margin: 4px 0;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
 }
-.buy-now {
-    display: inline-block;
-    background: var(--accent);
+
+.promo-discount strong {
+    font-size: 28px;
+    color: #fde047; /* vàng nhẹ cho nổi */
+}
+.promo-time {
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+.promo-time strong {
     color: #fff;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-weight: bold;
-    margin-top: 8px;
 }
-.load-more-wrap {
-    margin-top: 32px;
-}
-.load-more-wrap .btn-outline {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid #463AE8;
-    color: #463AE8;
-    text-decoration: none;
-    font-weight: 600;
+.flash-banner {
+    animation: glow 2.5s infinite alternate;
 }
 
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-    .flash-grid {
-        grid-template-columns: repeat(2, 1fr);
+@keyframes glow {
+    from {
+        box-shadow: 0 18px 45px rgba(79,70,229,0.45);
     }
-}
-@media (max-width: 640px) {
-    .flash-grid {
-        grid-template-columns: 1fr;
-    }
-    .flash-banner-inner h1 {
-        font-size: 2rem;
+    to {
+        box-shadow: 0 22px 60px rgba(124,58,237,0.65);
     }
 }

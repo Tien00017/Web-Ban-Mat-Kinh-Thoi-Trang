@@ -380,13 +380,13 @@ html, body {
     font-size: 18px;
 }
 
-.js-qty {
-    width: 64px;
-    padding: 8px 10px;
-    border: 1px solid #cfd5e6;
-    border-radius: 8px;
-    text-align: center;
-}
+/*.js-qty {*/
+/*    width: 64px;*/
+/*    padding: 8px 10px;*/
+/*    border: 1px solid #cfd5e6;*/
+/*    border-radius: 8px;*/
+/*    text-align: center;*/
+/*}*/
 
 .subtotal .label {
     color: #6b7280;
@@ -676,17 +676,20 @@ hr {
 }
 
 .js-qty {
-    width: 48px;
-    height: 32px;
+    width: 72px;          /* tăng chiều ngang */
+    height: 36px;         /* cao hơn một chút */
+    padding: 6px 8px;
+
     border: 1px solid #cfd5e6;
     border-radius: 6px;
 
     text-align: center;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
 
     background: #fff;
 }
+
 
 .qty-btn,
 .js-qty {

@@ -63,7 +63,8 @@ public class ReviewDAO extends BaseDAO  {
 
             if (rs.next()) {
                 re[0] = rs.getInt("total_reviews");
-                re[1] = rs.getInt("avg_rating"); // làm tròn phía JSP
+                double avg = rs.getDouble("avg_rating");
+                re[1] = (int) Math.round(avg);
             }
 
         } catch (Exception e) {
@@ -96,15 +97,27 @@ public class ReviewDAO extends BaseDAO  {
         }
     }
 
-    // ================= MAP REVIEW =================
-    private Review mapReview(ResultSet rs) throws Exception {
-        Review r = new Review();
-        r.setId(rs.getInt("id"));
-        r.setUserId(rs.getInt("user_id"));
-        r.setProductId(rs.getInt("product_id"));
-        r.setRating(rs.getInt("rating"));
-        r.setComment(rs.getString("comment"));
-        r.setCreatedAt(rs.getTimestamp("created_at"));
-        return r;
+    public boolean hasReviewed(int userId, int productId) {
+
+        String sql = """
+                    SELECT 1 FROM reviews
+                    WHERE user_id = ? AND product_id = ?
+                    LIMIT 1
+                """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, productId);
+
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
+
 }

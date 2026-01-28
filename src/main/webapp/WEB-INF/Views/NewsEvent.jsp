@@ -13,18 +13,23 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Mắt kính Nông Lâm - Trang chủ</title>
+    <title>Mắt kính Nông Lâm - Tin tức & Sự kiện</title>
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/CSS/StyleOfHomePage.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/CSS/StyleOfNews&Event.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 </head>
+
 <body>
-<!-- HEADER -->
+
 <header class="site-header">
     <div class="header-inner">
         <div class="header-left">
@@ -104,99 +109,119 @@
     </nav>
 </header>
 
-<!-- MAIN -->
 <main class="container">
+    <section class="flash-banner">
+        <div class="flash-banner-inner">
+            <!-- TÊN PROMOTION -->
+            <h1 class="promo-title">
+                ${promotion.title}
+            </h1>
 
-    <!-- NEWS / BẢNG TIN -->
-    <section class="news-section">
-        <h2>Tin tức & Sự kiện</h2>
+            <!-- MÔ TẢ -->
+            <p class="promo-description">
+                ${promotion.content}
+            </p>
 
-        <div class="news-slider">
-            <button class="slide-btn prev">&#10094;</button>
-
-            <div class="news-track">
-                <c:forEach var="promo" items="${promotions}">
-                    <c:forEach var="banner" items="${bannerMap[promo.id]}">
-                        <article class="news-card">
-                            <a href="${pageContext.request.contextPath}/NewsEvent?id=${promo.id}">
-                                <img src="${pageContext.request.contextPath}${banner.imageUrl}"
-                                     alt="${promo.title}">
-                            </a>
-                        </article>
-                    </c:forEach>
-                </c:forEach>
+            <!-- THÔNG TIN GIẢM GIÁ -->
+            <div class="promo-discount">
+                <span>Giảm:</span>
+                <strong>${promotion.discountValue}%</strong>
             </div>
 
-            <button class="slide-btn next">&#10095;</button>
-
-            <!-- DẤU CHẤM -->
-            <div class="slider-dots"></div>
+            <!-- THỜI GIAN KHUYẾN MÃI -->
+            <div class="promo-time">
+                <p>
+                    Thời gian:
+                    <strong>${promotion.startDate}</strong>
+                    →
+                    <strong>${promotion.endDate}</strong>
+                </p>
+            </div>
         </div>
     </section>
 
+    <!-- ================= SLIDER BANNER SỰ KIỆN ================= -->
+    <c:if test="${not empty banners}">
+        <section class="event-banners">
+            <div class="news-slider">
 
-    <!-- FEATURED PRODUCTS BY CATEGORY -->
-    <section class="featured">
-        <h2>Sản phẩm bán chạy</h2>
+                <button class="slide-btn prev">&#10094;</button>
 
-        <div class="feature-category">
-            <div class="product-grid">
-                <c:forEach var="p" items="${bestSellingProducts}">
-                    <div class="product-card">
+                <div class="news-track">
+                    <c:forEach var="b" items="${banners}">
+                        <article class="news-card">
+                            <img src="${pageContext.request.contextPath}${b.imageUrl}"
+                                 alt="${promotion.title}">
+                        </article>
+                    </c:forEach>
+                </div>
 
-                        <c:set var="img" value="${bestSellingImages[p.id]}"/>
+                <button class="slide-btn next">&#10095;</button>
+                <div class="slider-dots"></div>
+            </div>
+        </section>
+    </c:if>
 
+    <!-- ================= FLASH SALE PRODUCTS ================= -->
+    <section class="flash-items" id="flash-items">
+        <h2>Sản phẩm áp dụng ưu đãi</h2>
+
+        <div class="product-grid">
+            <c:forEach var="p" items="${products}">
+                <div class="product-card">
+
+                    <c:set var="img" value="${products[p.id]}"/>
+
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${img != null}">--%>
+                            <img src="${mainImages[p.id].imageUrl}" alt="${p.productName}">
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <img src="${pageContext.request.contextPath}/Images/no-image.png"--%>
+<%--                                 alt="No image">--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+
+                    <h4>${p.productName}</h4>
+
+                    <!-- ===== PRICE ===== -->
+                    <div class="price-box">
                         <c:choose>
-                            <c:when test="${img != null}">
-                                <img src="${img.imageUrl}" alt="${p.productName}">
-                            </c:when>
-                            <c:otherwise>
-                                <img src="${pageContext.request.contextPath}/Images/no-image.png"
-                                     alt="No image">
-                            </c:otherwise>
-                        </c:choose>
 
-                        <h4>${p.productName}</h4>
-
-                        <!-- ===== PRICE ===== -->
-                        <div class="price-box">
-                            <c:choose>
-
-                                <%-- CÓ GIẢM GIÁ --%>
-                                <c:when test="${salePriceMap[p.id] != null}">
-                                    <p class="price-old">
-                                        <del>
-                                            <fmt:formatNumber value="${p.price}"
-                                                              type="number"
-                                                              groupingUsed="true"/> VNĐ
-                                        </del>
-                                    </p>
-                                    <p class="price-sale">
-                                        <fmt:formatNumber value="${salePriceMap[p.id]}"
-                                                          type="number"
-                                                          groupingUsed="true"/> VNĐ
-                                    </p>
-                                </c:when>
-
-                                <%-- KHÔNG GIẢM GIÁ --%>
-                                <c:otherwise>
-                                    <p class="price">
+                            <%-- CÓ GIẢM GIÁ --%>
+                            <c:when test="${salePriceMap[p.id] != null}">
+                                <p class="price-old">
+                                    <del>
                                         <fmt:formatNumber value="${p.price}"
                                                           type="number"
                                                           groupingUsed="true"/> VNĐ
-                                    </p>
-                                </c:otherwise>
+                                    </del>
+                                </p>
+                                <p class="price-sale">
+                                    <fmt:formatNumber value="${salePriceMap[p.id]}"
+                                                      type="number"
+                                                      groupingUsed="true"/> VNĐ
+                                </p>
+                            </c:when>
 
-                            </c:choose>
-                        </div>
+                            <%-- KHÔNG GIẢM GIÁ --%>
+                            <c:otherwise>
+                                <p class="price">
+                                    <fmt:formatNumber value="${p.price}"
+                                                      type="number"
+                                                      groupingUsed="true"/> VNĐ
+                                </p>
+                            </c:otherwise>
 
-                        <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
-                           class="try-btn">
-                            Xem sản phẩm
-                        </a>
+                        </c:choose>
                     </div>
-                </c:forEach>
-            </div>
+
+                    <a href="${pageContext.request.contextPath}/ProductDetail?id=${p.id}"
+                       class="try-btn">
+                        Xem sản phẩm
+                    </a>
+                </div>
+            </c:forEach>
         </div>
     </section>
 
@@ -233,7 +258,7 @@
 
     </div>
 </footer>
-<button id="backToTop" aria-label="Lên đầu trang"><i class="fa-solid fa-up-long"></i></button>
+
 <script src="${pageContext.request.contextPath}/JavaScript/HomePage.js"></script>
 </body>
 </html>
