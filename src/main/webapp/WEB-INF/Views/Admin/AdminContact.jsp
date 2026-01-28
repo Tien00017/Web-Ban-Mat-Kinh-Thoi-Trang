@@ -28,7 +28,7 @@
             <a href="${pageContext.request.contextPath}/AdminAddProduct">Thêm sản phẩm</a>
             <a href="${pageContext.request.contextPath}/AdminOrders">Quản lí đơn hàng</a>
             <a href="${pageContext.request.contextPath}/AdminAccount">Quản lí tài khoản</a>
-            <a href="${pageContext.request.contextPath}/AdminAccount" >Quản lí sự kiện</a>
+            <a href="${pageContext.request.contextPath}/admin/event/list" >Quản lí sự kiện</a>
             <a href="${pageContext.request.contextPath}/AdminContact" class="active">Liên hệ</a>
         </nav>
 
